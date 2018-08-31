@@ -235,15 +235,17 @@ bool search_array(int j,person arr[100],string srch,int search)
 }
 void friend_suggestions(int index,person arr[100],int j)
 {
-    //traversing array
+    //traversing array of my network
     for(int k=0;k<j;k++)
     {
         if(k!=index)
         {
             int val = arr[k].friendlist.search_list(arr[k].getName(),arr[k].getId());
+            cout <<"XXX"<< val << endl;
             if(val)
             {
                 //finded in list then do nothing
+                cout << "XXXXXX"<<endl;
             }
             else
             {
