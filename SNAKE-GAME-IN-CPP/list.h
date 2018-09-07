@@ -47,9 +47,10 @@ void setBoardBoundary(int n,int m,char board[][80])
 // //function printing the board
 void printarray(int n,int m,char board[][80])
 {
-    cout << BBGDGREEN;
+    
     for(register int i=0;i<n;i++)
     {
+        cout << BBGDGREEN;
         for(register int j=0;j<m;j++)
         {
             if(board[i][j]=='F')
@@ -67,7 +68,7 @@ void printarray(int n,int m,char board[][80])
         {
             cout << RESET;
         }
-        cout << endl;
+        cout <<RESET<< endl;
     }
     cout << RESET;
     cout << endl;
@@ -172,8 +173,9 @@ class Snake
     /*===============> DELETE TAIL OF SNAKE <==============*/
     void delete_tail()
     {
-        if(tail==NULL)
+        if(head==NULL)
         {
+            // cout << "GAME OVER"<<endl;
             return;
         }
         else if(head->next==NULL)
@@ -257,6 +259,8 @@ class Snake
         }
     }
 
+    /*############################################*/
+    /*===============> MOVE RIGHT <==============*/
     void moveRight(int n,int m,char board[][80],food F,poison P,bool *fptr,bool *pptr)
     {
         int a = head->x;
@@ -282,7 +286,8 @@ class Snake
         }
     }
 
-    
+    /*############################################*/
+    /*===============> MOVE LEFT <==============*/
     void moveLeft(int n,int m,char board[][80],food F,poison P,bool *fptr,bool *pptr)
     {
         int a = head->x;
@@ -309,6 +314,9 @@ class Snake
         }
         
     }
+
+    /*############################################*/
+    /*===============> MOVE UP <==============*/
     void moveUp(int n,int m,char board[][80],food F,poison P,bool *fptr,bool *pptr)
     {
         int a = head->x - 1;
@@ -335,6 +343,9 @@ class Snake
         }
         
     }
+
+    /*############################################*/
+    /*===============> MOVE DOWN <==============*/
     void moveDown(int n,int m,char board[][80],food F,poison P,bool *fptr,bool *pptr)
     {
         int a = head->x + 1;
@@ -544,4 +555,29 @@ poison createpoison(int n,int m,Snake s,bool flagpoison,poison P)
         P.value='P';
     }
     return P;
+}
+/****************************************************************/
+/*=======================> SNAKE UI <========================*/
+void printSnakeGameLogo()
+{
+    cout << BLUE;
+    for(int i=0;i<80;i++)
+    {
+        cout <<"=";
+    }
+    cout << RESET<<endl;
+    cout << BGREEN;
+    cout <<"\t\t\t"<< "----- --   -      -     |  /   -----"<<endl;
+    cout << "\t\t\t"<< "|     | \\  |     / \\    | /    |    "<<endl;
+    cout << "\t\t\t"<< "----- |  \\ |    /---\\   |/\\    -----"<<endl;
+    cout << "\t\t\t"<< "    | |   \\|   /     \\  |  \\   |    "<<endl;
+    cout << "\t\t\t"<< "----- |    |  /       \\ |   \\  -----"<<endl;   
+    cout << RESET << endl;
+    
+    cout << BLUE;
+    for(int i=0;i<80;i++)
+    {
+        cout <<"=";
+    }
+    cout << RESET<<endl; 
 }
