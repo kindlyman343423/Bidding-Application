@@ -35,7 +35,7 @@ int main()
     if(option==1)
     {
         //new game
-        /*INITALIZE SNAKE*/
+        //INITALIZE SNAKE
         S.insert_head(2,5,'O');
         S.insert_tail(2,4,'O');
         S.insert_tail(2,3,'O');
@@ -48,10 +48,10 @@ int main()
         //reading a file
     } 
     
-    /*PRINTING SNAKE ON BOARD*/
+    //PRINTING SNAKE ON BOARD
     S.insertSnakeOnBoard(n,m,board);
     
-    /*PRINTING THE BOARD*/
+    //PRINTING THE BOARD
     printarray(n,m,board);
     
     char input; //for inputing the direction
