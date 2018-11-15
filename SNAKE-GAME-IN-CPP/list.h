@@ -71,7 +71,8 @@ void printarray(int n,int m,char board[][80])
                 cout <<RED;
             }
             cout << board[i][j];
-            cout << WHITE;
+            // cout << WHITE;
+            cout << RESET << $COLOR;
         }
         if(i==n-1)
         {

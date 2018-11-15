@@ -2,16 +2,11 @@
 #include <cstdlib>
 #include "list.h"
 #include <ctime>
-void sort(int arr[],int size);
 using namespace std;
 int main()
 {
     //DATA STRUCTURE FOR STORING THE SCORES
-    int storage_highscores[100];
-    for(int i=0;i<100;i++)
-    {
-        storage_highscores[i] = 0;
-    }
+    //ONE MORE LINK LIST
     int index_highscores=0;
     /*DON'T CHANGE SIZE*/
     int n=20;//rows
