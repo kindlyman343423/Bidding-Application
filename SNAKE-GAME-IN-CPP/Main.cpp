@@ -2,9 +2,17 @@
 #include <cstdlib>
 #include "list.h"
 #include <ctime>
+void sort(int arr[],int size);
 using namespace std;
 int main()
 {
+    //DATA STRUCTURE FOR STORING THE SCORES
+    int storage_highscores[100];
+    for(int i=0;i<100;i++)
+    {
+        storage_highscores[i] = 0;
+    }
+    int index_highscores=0;
     /*DON'T CHANGE SIZE*/
     int n=20;//rows
     int m=80;//cols
@@ -12,11 +20,11 @@ int main()
     
     food f; //sample food
     poison p; //sample poison
-    bool flagfood = true; //eated food
-    bool flagpoison = true;//eated poison 
+    bool flagfood = true; //eated food already
+    bool flagpoison = true;//eated poison already
     Snake S;
 
-    printSnakeGameLogo();
+    printSnakeGameLogo(); //printing game logo
     setBoardBoundary(n,m,board); //setting boundary
     intializeBoard(n,m,board); //function for cleaning garbage
 
@@ -25,12 +33,13 @@ int main()
     cout << "SELECT ONE CHOICE"<<endl;
     cout << "1. DO YOU WANT TO START A NEW GAME"<<endl;
     cout << "2. DO YOU WANT TO START A EXISTING GAME"<<endl;
+    cout << "3. SETTINGS" << endl;
     cout << "0. EXIT SNAKE GAME" <<RESET<<endl;
     cin >> option;
     if(option==0)
     {
         cout <<BBLUE<< "GAME EXITED...." <<RESET<<endl;
-        exit(99);
+        exit(0);
     }
     if(option==1)
     {
@@ -45,9 +54,32 @@ int main()
     else if(option==2)
     {
         //take food,poison and snake from file
-        //reading a file
+        //reading from a file
+        FILE *ptr;
+        ptr=fopen("file.txt","r");
+
+        fclose(ptr);
     } 
-    
+    else if(option==3)
+    {
+        cout <<BBLUE;
+        cout << "SELECT ONE CHOICE" << endl;
+        cout << "1. HIGH SCORES" << endl;
+        cout << "2. RETURN" << endl;
+        cout << RESET;
+        cin >> option;
+
+        if(option==1)
+        {
+            main();
+            exit(0);
+        }
+        else
+        {
+            main();
+            exit(0);
+        }
+    }
     //PRINTING SNAKE ON BOARD
     S.insertSnakeOnBoard(n,m,board);
     
@@ -120,6 +152,10 @@ int main()
 
         /*PRINTING THE BOARD*/
         printarray(n,m,board);
+        cout <<"CURRENT SCORE:" << S.getScore() << endl;
     }
     
+    cout << BOLD << "----------------------------" << endl;
+    cout << "FINAL SCORE: " << S.getScore() << endl;
+    cout << "----------------------------" << RESET << endl;
 }

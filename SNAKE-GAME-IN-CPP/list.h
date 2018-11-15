@@ -17,6 +17,9 @@ struct poison
     char value;
 };
 //FUNCTIONS
+/*
+ * cleans and add spaces to the board
+ */
 void intializeBoard(int n,int m,char board[][80])
 {
     for(register int i=1;i<n-1;i++)
@@ -27,6 +30,9 @@ void intializeBoard(int n,int m,char board[][80])
         }
     }
 }
+/*
+ *  set board boundary
+ */
 void setBoardBoundary(int n,int m,char board[][80])
 {
     /*MAKIING BOARD BOUNDARY*/
@@ -86,11 +92,13 @@ class Snake
 {
     node *head;
     node *tail;
+    int score;
     public:
     Snake()
     {
         head = NULL;
         tail = NULL;
+        score=0;
     }
     node* getHead()
     {
@@ -100,7 +108,10 @@ class Snake
     {
         return tail;
     }
-
+    int getScore()
+    {
+        return score;
+    }
     //FUNCTIONS
     /*############################################################*/
     /*=======================> create node <======================*/
@@ -133,6 +144,7 @@ class Snake
             head = newNode;
             head->value='H';
         }
+        score++;
     }
 
     /*############################################################*/
@@ -151,6 +163,7 @@ class Snake
             newNode->next=NULL;
             tail = newNode;
         }
+        score++;
     }
     
     /*############################################################*/
@@ -167,6 +180,7 @@ class Snake
         head->value='H';
         temp->next=NULL;
         delete(temp);
+        score--;
     }
 
     /*############################################################*/
@@ -195,6 +209,7 @@ class Snake
             prev->next=NULL;
             delete(current);
         }
+        score--;
     }
 
     /*############################################################*/
@@ -392,6 +407,9 @@ class Snake
         if(a==0 || a==n-1 || b==m-1 || b==0 || flag==1)
         {
             cout << "GAME OVER" <<endl;
+            cout << BOLD << "----------------------------" << endl;
+            cout << "FINAL SCORE: " << score << endl;
+            cout << "----------------------------" << RESET << endl;
             exit(0);
         }
         //FOR VALID BUT ENTERING AGAIN
@@ -567,13 +585,13 @@ void printSnakeGameLogo()
     }
     cout << RESET<<endl;
     cout << BGREEN;
-    cout <<"\t\t\t"<< "----- --   -      -     |  /   -----"<<endl;
-    cout << "\t\t\t"<< "|     | \\  |     / \\    | /    |    "<<endl;
-    cout << "\t\t\t"<< "----- |  \\ |    /---\\   |/\\    -----"<<endl;
-    cout << "\t\t\t"<< "    | |   \\|   /     \\  |  \\   |    "<<endl;
-    cout << "\t\t\t"<< "----- |    |  /       \\ |   \\  -----"<<endl;   
-    cout << RESET << endl;
-    
+    cout << "\t" << "@ @ * * *" <<"\t"<< "----- --   -      -     |  /   -----"<<endl;
+    cout << "\t" << " ~      *" <<"\t"<< "|     | \\  |     / \\    | /    |    "<<endl;
+    cout << "\t" << "  * * * *" <<"\t"<< "----- |  \\ |    /---\\   |/\\    -----"<<endl;
+    cout << "\t" << "  *      " <<"\t"<< "    | |   \\|   /     \\  |  \\   |    "<<endl;
+    cout << "\t" << "  * * * *" <<"\t"<< "----- |    |  /       \\ |   \\  -----"<<endl;   
+    cout << RESET;
+    cout << BOLD << "\t\t\t\t\t\t\t\t       version 2" << RESET << endl;
     cout << BLUE;
     for(int i=0;i<80;i++)
     {
