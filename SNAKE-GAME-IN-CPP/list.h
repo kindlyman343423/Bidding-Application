@@ -127,7 +127,14 @@ class Snake
         newNode->value=val;
         return newNode;
     }
-
+    /*===========> delete the all the nodes of the linked list <==========*/
+    void free()
+    {   
+        delete [] head;
+        delete [] tail;
+        delete head;
+        delete tail;
+    }
     /*############################################################*/
     /*===============> INSERT AT HEAD OF THE SNAKE <==============*/
     void insert_head(int x,int y,char value)
@@ -232,6 +239,21 @@ class Snake
         cout<< "NULL" << endl; 
     }
 
+    void save(food f,poison p)
+    {
+        FILE *ptr;
+        ptr=fopen("file.txt","a");
+        fprintf(ptr,"%d %d\n",f.x,f.y);
+        fprintf(ptr,"%d %d\n",p.x,p.y);
+        node* current=head;
+        while(current!=NULL)
+        {
+            fprintf(ptr,"%d %d\n",current->x,current->y);
+            current=current->next;
+        }
+        
+        fclose(ptr);
+    }
     /*############################################################*/
     /*===============> INSERT SNAKE ON BOARD <==============*/
     void insertSnakeOnBoard(int n,int m,char board[][80])

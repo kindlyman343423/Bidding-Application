@@ -7,7 +7,6 @@ int main()
 {
     //DATA STRUCTURE FOR STORING THE SCORES
     //ONE MORE LINK LIST
-    int index_highscores=0;
     /*DON'T CHANGE SIZE*/
     int n=20;//rows
     int m=80;//cols
@@ -31,11 +30,6 @@ int main()
     cout << "3. SETTINGS" << endl;
     cout << "0. EXIT SNAKE GAME" <<RESET<<endl;
     cin >> option;
-    if(option==0)
-    {
-        cout <<BBLUE<< "GAME EXITED...." <<RESET<<endl;
-        exit(0);
-    }
     if(option==1)
     {
         //new game
@@ -52,12 +46,45 @@ int main()
         //reading from a file
         FILE *ptr;
         ptr=fopen("file.txt","r");
+        int a,b;
+        
+        //for food
+        fscanf(ptr,"%d %d",&a,&b);
+        flagfood=false; //it will don't create food again
+        f.x=a;
+        f.y=b;
+        f.value='F';
+        board[f.x][f.y]=f.value; //insert food on board
+        flagfood=false;
 
+        //for poison
+        fscanf(ptr,"%d %d",&a,&b);
+        flagpoison=false; //it will not create poison again
+        p.x=a;
+        p.y=b;
+        p.value='P';
+        board[p.x][p.y]=p.value; //insert poison on board
+        flagpoison=false;
+        fscanf(ptr,"%d %d",&a,&b);
+        S.insert_head(a,b,'O');
+        while(!feof(ptr))
+        {
+            fscanf(ptr,"%d %d",&a,&b);
+            S.insert_tail(a,b,'O');
+            // cout << a << b << endl;
+        }
+        
+        // fscanf(ptr,"%d %d",&a,&b);
+        // S.insert_tail(a,b,'O');
+        // fscanf(ptr,"%d %d",&a,&b);
+        // S.insert_tail(a,b,'O');
+        // fscanf(ptr,"%d %d",&a,&b);
+        // S.insert_tail(a,b,'O');
         fclose(ptr);
     } 
     else if(option==3)
     {
-        cout <<BBLUE;
+        cout <<BYELLOW;
         cout << "SELECT ONE CHOICE" << endl;
         cout << "1. HIGH SCORES" << endl;
         cout << "2. CHANGE BOARD COLOR" << endl;
@@ -67,6 +94,7 @@ int main()
 
         if(option==1)
         {
+            S.free();
             main();
             exit(0);
         }
@@ -113,14 +141,22 @@ int main()
                 $COLOR=BGWHITE;
                 break;
             }
+            S.free();
             main();
             exit(0);
         }
         else
         {
+            S.free();
             main();
             exit(0);
         }
+    }
+    else
+    {
+        S.free();
+        cout <<BBLUE<< "GAME EXITED...." <<RESET<<endl;
+        exit(0);
     }
     //PRINTING SNAKE ON BOARD
     S.insertSnakeOnBoard(n,m,board);
@@ -135,6 +171,7 @@ int main()
         if(S.getHead()==NULL)
         {
             cout <<RED<< "GAME OVER SNAKE DIED!!!!!" <<RESET<<endl;
+            S.free();
             break;
         }
         p = createpoison(n,m,S,flagpoison,p); //create,get poison
@@ -177,12 +214,18 @@ int main()
         else if(input=='C' || input=='c' || input=='V'||input=='v')
         {
             //for saving game
+            FILE *ptr;
+            ptr=fopen("file.txt","w");
+            fclose(ptr);
+            S.save(f,p);
+            S.free();
             break;
         }
         else if(input=='X' || input=='x')
         {
             //for exiting game
             main();
+            exit(0);
         }
         else if(input=='R'||input=='r')
         {
