@@ -1,8 +1,12 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <string>
 #include "rainbow.h"
 using namespace std;
+
+string $COLOR=BBGDGREEN;  //environment variable for changing board color
+
 //node food for snake
 struct food
 {
@@ -53,10 +57,9 @@ void setBoardBoundary(int n,int m,char board[][80])
 // //function printing the board
 void printarray(int n,int m,char board[][80])
 {
-    
     for(register int i=0;i<n;i++)
     {
-        cout << BBGDGREEN;
+        cout << $COLOR;
         for(register int j=0;j<m;j++)
         {
             if(board[i][j]=='F')

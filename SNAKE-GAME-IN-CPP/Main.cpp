@@ -65,12 +65,59 @@ int main()
         cout <<BBLUE;
         cout << "SELECT ONE CHOICE" << endl;
         cout << "1. HIGH SCORES" << endl;
-        cout << "2. RETURN" << endl;
+        cout << "2. CHANGE BOARD COLOR" << endl;
+        cout << "3. RETURN" << endl;
         cout << RESET;
         cin >> option;
 
         if(option==1)
         {
+            main();
+            exit(0);
+        }
+        else if(option==2)
+        {
+            cout << "SELECT BOARD COLORS" <<endl;
+            cout << "0. NO COLOR" <<endl;
+            cout << "1. BGGREENISH" <<endl;
+            cout << "2. BGRED" <<endl;
+            cout << "3. BGLGREEN" <<endl;
+            cout << "4. BGORANGE" << endl;
+            cout << "5. BGLBLUE" << endl;
+            cout << "6. BGPINK" << endl;
+            cout << "7. BGDGREEN" << endl;
+            cout << "8. BGWHITE" << endl;
+            cin >> option;
+            switch(option)
+            {
+                case 0:
+                $COLOR="";
+                break;
+                case 1:
+                $COLOR=BGGREENISH;
+                break;
+                case 2:
+                $COLOR=BGRED;
+                break;
+                case 3:
+                $COLOR=BGLGREEN;
+                break;
+                case 4:
+                $COLOR=BGORANGE;
+                break;
+                case 5:
+                $COLOR=BGLBLUE;
+                break;
+                case 6:
+                $COLOR=BGPINK;
+                break;
+                case 7:
+                $COLOR=BGDGREEN;
+                break;
+                case 8:
+                $COLOR=BGWHITE;
+                break;
+            }
             main();
             exit(0);
         }
