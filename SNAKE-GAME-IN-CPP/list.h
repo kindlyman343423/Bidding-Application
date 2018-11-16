@@ -1,6 +1,5 @@
 #include "rainbow.h"
 using namespace std;
-
 string $COLOR=BBGDGREEN;  //environment variable for changing board color
 
 //node food for snake
