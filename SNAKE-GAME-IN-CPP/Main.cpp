@@ -1,7 +1,9 @@
 #include <iostream>
 #include <cstdlib>
-#include "list.h"
 #include <ctime>
+#include "list.h"
+#include "highscores.hpp"
+#include "highscores.cpp"
 using namespace std;
 int main()
 {

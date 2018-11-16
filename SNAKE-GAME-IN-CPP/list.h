@@ -1,7 +1,3 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
-#include <string>
 #include "rainbow.h"
 using namespace std;
 
