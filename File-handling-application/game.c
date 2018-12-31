@@ -1,37 +1,35 @@
-//this is main program which is a game
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <dirent.h> 
-#include "functions.c"
 #include <time.h>
-/*
-n-no.of members
-*/
+#include <stdbool.h>
+#include "functions.c"
+
 int main()
 {	
-	int n,m;   //number of users
+	/*VARIABLE DECLARATIONS*/
+	int n,m;   					//number of users
 	int count=0;
 	int bid=0;
-	int bidding[count]; //NEEDED ARRAY FOR BIDS
-	char q='N'; //FIRST QUESTION
+	int bidding[count]; 		//NEEDED ARRAY FOR BIDS
 	register int i,j;
-	//int count1=0,count2=0,count3=0;    //no. of bid done
 	char find[20];
 	char data[20];
-	int f=0; //f for checking a database file
-	int flag=0;
+	int f=0; 					//f for checking a database file
 	time_t raw;
   	struct tm * timeinfo;
-	FILE *logptr; //POINTER FOR LOG FILE
-	FILE *db;   //POINTER FOR DATABASE FILE
-	//$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$//
+	FILE *logptr; 				//POINTER FOR LOG FILE
+	FILE *db;  	 				//POINTER FOR DATABASE FILE
+
+	/*MAIN PROGRAM*/
+	char q='N'; 				//for querying the main question of database
 	
 	printf("Do you want to add members in database(Y/N)\n");
 	scanf("%c",&q);
-	if(q=='Y')
+	if(q=='Y')		//adding users as answer is yes
 	{
 		printf("Enter the number of users\n");
 		scanf("%d",&n);
@@ -78,36 +76,42 @@ int main()
 		fclose(db);	 //CLOSING DATABASE FILE
 		line();
 	}
-	//CHECKING DATA WITH THE NAME ARRAY
+
+	//checking data in database file
 	printf("ENTER YOUR NAME TO START ENTERING DATA\n");
 	scanf("%s",find);
-	db = fopen("database.txt","r");  //OPENED FILE FOR READING
+	db = fopen("database.txt","r");  //reading database file
+	bool flag=false;				 //flag for seraching name in database
+	int strcounter=0;				 //string counter for counting
+	char str[50];					 //string for reading
 	
-	for(j=0;j<20;j++)
+	/**
+	 * PARSING THE DATABASE FILE
+	 * TC - O(n)  SC - O(1)
+	 **/
+	while(!feof(db))
 	{
-		//READING DATA FROM DATABASE FILE
-		fscanf(db,"%s",data);
-		//printf("%s\n",data);
-		q =fgetc(db); 
-		if(q == EOF)
+		char ch = fgetc(db);
+		if(ch==' ' || ch=='\n')
 		{
-			break;
-		}
-		if(strcmp(data,find)==0)
-		{
-			flag=1;
-			//USER VERIFIED
-			break;	
+			str[strcounter]='\0';
+			if(strcmp(str,find)==0)
+			{
+				flag=true;
+				break;
+			}
+			strcounter=0;			//resetting string counter
 		}
 		else
 		{
-			flag=0;
-			//NOT VERIFIED	
+			str[strcounter]=ch;
+			strcounter++;
 		}
 	}
-	fclose(db);
-	/////////////////////////////////////THE DATA ENTRY////////////////////////////////////////////
-	if(flag==1)
+	fclose(db);						//closed database file
+	
+	/*=========================> THE DATA ENTRY <===================*/
+	if(flag)						//if user is present in database
 	{
 		printf("User Verified\n");
 		printf("Lets get started\n");
@@ -115,7 +119,7 @@ int main()
 		
 		while(1)
 		{
-			//###################################STARTING THE GAME HERE###################################
+			//STARTING THE GAME HERE
 			//BIDING SYSTEM
 			printf("THE GAME STARTS HERE!!!!!!\n");
 			count=0;
