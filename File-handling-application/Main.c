@@ -110,7 +110,7 @@ int main()
 		printf("Lets get started\n");
 		line();
 		
-		while(1)
+		while(true)
 		{
 			//STARTING THE GAME HERE
 			//BIDING SYSTEM

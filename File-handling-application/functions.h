@@ -7,6 +7,7 @@
 #include <dirent.h> 
 #include <time.h>
 #include <stdbool.h>
+#include "../../RAINBOW-0.1/src/C/rainbow.h"
 
 struct detail;
 void line();
