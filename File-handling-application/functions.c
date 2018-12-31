@@ -1,10 +1,18 @@
-struct detail
+#include "functions.h"
+struct detail			//structure for detailed user
 {
 	char name[20];
 	char skills[100];
 	int id;
 };
-/*Other Function*/
+
+/*FUNCTIONS*/
+
+/**
+ * line()
+ * prints the line
+ * @return none
+ **/
 void line()
 {
 	int k;
@@ -14,6 +22,12 @@ void line()
 	}
 	printf("\n");
 }
+
+/**
+ * list()
+ * lists the files present in current directory
+ * @return void
+ **/
 void list()
 {
 	printf("\n");

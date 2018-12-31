@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <string.h>
-#include <math.h>
-#include <stdlib.h>
-#include <unistd.h>
-#include <dirent.h> 
-#include <time.h>
-#include <stdbool.h>
+#include "functions.h"
 #include "functions.c"
 
 int main()
