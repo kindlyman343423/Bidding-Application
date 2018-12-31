@@ -14,94 +14,71 @@ int main()
 	int f=0; 					//f for checking a database file
 	time_t raw;
   	struct tm * timeinfo;
+	FILE *db;
 	FILE *logptr; 				//POINTER FOR LOG FILE
-	FILE *db;  	 				//POINTER FOR DATABASE FILE
 
 	/*MAIN PROGRAM*/
 	char q='N'; 				//for querying the main question of database
 	
-	printf("Do you want to add members in database(Y/N)\n");
-	scanf("%c",&q);
-	if(q=='Y')		//adding users as answer is yes
-	{
-		printf("Enter the number of users\n");
-		scanf("%d",&n);
-		//n count array
-		char arr[n][20];
-		logptr = fopen("log.txt","a");   //OPENED LOG FILE
-		db = fopen("database.txt","a+");  //OPENED DATABASE FILE FOR READING AND APPENDING 
-		fprintf(logptr,"Members entered in DATABASE:\n");
-		for(i=0;i<n;i++)
-		{
-			printf("Enter the names of the members\n");
-			scanf("%s",arr[i]); //gets(arr[i]);
-			//ADDING DATE AND TIME
-			time (&raw);
-	  		timeinfo = localtime (&raw);
-			fprintf(logptr,"%s\t\t%s",arr[i],asctime(timeinfo));  //ADD DATA IN LOG FILE
-			//CHECK DATA IN DATABASE FILE THEN ADD #######################
-			for(j=0;j<20;j++)
-			{
-				//READING DATA FROM A DATABASE FILE
-				fscanf(db,"%s",data);
-				if(strcmp(data,arr[i])==0)
-				{
-					//DO NOTHING
-					f=1;
-					break;
-				}
-				else
-				{
-					f=0;
-				}
-			}
-			if(f==0) //IF 0 THEN ADD DATA
-			{
-				fprintf(db,"%s\n",arr[i]);  //ADD DATA IN DATABASE	FILE
-			}
-			else if(f==1)
-			{
-				printf("THE USER IS ALREADY PRESENT\n");
-			}
-		}
-		fprintf(logptr,"\n");
-		fclose(logptr);  //CLOSING LOG FILE
-		fclose(db);	 //CLOSING DATABASE FILE
-		line();
-	}
+	// printf("Do you want to add members in database(Y/N)\n");
+	// scanf("%c",&q);
+	// if(q=='Y')		//adding users as answer is yes
+	// {
+	// 	printf("Enter the number of users\n");
+	// 	scanf("%d",&n);
+	// 	//n count array
+	// 	char arr[n][20];
+	// 	logptr = fopen("log.txt","a");   //OPENED LOG FILE
+	// 	db = fopen("database.txt","a+");  //OPENED DATABASE FILE FOR READING AND APPENDING 
+	// 	fprintf(logptr,"Members entered in DATABASE:\n");
+	// 	for(i=0;i<n;i++)
+	// 	{
+	// 		printf("Enter the names of the members\n");
+	// 		scanf("%s",arr[i]); //gets(arr[i]);
+	// 		//ADDING DATE AND TIME
+	// 		time (&raw);
+	//   		timeinfo = localtime (&raw);
+	// 		fprintf(logptr,"%s\t\t%s",arr[i],asctime(timeinfo));  //ADD DATA IN LOG FILE
+	// 		//CHECK DATA IN DATABASE FILE THEN ADD #######################
+	// 		for(j=0;j<20;j++)
+	// 		{
+	// 			//READING DATA FROM A DATABASE FILE
+	// 			fscanf(db,"%s",data);
+	// 			if(strcmp(data,arr[i])==0)
+	// 			{
+	// 				//DO NOTHING
+	// 				f=1;
+	// 				break;
+	// 			}
+	// 			else
+	// 			{
+	// 				f=0;
+	// 			}
+	// 		}
+	// 		if(f==0) //IF 0 THEN ADD DATA
+	// 		{
+	// 			fprintf(db,"%s\n",arr[i]);  //ADD DATA IN DATABASE	FILE
+	// 		}
+	// 		else if(f==1)
+	// 		{
+	// 			printf("THE USER IS ALREADY PRESENT\n");
+	// 		}
+	// 	}
+	// 	fprintf(logptr,"\n");
+	// 	fclose(logptr);  //CLOSING LOG FILE
+	// 	fclose(db);	 //CLOSING DATABASE FILE
+	// 	line();
+	// }
 
+	welcome();
+	exit(1);
 	//checking data in database file
 	printf("ENTER YOUR NAME TO START ENTERING DATA\n");
 	scanf("%s",find);
-	db = fopen("database.txt","r");  //reading database file
-	bool flag=false;				 //flag for seraching name in database
-	int strcounter=0;				 //string counter for counting
-	char str[50];					 //string for reading
 	
-	/**
-	 * PARSING THE DATABASE FILE
-	 * TC - O(n)  SC - O(1)
-	 **/
-	while(!feof(db))
-	{
-		char ch = fgetc(db);
-		if(ch==' ' || ch=='\n')
-		{
-			str[strcounter]='\0';
-			if(strcmp(str,find)==0)
-			{
-				flag=true;
-				break;
-			}
-			strcounter=0;			//resetting string counter
-		}
-		else
-		{
-			str[strcounter]=ch;
-			strcounter++;
-		}
-	}
-	fclose(db);						//closed database file
+	//flag for seraching name in database
+	bool flag = searchDB(find);
+	//closed database file
 	
 	/*=========================> THE DATA ENTRY <===================*/
 	if(flag)						//if user is present in database
