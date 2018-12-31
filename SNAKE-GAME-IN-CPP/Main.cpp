@@ -7,25 +7,25 @@
 using namespace std;
 int main()
 {
-    HighScores hs;
-    data D;
-    D.score=100;
-    D.name="GAITONDE";
-    hs.insert_tail(D);
-    D.score=50;
-    D.name="GAURAV";
-    hs.insert_tail(D);
-    D.score=10;
-    D.name="WALIA";
-    hs.insert_tail(D);
+    // HighScores hs;
+    // data D;
+    // D.score=100;
+    // D.name="GAITONDE";
+    // hs.insert_tail(D);
+    // D.score=50;
+    // D.name="GAURAV";
+    // hs.insert_tail(D);
+    // D.score=10;
+    // D.name="WALIA";
+    // hs.insert_tail(D);
 
-    D.score=0;
-    D.name="sadfhjsak";
-    hs.insert_at_middle_using_value(D);
+    // D.score=0;
+    // D.name="sadfhjsak";
+    // hs.insert_at_middle_using_value(D);
     
-    hs.print();
-    hs.free();
-    exit(0);
+    // hs.print();
+    // hs.free();
+    // exit(0);
     //DATA STRUCTURE FOR STORING THE SCORES
     //ONE MORE LINK LIST
     /*DON'T CHANGE SIZE*/
