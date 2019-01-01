@@ -70,8 +70,8 @@ int main()
 	// 	line();
 	// }
 
-	welcome();
-	exit(1);
+	welcomeLINUX();
+	
 	//checking data in database file
 	printf("ENTER YOUR NAME TO START ENTERING DATA\n");
 	scanf("%s",find);

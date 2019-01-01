@@ -125,7 +125,28 @@ void welcome()
  **/
 void welcomeLINUX()
 {
+	printf("%s",BLUE);
+	for(register int i=0;i<75;i++)
+	{
+		printf("=");
+	}
+	printf("%s\n",RESET);
 
+	printf("%s",BWHITE);
+	printf("\t  ---- 	-----	---           /\\    	---- 	---- \n");
+	printf("\t  |   |	  |  	|  \\         /  \\  	|   |	|   |\n");
+	printf("\t  |--- 	  |  	|  |  ===   /====\\  	|--- 	|--- \n");
+	printf("\t  |   |	  |  	|  /       /      \\ 	|    	|    \n");
+	printf("\t  ---- 	-----	---       /        \\	|    	|    \n");
+	printf("%s",RESET);
+	printf("\t\t\t\t\t\t\t\t%sVERSION 0.1%s\n",BLGREEN,RESET);
+	printf("\t\t\t\t\t\t     %sPowered by RAINBOW 0.1%s\n",YELLOW,RESET);
+	printf("%s",BLUE);
+	for(register int i=0;i<75;i++)
+	{
+		printf("=");
+	}
+	printf("%s\n",RESET);
 }
 
 /**
