@@ -70,8 +70,10 @@ int main()
 	// 	line();
 	// }
 
-	welcomeLINUX();
+	welcomeLINUX();					//welcome the user to the 
+	greetOptions();					//main options of the application
 	
+	exit(0);
 	//checking data in database file
 	printf("ENTER YOUR NAME TO START ENTERING DATA\n");
 	scanf("%s",find);

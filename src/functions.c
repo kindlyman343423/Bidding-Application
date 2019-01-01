@@ -157,3 +157,49 @@ void welcomeWIND()
 {
 	
 }
+
+/**
+ * greetOptions()
+ * show greet options to the user
+ * @param void
+ * @return void
+ * @tc O(1)
+ * @sc O(1)
+ **/
+void greetOptions()
+{
+	printf("Welcome to our GAME\n\n");
+	printf("%s",BOLD);
+	printf("Enter below option to start%s\n",RESET);
+	
+	printf("----------------------------\n");
+	printf("1. PLAY NEW GAME\n");
+	printf("----------------------------\n");
+	printf("2. START SAVED GAME\n");
+	printf("----------------------------\n");
+	printf("3. SAVE\n");
+	printf("----------------------------\n");
+	printf("4. SAVE AND EXIT\n");
+	printf("----------------------------\n");
+	printf("5. SETTINGS\n");
+	printf("----------------------------\n");
+	printf("0. EXIT\n");
+	printf("----------------------------\n");
+	printf("%sOPTION: ",BOLD);
+	int q;
+	scanf("%d",&q);
+	switch(q)
+	{
+		case 0:
+			exit(0);
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		default:
+			break;
+	}
+	printf("%s",RESET);
+}

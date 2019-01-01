@@ -17,7 +17,7 @@ void welcomeLINUX();
 void welcomeWIND();
 void line();
 void list();
-
+void greetOptions();
 
 //DATABASE FUNCTIONS
 bool searchDB();
