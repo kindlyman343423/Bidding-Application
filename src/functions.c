@@ -1,11 +1,4 @@
 #include "functions.h"
-struct detail			//structure for detailed user
-{
-	char name[20];
-	char skills[100];
-	int id;
-};
-
 /*FUNCTIONS*/
 
 /**
@@ -150,15 +143,6 @@ void welcomeLINUX()
 }
 
 /**
- * welcomeWIND()
- * colored UI for windows
- **/
-void welcomeWIND()
-{
-	
-}
-
-/**
  * greetOptions()
  * show greet options to the user
  * @param void
@@ -188,18 +172,144 @@ void greetOptions()
 	printf("%sOPTION: ",BOLD);
 	int q;
 	scanf("%d",&q);
+	printf("%s",RESET);
 	switch(q)
 	{
 		case 0:
 			exit(0);
 		case 1:
+			playNewGame();
 			break;
 		case 2:
 			break;
 		case 3:
 			break;
+		case 4:
+			break;
+		case 5:
+			break;
 		default:
 			break;
 	}
-	printf("%s",RESET);
+}
+
+/**
+ * BidCard structure
+ * for making bid cards
+ **/
+struct BidCard			
+{
+	int BidID;					//unique ID of bidcards
+	char BidCardName[20];				//name of the person on bidcard
+	char skills[200];			//skills of the person on bidcard
+	char companyName[50];		//company name in which person work
+	char Designation[20];		//designation of the person
+};
+
+/**
+ * displayBidCard()
+ * it will display the cards of the user
+ * @param struct BidCard
+ * @return void
+ **/
+void displayBidCard(struct BidCard BC)
+{
+	printf("-----------\n");
+	printf("-----------\n");
+}
+
+/**
+ * displayBidCardLINUX
+ * it will display card in linux
+ * @param struct BidCard
+ * @return void
+ **/
+void displayBidCardLINUX(struct BidCard BC)
+{
+	//same as above with colors
+}
+
+/**
+ * createBidCard()
+ * it will create new bid card for a user
+ * @param void
+ * @return struct BidCard
+ **/
+struct BidCard createBidCard()
+{
+	struct BidCard card;
+	
+	card.BidID = BIDCARDID;
+	BIDCARDID++;
+	
+	getchar();
+	printf("Enter the name of the Bid Card Player\n");
+	gets(card.BidCardName);
+
+	printf("Enter the skills of the Bid Card Player\n");
+	gets(card.skills);
+
+	printf("Which company does this Player work\n");
+	gets(card.companyName);
+
+	printf("Enter the designation of this Bid Card Player\n");
+	gets(card.Designation);
+
+	return card;
+}
+
+/**
+ * User structure
+ * for making new users
+ **/
+struct User
+{
+	int userID;					//user id for uniqueness for users
+	char userName[20];			//username of the user
+	struct BidCard BidCards[5];	//array of bidcards for every user
+};
+
+/**
+ * createNewUser()
+ * it will create new user
+ * @param void
+ * @return struct User
+ **/
+struct User createNewUser()
+{
+	struct User U;
+	U.userID = USERID; 
+	USERID++;
+
+	getchar();
+	printf("Enter your name\n");
+	gets(U.userName);
+
+	int selectBidCards;
+	printf("Select number of players you want out of 5\n");
+	scanf("%d",&selectBidCards);
+
+	printf("Enter your Bid Players Data\n");
+	for(register int j=0;j<selectBidCards;j++)
+	{
+		U.BidCards[j] = createBidCard();
+	}
+}
+
+/**
+ * playNewGame
+ * this is the main game
+ **/
+void playNewGame()
+{
+	int numberOfUsers;
+	printf("Enter the number of users you want to play ?\n");
+	scanf("%d",&numberOfUsers);
+	
+	struct User gameArray[numberOfUsers];	//array of users in the game
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		gameArray[i] = createNewUser();
+		printf("User Created\n");
+	}
 }
