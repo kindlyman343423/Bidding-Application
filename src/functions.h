@@ -12,6 +12,7 @@
 
 static int BIDCARDID=1; //for setting bid ids
 static int USERID = 1;  //for setting user ids
+char $OS='w';           //environment variable for os
 
 /*STRUCTURES NEEDED FOR THE GAME*/
 struct BidCard;

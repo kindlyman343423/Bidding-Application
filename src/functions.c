@@ -390,8 +390,10 @@ void playNewGame()
 	scanf("%d",&numberOfUsers);
 	
 	/*DISPLAY GAME LOGO*/
+	line('=',75);
 	displayNumberOfPlayers(numberOfUsers,'l');	//display the name of game
-	displayPlayersGame(numberOfUsers,'w');
+	displayPlayersGame(numberOfUsers,'l');
+	line('=',75);
 
 	exit(0);
 	struct User gameArray[numberOfUsers];	//array of users in the game
@@ -502,6 +504,7 @@ void displayNumberOfPlayers(int number,char os)
 
 	for(register int i=0;i<5;i++)	//loop for lines
 	{
+		printf("\t\t\t\t");
 		for(register int j=0;j<strlen(str);j++)
 		{
 			int a = str[j]-'0';
@@ -587,27 +590,38 @@ void displayNumberOfPlayers(int number,char os)
  **/
 void displayPlayersGame(int number,char os)
 {
+	if(os=='l')
+	{
+		printf("%s",BBLUE);
+	}
+	
+	printf("\n");
 	if(number==1)
 	{
-		printf("====  |         /\\     \\   /  |==== |===  \n");
-		printf("|   | |        /  \\     \\ /   |     |   |  \n");
-		printf("|===  |       /====\\     Y    |==== |===  \n");
-		printf("|     |      /      \\    |    |     | \\	\n");
-		printf("|     ===== /        \\   |    |==== |  \\	\n");
+		printf("\t\t====  |         /\\     \\   /  |==== |===  \n");
+		printf("\t\t|   | |        /  \\     \\ /   |     |   |  \n");
+		printf("\t\t|===  |       /====\\     Y    |==== |===  \n");
+		printf("\t\t|     |      /      \\    |    |     | \\	\n");
+		printf("\t\t|     ===== /        \\   |    |==== |  \\	\n");
 	}
 	else
 	{
-		printf("====  |         /\\     \\   /  |==== |===    ====\n");
-		printf("|   | |        /  \\     \\ /   |     |   |  |      \n");
-		printf("|===  |       /====\\     Y    |==== |===    ===\n");
-		printf("|     |      /      \\    |    |     | \\        | \n");
-		printf("|     ===== /        \\   |    |==== |  \\   ==== \n");
+		printf("\t\t====  |         /\\     \\   /  |==== |===    ====\n");
+		printf("\t\t|   | |        /  \\     \\ /   |     |   |  |      \n");
+		printf("\t\t|===  |       /====\\     Y    |==== |===    ===\n");
+		printf("\t\t|     |      /      \\    |    |     | \\        | \n");
+		printf("\t\t|     ===== /        \\   |    |==== |  \\   ==== \n");
 	}
-	printf("\n\n");
+	printf("\n");
 
-	printf("+====      /\\     |\\   /| =====\n");
-	printf("|         /  \\    | \\ / | |\n");
-	printf("| ==+    /====\\   |  Y  | |====\n");
-	printf("|   |   /      \\  |     | |\n");
-	printf("+===+  /        \\ |     | =====\n");	
+	printf("\t\t     +====      /\\     |\\   /| =====\n");
+	printf("\t\t     |         /  \\    | \\ / | |\n");
+	printf("\t\t     | ==+    /====\\   |  Y  | |====\n");
+	printf("\t\t     |   |   /      \\  |     | |\n");
+	printf("\t\t     +===+  /        \\ |     | =====\n");	
+
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
 }
