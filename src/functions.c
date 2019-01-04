@@ -88,7 +88,7 @@ bool searchDB(char find[20])
  * welcome()
  * for greeting the user
  * @param void
- * @tc O(1)
+ * @tc O(n)
  * @sc O(1)
  **/
 void welcome()
@@ -115,6 +115,10 @@ void welcome()
 /**
  * welcomeLINUX()
  * colored UI for LINUX
+ * @param void
+ * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void welcomeLINUX()
 {
@@ -211,15 +215,27 @@ struct BidCard
  * it will display the cards of the user
  * @param struct BidCard
  * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void displayBidCard(struct BidCard BC)
 {
-	printf("-----------\n");
-	puts(BC.BidCardName);
-	puts(BC.skills);
-	puts(BC.companyName);
-	puts(BC.Designation);
-	printf("-----------\n");
+	for(register int i=0;i<75;i++)
+	{
+		printf("-");
+	}
+	printf("\n");
+	
+	printf("* Name: %s",BC.BidCardName);
+	printf("* Skills: %s",BC.skills);
+	printf("* Work-Place: %s",BC.companyName);
+	printf("* Designation: %s",BC.Designation);
+	
+	for(register int i=0;i<75;i++)
+	{
+		printf("-");
+	}
+	printf("\n");
 }
 
 /**
@@ -231,6 +247,24 @@ void displayBidCard(struct BidCard BC)
 void displayBidCardLINUX(struct BidCard BC)
 {
 	//same as above with colors
+	printf("%s",BCYAN);
+	for(register int i=0;i<75;i++)
+	{
+		printf("-");
+	}
+	printf("%s\n",RESET);
+	
+	printf("%s* Name:%s %s",BCYAN,RESET,BC.BidCardName);
+	printf("%s* Skills:%s %s",BCYAN,RESET,BC.skills);
+	printf("%s* Work-Place:%s %s",BCYAN,RESET,BC.companyName);
+	printf("%s* Designation:%s %s",BCYAN,RESET,BC.Designation);
+	
+	printf("%s",BCYAN);
+	for(register int i=0;i<75;i++)
+	{
+		printf("-");
+	}
+	printf("%s\n",RESET);
 }
 
 /**
@@ -248,16 +282,16 @@ struct BidCard createBidCard()
 	
 	getchar();
 	printf("Enter the name of the Bid Card Player\n");
-	gets(card.BidCardName);
+	fgets(card.BidCardName,20,stdin);
 
 	printf("Enter the skills of the Bid Card Player\n");
-	gets(card.skills);
+	fgets(card.skills,200,stdin);
 
 	printf("Which company does this Player work\n");
-	gets(card.companyName);
+	fgets(card.companyName,50,stdin);
 
 	printf("Enter the designation of this Bid Card Player\n");
-	gets(card.Designation);
+	fgets(card.Designation,20,stdin);
 
 	return card;
 }
@@ -288,7 +322,7 @@ struct User createNewUser()
 
 	getchar();
 	printf("Enter your name\n");
-	gets(U.userName);
+	fgets(U.userName,20,stdin);
 
 	printf("Select number of players you want out of 5\n");
 	scanf("%d",&U.BidCardCount);
@@ -318,5 +352,5 @@ void playNewGame()
 		printf("User Created\n");
 	}
 
-	// displayBidCard(gameArray[0].BidCards[0]);
+	displayBidCardLINUX(gameArray[0].BidCards[0]);
 }
