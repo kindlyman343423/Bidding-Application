@@ -91,59 +91,61 @@ bool searchDB(char find[20])
  * @tc O(n)
  * @sc O(1)
  **/
-void welcome()
+void welcome(char os)
 {
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",BLUE);
+	}
+	
 	for(register int i=0;i<75;i++)
 	{
 		printf("=");
 	}
+
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
 	printf("\n");
+
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",BWHITE);
+	}
 
 	printf("\t  ---- 	-----	---           /\\    	---- 	---- \n");
 	printf("\t  |   |	  |  	|  \\         /  \\  	|   |	|   |\n");
 	printf("\t  |--- 	  |  	|  |  ===   /====\\  	|--- 	|--- \n");
 	printf("\t  |   |	  |  	|  /       /      \\ 	|    	|    \n");
 	printf("\t  ---- 	-----	---       /        \\	|    	|    \n");
-	printf("\t\t\t\t\t\t\t\tVERSION 0.1\n");
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",RESET);
+		printf("\t\t\t\t\t\t\t\t%sVERSION 0.1%s\n",BLGREEN,RESET);
+		printf("\t\t\t\t\t\t     %sPowered by RAINBOW 0.1%s\n",YELLOW,RESET);
+		printf("%s",BLUE);
+	}
+	else
+	{
+		printf("\t\t\t\t\t\t\t\tVERSION 0.1\n");
+	}
 	for(register int i=0;i<75;i++)
 	{
 		printf("=");
+	}
+
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",RESET);
 	}
 	printf("\n");
-}
-
-/**
- * welcomeLINUX()
- * colored UI for LINUX
- * @param void
- * @return void
- * @tc - O(n)
- * @sc - O(1)
- **/
-void welcomeLINUX()
-{
-	printf("%s",BLUE);
-	for(register int i=0;i<75;i++)
-	{
-		printf("=");
-	}
-	printf("%s\n",RESET);
-
-	printf("%s",BWHITE);
-	printf("\t  ---- 	-----	---           /\\    	---- 	---- \n");
-	printf("\t  |   |	  |  	|  \\         /  \\  	|   |	|   |\n");
-	printf("\t  |--- 	  |  	|  |  ===   /====\\  	|--- 	|--- \n");
-	printf("\t  |   |	  |  	|  /       /      \\ 	|    	|    \n");
-	printf("\t  ---- 	-----	---       /        \\	|    	|    \n");
-	printf("%s",RESET);
-	printf("\t\t\t\t\t\t\t\t%sVERSION 0.1%s\n",BLGREEN,RESET);
-	printf("\t\t\t\t\t\t     %sPowered by RAINBOW 0.1%s\n",YELLOW,RESET);
-	printf("%s",BLUE);
-	for(register int i=0;i<75;i++)
-	{
-		printf("=");
-	}
-	printf("%s\n",RESET);
 }
 
 /**
@@ -214,57 +216,90 @@ struct BidCard
  * displayBidCard()
  * it will display the cards of the user
  * @param struct BidCard
+ * @param char for operating system linux/mac-l windows-w
  * @return void
  * @tc - O(n)
  * @sc - O(1)
  **/
-void displayBidCard(struct BidCard BC)
+void displayBidCard(struct BidCard BC,char os)
 {
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",BCYAN);
+	}
 	for(register int i=0;i<75;i++)
 	{
 		printf("-");
 	}
-	printf("\n");
-	
-	printf("* Name: %s",BC.BidCardName);
-	printf("* Skills: %s",BC.skills);
-	printf("* Work-Place: %s",BC.companyName);
-	printf("* Designation: %s",BC.Designation);
-	
-	for(register int i=0;i<75;i++)
-	{
-		printf("-");
-	}
-	printf("\n");
-}
 
-/**
- * displayBidCardLINUX
- * it will display card in linux
- * @param struct BidCard
- * @return void
- **/
-void displayBidCardLINUX(struct BidCard BC)
-{
-	//same as above with colors
-	printf("%s",BCYAN);
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
+	printf("\n");
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s* Name:%s ",BCYAN,RESET);
+	}
+	else
+	{
+		printf("* Name: ");
+	}
+	printf("%s",BC.BidCardName);
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s* Skills:%s ",BCYAN,RESET);
+	}
+	else
+	{
+		printf("* Skills: ");
+	}
+	printf("%s",BC.skills);
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s* Work-Place:%s ",BCYAN,RESET);
+	}
+	else
+	{
+		printf("* Work-Place: ");
+	}
+	printf("%s",BC.companyName);
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s* Designation:%s ",BCYAN,RESET);
+	}
+	else
+	{
+		printf("* Designation: ");
+	}
+	printf("%s",BC.Designation);
+	
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
+	{
+		printf("%s",BCYAN);
+	}
 	for(register int i=0;i<75;i++)
 	{
 		printf("-");
 	}
-	printf("%s\n",RESET);
-	
-	printf("%s* Name:%s %s",BCYAN,RESET,BC.BidCardName);
-	printf("%s* Skills:%s %s",BCYAN,RESET,BC.skills);
-	printf("%s* Work-Place:%s %s",BCYAN,RESET,BC.companyName);
-	printf("%s* Designation:%s %s",BCYAN,RESET,BC.Designation);
-	
-	printf("%s",BCYAN);
-	for(register int i=0;i<75;i++)
+
+	//FOR LINUX/MAC USER ONLY
+	if(os=='l')
 	{
-		printf("-");
+		printf("%s",RESET);
 	}
-	printf("%s\n",RESET);
+	printf("\n");
 }
 
 /**
@@ -345,6 +380,9 @@ void playNewGame()
 	printf("Enter the number of users you want to play ?\n");
 	scanf("%d",&numberOfUsers);
 	
+	displayNumberOfPlayers(numberOfUsers,'l');	//display the name of game
+	
+	exit(0);
 	struct User gameArray[numberOfUsers];	//array of users in the game
 	for(register int i=0;i<numberOfUsers;i++)
 	{
@@ -352,5 +390,179 @@ void playNewGame()
 		printf("User Created\n");
 	}
 
-	displayBidCardLINUX(gameArray[0].BidCards[0]);
+	// displayBidCard(gameArray[0].BidCards[0],'l');
+	// exit(0);
+}
+
+/**
+ * displayNumberOfPlayers()
+ * it will display the number on the game
+ * @param int
+ * @param char for operating system l-linux/mac w-windows
+ * @return void
+ * @tc - O(n^3)
+ * @sc - O(1)
+ **/
+void displayNumberOfPlayers(int number,char os)
+{
+	char arr0[5][5] = {
+						{ '+' , '=' , '=' , '=' , '+' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ '+' , '=' , '=' , '=' , '+' }
+						};
+	char arr1[5][5] = {
+						{ ' ' , '/' , '|' , ' ' , ' ' },
+						{ '/' , ' ' , '|' , ' ' , ' ' },
+						{ ' ' , ' ' , '|' , ' ' , ' ' },
+						{ ' ' , ' ' , '|' , ' ' , ' ' },
+						{ '=' , '=' , '=' , '=' , '=' },
+						};
+	char arr2[5][5] = {
+						{ ' ' , '=' , '=' , '=' , ' ' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , ' ' , ' ' , '/' , ' ' },
+						{ ' ' , ' ' , '/' , ' ' , ' ' },
+						{ ' ' , '=' , '=' , '=' , '=' }
+						};
+	char arr3[5][5] = {
+						{ '=' , '=' , '=' , '=' , '/' },
+						{ ' ' , ' ' , ' ' , '/' , ' ' },
+						{ ' ' , ' ' , '/' , '=' , '+' },
+						{ ' ' , ' ' , ' ' , ' ' , '|' },
+						{ '=' , '=' , '=' , '=' , '+' }
+						};
+	char arr4[5][5] = {
+						{ ' ' , ' ' , '/' , '|' , ' ' },
+						{ ' ' , '/' , ' ' , '|' , ' ' },
+						{ '/' , '=' , '=' , '+' , '=' },
+						{ ' ' , ' ' , ' ' , '|' , ' ' },
+						{ ' ' , ' ' , ' ' , '|' , ' ' }
+						};
+	char arr5[5][5] = {
+						{ '=' , '=' , '=' , '=' , '=' },
+						{ '|' , ' ' , ' ' , ' ' , ' ' },
+						{ '=' , '=' , '=' , '=' , ' ' },
+						{ ' ' , ' ' , ' ' , ' ' , '|' },
+						{ '=' , '=' , '=' , '=' , ' ' }
+						};
+	char arr6[5][5] = {
+						{ ' ' , '=' , '=' , '=' , '|' },
+						{ '|' , ' ' , ' ' , ' ' , ' ' },
+						{ '|' , '=' , '=' , '=' , ' ' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , '=' , '=' , '=' , ' ' }
+						};
+	char arr7[5][5] = {
+						{ '=' , '=' , '=' , '=' , '=' },
+						{ ' ' , ' ' , ' ' , ' ' , '/' },
+						{ ' ' , ' ' , ' ' , '/' , ' ' },
+						{ ' ' , ' ' , '/' , ' ' , ' ' },
+						{ ' ' , '/' , ' ' , ' ' , ' ' }
+						};
+	char arr8[5][5] = {
+						{ ' ' , '=' , '=' , '=' , ' ' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , '=' , '=' , '=' , ' ' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , '=' , '=' , '=' , ' ' }
+						};
+	char arr9[5][5] = {
+						{ ' ' , '=' , '=' , '=' , ' ' },
+						{ '|' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , '=' , '=' , '=' , '+' },
+						{ ' ' , ' ' , ' ' , ' ' , '|' },
+						{ ' ' , '=' , '=' , '=' , ' ' }
+						};
+	if(number<=0)
+	{
+		exit(0);
+	}
+	char str[5];
+	snprintf(str,5,"%d",number);	//converting int to string
+	// printf("%s\n",str);
+
+	if(os=='l')
+	{
+		printf("%s",BYELLOW);
+	}
+
+	for(register int i=0;i<5;i++)	//loop for lines
+	{
+		for(register int j=0;j<strlen(str);j++)
+		{
+			int a = str[j]-'0';
+			//printing j row of arrj
+			switch(a)
+			{
+				case 0:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr0[i][k]);
+					}
+					break;
+				case 1:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr1[i][k]);
+					}
+					break;
+				case 2:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr2[i][k]);
+					}
+					break;
+				case 3:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr3[i][k]);
+					}
+					break;
+				case 4:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr4[i][k]);
+					}
+					break;
+				case 5:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr5[i][k]);
+					}
+					break;
+				case 6:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr6[i][k]);
+					}
+					break;
+				case 7:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr7[i][k]);
+					}
+					break;
+				case 8:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr8[i][k]);
+					}
+					break;
+				case 9:
+					for(register int k=0;k<5;k++)
+					{
+						printf("%c",arr9[i][k]);
+					}
+					break;
+			}
+			printf(" ");
+		}
+		printf("\n");
+	}
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
 }
