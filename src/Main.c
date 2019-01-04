@@ -71,9 +71,9 @@ int main()
 	// }
 
 	welcome('l');					//welcome the user to the 
+	greetOptions('l');					//main options of the application
 	exit(0);
-	greetOptions();					//main options of the application
-	
+
 	//checking data in database file
 	printf("ENTER YOUR NAME TO START ENTERING DATA\n");
 	scanf("%s",find);
@@ -87,7 +87,7 @@ int main()
 	{
 		printf("User Verified\n");
 		printf("Lets get started\n");
-		line();
+		// line();
 		
 		while(true)
 		{
@@ -162,7 +162,7 @@ int main()
 	else
 	{
 		printf("User Not verified\n");
-		line();
+		// line();
 		printf("SRRY U CANNOT PLAY THE GAME\n\n");
 	}
 	return 0;

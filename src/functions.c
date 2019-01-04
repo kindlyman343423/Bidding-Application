@@ -6,12 +6,11 @@
  * prints the line
  * @return none
  **/
-void line()
+void line(char ch,int count)
 {
-	int k;
-	for(k=0;k<80;k++)
+	for(register int k=0;k<count;k++)
 	{
-		printf("#");
+		printf("%c",ch);
 	}
 	printf("\n");
 }
@@ -87,7 +86,7 @@ bool searchDB(char find[20])
 /**
  * welcome()
  * for greeting the user
- * @param void
+ * @param char LINUX/MAC-l WINDOWS-w
  * @tc O(n)
  * @sc O(1)
  **/
@@ -99,10 +98,7 @@ void welcome(char os)
 		printf("%s",BLUE);
 	}
 	
-	for(register int i=0;i<75;i++)
-	{
-		printf("=");
-	}
+	line('=',75);
 
 	//FOR LINUX/MAC USER ONLY
 	if(os=='l')
@@ -135,10 +131,8 @@ void welcome(char os)
 	{
 		printf("\t\t\t\t\t\t\t\tVERSION 0.1\n");
 	}
-	for(register int i=0;i<75;i++)
-	{
-		printf("=");
-	}
+
+	line('=',75);
 
 	//FOR LINUX/MAC USER ONLY
 	if(os=='l')
@@ -156,12 +150,19 @@ void welcome(char os)
  * @tc O(1)
  * @sc O(1)
  **/
-void greetOptions()
+void greetOptions(char os)
 {
 	printf("Welcome to our GAME\n\n");
-	printf("%s",BOLD);
-	printf("Enter below option to start%s\n",RESET);
-	
+	if(os=='l')
+	{
+		printf("%s",BOLD);
+	}
+	printf("Enter below option to start\n");
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
+
 	printf("----------------------------\n");
 	printf("1. PLAY NEW GAME\n");
 	printf("----------------------------\n");
@@ -175,10 +176,18 @@ void greetOptions()
 	printf("----------------------------\n");
 	printf("0. EXIT\n");
 	printf("----------------------------\n");
-	printf("%sOPTION: ",BOLD);
+	
+	if(os=='l')
+	{
+		printf("%s",BOLD);
+	}
+	printf("OPTION: ");
 	int q;
 	scanf("%d",&q);
-	printf("%s",RESET);
+	if(os=='l')
+	{
+		printf("%s",RESET);
+	}
 	switch(q)
 	{
 		case 0:
@@ -380,8 +389,10 @@ void playNewGame()
 	printf("Enter the number of users you want to play ?\n");
 	scanf("%d",&numberOfUsers);
 	
+	/*DISPLAY GAME LOGO*/
 	displayNumberOfPlayers(numberOfUsers,'l');	//display the name of game
-	
+	displayPlayersGame(numberOfUsers,'w');
+
 	exit(0);
 	struct User gameArray[numberOfUsers];	//array of users in the game
 	for(register int i=0;i<numberOfUsers;i++)
@@ -475,14 +486,15 @@ void displayNumberOfPlayers(int number,char os)
 						{ ' ' , ' ' , ' ' , ' ' , '|' },
 						{ ' ' , '=' , '=' , '=' , ' ' }
 						};
-	if(number<=0)
+	
+	if(number<=0)					//if number is invalid
 	{
 		exit(0);
 	}
-	char str[5];
-	snprintf(str,5,"%d",number);	//converting int to string
-	// printf("%s\n",str);
+	char str[3];					//string for converting
+	snprintf(str,3,"%d",number);	//converting int to string
 
+	//FOR LINUX/MAC ONLY
 	if(os=='l')
 	{
 		printf("%s",BYELLOW);
@@ -565,4 +577,37 @@ void displayNumberOfPlayers(int number,char os)
 	{
 		printf("%s",RESET);
 	}
+}
+
+/**
+ * displayPlayerGame
+ * it will display player game
+ * @param char for os
+ * @return void
+ **/
+void displayPlayersGame(int number,char os)
+{
+	if(number==1)
+	{
+		printf("====  |         /\\     \\   /  |==== |===  \n");
+		printf("|   | |        /  \\     \\ /   |     |   |  \n");
+		printf("|===  |       /====\\     Y    |==== |===  \n");
+		printf("|     |      /      \\    |    |     | \\	\n");
+		printf("|     ===== /        \\   |    |==== |  \\	\n");
+	}
+	else
+	{
+		printf("====  |         /\\     \\   /  |==== |===    ====\n");
+		printf("|   | |        /  \\     \\ /   |     |   |  |      \n");
+		printf("|===  |       /====\\     Y    |==== |===    ===\n");
+		printf("|     |      /      \\    |    |     | \\        | \n");
+		printf("|     ===== /        \\   |    |==== |  \\   ==== \n");
+	}
+	printf("\n\n");
+
+	printf("+====      /\\     |\\   /| =====\n");
+	printf("|         /  \\    | \\ / | |\n");
+	printf("| ==+    /====\\   |  Y  | |====\n");
+	printf("|   |   /      \\  |     | |\n");
+	printf("+===+  /        \\ |     | =====\n");	
 }

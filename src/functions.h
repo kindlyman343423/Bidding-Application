@@ -18,10 +18,10 @@ struct BidCard;
 struct User;
 
 /*GREET FUNCTIONS*/
-void welcome(char);
-void line();
+void line(char,int);
 void list();
-void greetOptions();
+void welcome(char);
+void greetOptions(char);
 
 /*OPTION FUNCTIONS*/
 void playNewGame();
@@ -31,6 +31,7 @@ void saveAndExit();
 void settings();
 
 void displayNumberOfPlayers(int,char);
+void displayPlayersGame(int,char);
 
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard,char);
