@@ -32,8 +32,8 @@ void saveAndExit();
 void settings();
 
 /*BID CARD FUNCTIONS*/
-void displayBidCard();
-void displayBidCardLINUX();
+void displayBidCard(struct BidCard);
+void displayBidCardLINUX(struct BidCard);
 struct BidCard createBidCard();
 
 /*USER FUNCTIONS*/

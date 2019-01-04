@@ -215,6 +215,10 @@ struct BidCard
 void displayBidCard(struct BidCard BC)
 {
 	printf("-----------\n");
+	puts(BC.BidCardName);
+	puts(BC.skills);
+	puts(BC.companyName);
+	puts(BC.Designation);
 	printf("-----------\n");
 }
 
@@ -267,6 +271,7 @@ struct User
 	int userID;					//user id for uniqueness for users
 	char userName[20];			//username of the user
 	struct BidCard BidCards[5];	//array of bidcards for every user
+	int BidCardCount;			//count of total bidcards present out of 5
 };
 
 /**
@@ -285,15 +290,15 @@ struct User createNewUser()
 	printf("Enter your name\n");
 	gets(U.userName);
 
-	int selectBidCards;
 	printf("Select number of players you want out of 5\n");
-	scanf("%d",&selectBidCards);
+	scanf("%d",&U.BidCardCount);
 
 	printf("Enter your Bid Players Data\n");
-	for(register int j=0;j<selectBidCards;j++)
+	for(register int j=0;j<U.BidCardCount;j++)
 	{
-		U.BidCards[j] = createBidCard();
+		U.BidCards[j] = createBidCard();	
 	}
+	return U;
 }
 
 /**
@@ -312,4 +317,6 @@ void playNewGame()
 		gameArray[i] = createNewUser();
 		printf("User Created\n");
 	}
+
+	// displayBidCard(gameArray[0].BidCards[0]);
 }
