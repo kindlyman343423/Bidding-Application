@@ -272,13 +272,17 @@ void displaySkills()
  * it will find specific skill in out table
  * @param skill
  * @return bool
+ * @tc - O(n)
+ * @sc - O(1)
  **/
-bool findSkills(char* skill)
+bool findSkills(char* skill,int** points)
 {
+	int arr[10]={60,70,80,90,50,40,30,20,100,10};
 	for(register int i=0;i<10;i++)
 	{
 		if(strcmp(SKILLS[i],skill)==0)
 		{
+			**points=**points + arr[i];
 			return true;
 		}
 	}
@@ -291,8 +295,10 @@ bool findSkills(char* skill)
  * it will find whether it is in our skills tables or not
  * @param skills
  * @return bool
+ * @tc - O(n^2)
+ * @sc - O(1)
  **/
-bool checkValidSkills(char* skills)
+bool checkValidSkills(char* skills,int *pts)
 {
 	bool flag=false;
 	//check skill is valid or not
@@ -319,7 +325,7 @@ bool checkValidSkills(char* skills)
 		{
 			str[j]='\0';
 			// printf("%s\n",str);
-			if(!findSkills(str))
+			if(!findSkills(str,&pts))
 			{
 				return false;
 			}
@@ -340,7 +346,7 @@ bool checkValidSkills(char* skills)
  * it will create new bid card for a user
  * @param int => for displaying nthcard
  * @return struct BidCard
- * @tc - O(1)
+ * @tc - O(n^3)
  * @sc - O(1)
  **/
 struct BidCard createBidCard(int nthCard)
@@ -361,13 +367,16 @@ struct BidCard createBidCard(int nthCard)
 	displaySkills();
 	
 	fgets(card.skills,200,stdin);
-	while(!checkValidSkills(card.skills))
+	while(!checkValidSkills(card.skills,&card.points))
 	{
-		printf("invalid enter again\n");
+		colorSetting(RED);
+		printf("INVALID SKILL ENTER AGAIN\n");
+		colorSetting(RESET);
 		fgets(card.skills,200,stdin);
 	}
-
+	printf("points:%d\n",card.points);
 	exit(0);
+
 	colorSetting(DGREEN);
 	printf("Which company does %d Player work\n",nthCard);
 	colorSetting(RESET);

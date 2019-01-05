@@ -41,9 +41,12 @@ void colorSetting(char*);
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard,char);
 struct BidCard createBidCard(int);
+
+/*SKILL FUNCTIONS*/
 void displaySkills();
-bool findSkills(char*);
-bool checkValidSkills(char*);
+bool findSkills(char*,int**);
+bool checkValidSkills(char*,int*);
+
 void displayCompanies();
 void displayDesignations();
 
