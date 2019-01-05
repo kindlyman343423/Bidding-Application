@@ -203,6 +203,7 @@ struct BidCard
 	char skills[200];			//skills of the person on bidcard
 	char companyName[50];		//company name in which person work
 	char Designation[20];		//designation of the person
+	int points;					//points of card
 };
 
 /**
@@ -263,7 +264,18 @@ struct BidCard createBidCard(int nthCard)
 	printf("Enter the name of %d Bid Card Player\n",nthCard);
 	fgets(card.BidCardName,20,stdin);
 
-	printf("Enter the skills of %d Bid Card Player\n",nthCard);
+	printf("Enter the skills of %d Bid Card Player separated with commas(,)\n",nthCard);
+	// printf("Choose from this list:\n");
+	// printf("* C\n");
+	// printf("* C++\n");
+	// printf("* JAVA\n");
+	// printf("* PYTHON\n");
+	// printf("* PERL\n");
+	// printf("* RUBY\n");
+	// printf("* HTML\n");
+	// printf("* CSS\n");
+	// printf("* JAVASCRIPT\n");
+	// printf("* C#\n");
 	fgets(card.skills,200,stdin);
 
 	printf("Which company does %d Player work\n",nthCard);
@@ -275,6 +287,7 @@ struct BidCard createBidCard(int nthCard)
 	return card;
 }
 
+
 /**
  * User structure
  * for making new users
@@ -283,8 +296,8 @@ struct User
 {
 	int userID;					//user id for uniqueness for users
 	char userName[20];			//username of the user
-	struct BidCard BidCards[5];	//array of bidcards for every user
 	int BidCardCount;			//count of total bidcards present out of 5
+	struct BidCard BidCards[5];	//array of bidcards for every user
 };
 
 /**
@@ -323,7 +336,7 @@ struct User createNewUser()
 	for(register int j=0;j<U.BidCardCount;j++)
 	{
 		U.BidCards[j] = createBidCard(j+1);
-		
+
 		//display card info for user
 		printf("%sCARD PLAYER %d%s\n",BLGREEN,j+1,RESET);
 		displayBidCard(U.BidCards[j],'l');
@@ -332,7 +345,7 @@ struct User createNewUser()
 }
 
 /**
- * playNewGame
+ * playNewGame()
  * this is the main game
  **/
 void playNewGame()
@@ -361,6 +374,7 @@ void playNewGame()
 		printf("User Created\n");
 	}
 
+	/*GAME ALGO*/
 }
 
 /**

@@ -13,6 +13,9 @@
 static int BIDCARDID=1; //for setting bid ids
 static int USERID = 1;  //for setting user ids
 char OS='w';           //environment variable for os
+char **SKILLS;
+char **COMPANIES;
+char **DESIGNATIONS;
 
 /*STRUCTURES NEEDED FOR THE GAME*/
 struct BidCard;
@@ -38,6 +41,9 @@ void colorSetting(char*);
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard,char);
 struct BidCard createBidCard(int);
+void displaySkills();
+void displayCompanies();
+void displayDesignations();
 
 /*USER FUNCTIONS*/
 struct User createNewUser();
