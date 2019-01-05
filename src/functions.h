@@ -36,7 +36,7 @@ void displayPlayersGame(int,char);
 
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard,char);
-struct BidCard createBidCard();
+struct BidCard createBidCard(int);
 
 /*USER FUNCTIONS*/
 struct User createNewUser();

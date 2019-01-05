@@ -4,7 +4,11 @@
 /**
  * line()
  * prints the line
- * @return none
+ * @param char for print char
+ * @param int for printing upto count
+ * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void line(char ch,int count)
 {
@@ -18,7 +22,6 @@ void line(char ch,int count)
 /**
  * list()
  * lists the files present in current directory
- * @return void
  **/
 void list()
 {
@@ -204,6 +207,15 @@ void greetOptions(char os)
 		case 5:
 			break;
 		default:
+			if(os=='l')
+			{
+				printf("%s",RED);
+			}
+			printf("INVALID OPTION NUMBER\n");
+			if(os=='l')
+			{
+				printf("%s",RESET);
+			}
 			break;
 	}
 }
@@ -314,27 +326,28 @@ void displayBidCard(struct BidCard BC,char os)
 /**
  * createBidCard()
  * it will create new bid card for a user
- * @param void
+ * @param int => for displaying nthcard
  * @return struct BidCard
+ * @tc - O(1)
+ * @sc - O(1)
  **/
-struct BidCard createBidCard()
+struct BidCard createBidCard(int nthCard)
 {
 	struct BidCard card;
 	
 	card.BidID = BIDCARDID;
 	BIDCARDID++;
 	
-	getchar();
-	printf("Enter the name of the Bid Card Player\n");
+	printf("Enter the name of %d Bid Card Player\n",nthCard);
 	fgets(card.BidCardName,20,stdin);
 
-	printf("Enter the skills of the Bid Card Player\n");
+	printf("Enter the skills of %d Bid Card Player\n",nthCard);
 	fgets(card.skills,200,stdin);
 
-	printf("Which company does this Player work\n");
+	printf("Which company does %d Player work\n",nthCard);
 	fgets(card.companyName,50,stdin);
 
-	printf("Enter the designation of this Bid Card Player\n");
+	printf("Enter the designation of %d Bid Card Player\n",nthCard);
 	fgets(card.Designation,20,stdin);
 
 	return card;
@@ -357,6 +370,8 @@ struct User
  * it will create new user
  * @param void
  * @return struct User
+ * @tc - O(n)
+ * @sc - O(n)
  **/
 struct User createNewUser()
 {
@@ -370,11 +385,22 @@ struct User createNewUser()
 
 	printf("Select number of players you want out of 5\n");
 	scanf("%d",&U.BidCardCount);
+	getchar();
 
-	printf("Enter your Bid Players Data\n");
+	if(U.BidCardCount<=0 || U.BidCardCount>5)
+	{
+		printf("INVALID NUMBER OF BIDCARDS\n");
+		return;
+	}
+
+	printf("Enter %d Bid Cards Player Data\n",U.BidCardCount);
 	for(register int j=0;j<U.BidCardCount;j++)
 	{
-		U.BidCards[j] = createBidCard();	
+		U.BidCards[j] = createBidCard(j+1);
+		
+		//display card info for user
+		printf("%sCARD PLAYER %d%s\n",BLGREEN,j+1,RESET);
+		displayBidCard(U.BidCards[j],'l');
 	}
 	return U;
 }
@@ -388,14 +414,20 @@ void playNewGame()
 	int numberOfUsers;
 	printf("Enter the number of users you want to play ?\n");
 	scanf("%d",&numberOfUsers);
-	
+
+	if(numberOfUsers<=0 || numberOfUsers>99)
+	{
+		printf("INVALID NUMBER OF USERS!!!\n");
+		return;
+	}
+
 	/*DISPLAY GAME LOGO*/
-	line('=',75);
+	line('=',80);
 	displayNumberOfPlayers(numberOfUsers,'l');	//display the name of game
 	displayPlayersGame(numberOfUsers,'l');
-	line('=',75);
+	line('=',80);
 
-	exit(0);
+	/*MAIN GAME*/
 	struct User gameArray[numberOfUsers];	//array of users in the game
 	for(register int i=0;i<numberOfUsers;i++)
 	{
@@ -403,13 +435,11 @@ void playNewGame()
 		printf("User Created\n");
 	}
 
-	// displayBidCard(gameArray[0].BidCards[0],'l');
-	// exit(0);
 }
 
 /**
  * displayNumberOfPlayers()
- * it will display the number on the game
+ * it will display the number played users on the game
  * @param int
  * @param char for operating system l-linux/mac w-windows
  * @return void
@@ -489,10 +519,6 @@ void displayNumberOfPlayers(int number,char os)
 						{ ' ' , '=' , '=' , '=' , ' ' }
 						};
 	
-	if(number<=0)					//if number is invalid
-	{
-		exit(0);
-	}
 	char str[3];					//string for converting
 	snprintf(str,3,"%d",number);	//converting int to string
 
@@ -583,10 +609,12 @@ void displayNumberOfPlayers(int number,char os)
 }
 
 /**
- * displayPlayerGame
+ * displayPlayerGame()
  * it will display player game
  * @param char for os
  * @return void
+ * @tc - O(1)
+ * @sc - O(1)
  **/
 void displayPlayersGame(int number,char os)
 {
