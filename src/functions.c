@@ -268,6 +268,74 @@ void displaySkills()
 }
 
 /**
+ * findSkills()
+ * it will find specific skill in out table
+ * @param skill
+ * @return bool
+ **/
+bool findSkills(char* skill)
+{
+	for(register int i=0;i<10;i++)
+	{
+		if(strcmp(SKILLS[i],skill)==0)
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
+/**
+ * checkValidSkills()
+ * it will check whether it is caps or not
+ * it will find whether it is in our skills tables or not
+ * @param skills
+ * @return bool
+ **/
+bool checkValidSkills(char* skills)
+{
+	bool flag=false;
+	//check skill is valid or not
+	int i=0;
+	while(skills[i]!='\0')
+	{
+		if((skills[i]==',' || skills[i]=='+' || skills[i]=='\n')||(skills[i]>='A' && skills[i]<='Z'))
+		{
+			flag=true;		
+		}
+		else
+		{
+			return false;
+		}
+		i++;
+	}
+	//parsing
+	i=0;
+	int j=0;
+	char str[10];
+	while(skills[i]!='\0')
+	{
+		if(skills[i]==' ' || skills[i]=='\n' || skills[i]==',')
+		{
+			str[j]='\0';
+			// printf("%s\n",str);
+			if(!findSkills(str))
+			{
+				return false;
+			}
+			j=0;
+		}
+		else
+		{
+			str[j]=skills[i];
+			j++;
+		}
+		i++;
+	}
+	return true;
+}
+
+/**
  * createBidCard()
  * it will create new bid card for a user
  * @param int => for displaying nthcard
@@ -293,7 +361,13 @@ struct BidCard createBidCard(int nthCard)
 	displaySkills();
 	
 	fgets(card.skills,200,stdin);
+	while(!checkValidSkills(card.skills))
+	{
+		printf("invalid enter again\n");
+		fgets(card.skills,200,stdin);
+	}
 
+	exit(0);
 	colorSetting(DGREEN);
 	printf("Which company does %d Player work\n",nthCard);
 	colorSetting(RESET);
