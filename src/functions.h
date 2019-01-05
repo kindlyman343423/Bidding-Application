@@ -12,7 +12,7 @@
 
 static int BIDCARDID=1; //for setting bid ids
 static int USERID = 1;  //for setting user ids
-char $OS='w';           //environment variable for os
+char OS='w';           //environment variable for os
 
 /*STRUCTURES NEEDED FOR THE GAME*/
 struct BidCard;
@@ -21,7 +21,7 @@ struct User;
 /*GREET FUNCTIONS*/
 void line(char,int);
 void list();
-void welcome(char);
+void welcome();
 void greetOptions(char);
 
 /*OPTION FUNCTIONS*/
@@ -33,6 +33,7 @@ void settings();
 
 void displayNumberOfPlayers(int,char);
 void displayPlayersGame(int,char);
+void colorSetting(char*);
 
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard,char);

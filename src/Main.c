@@ -69,8 +69,8 @@ int main()
 	// 	fclose(db);	 //CLOSING DATABASE FILE
 	// 	line();
 	// }
-
-	welcome('l');					//welcome the user to the 
+	OS='l';
+	welcome();					//welcome the user to the 
 	greetOptions('l');					//main options of the application
 	exit(0);
 

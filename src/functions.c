@@ -87,48 +87,41 @@ bool searchDB(char find[20])
 }
 
 /**
+ * colorSetting()
+ * this function sets color on stdout for LINUX ONLY
+ **/
+void colorSetting(char* str)
+{
+	if(OS=='l')
+		printf("%s",str);
+}
+
+/**
  * welcome()
  * for greeting the user
  * @param char LINUX/MAC-l WINDOWS-w
  * @tc O(n)
  * @sc O(1)
  **/
-void welcome(char os)
+void welcome()
 {
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",BLUE);
-	}
-	
+	colorSetting(BLUE);
 	line('=',75);
+	colorSetting(RESET);
 
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
-	printf("\n");
-
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",BWHITE);
-	}
-
+	colorSetting(BWHITE);
 	printf("\t  ---- 	-----	---           /\\    	---- 	---- \n");
 	printf("\t  |   |	  |  	|  \\         /  \\  	|   |	|   |\n");
 	printf("\t  |--- 	  |  	|  |  ===   /====\\  	|--- 	|--- \n");
 	printf("\t  |   |	  |  	|  /       /      \\ 	|    	|    \n");
 	printf("\t  ---- 	-----	---       /        \\	|    	|    \n");
-	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
+	colorSetting(RESET);
+
+	if(OS=='l')
 	{
-		printf("%s",RESET);
 		printf("\t\t\t\t\t\t\t\t%sVERSION 0.1%s\n",BLGREEN,RESET);
 		printf("\t\t\t\t\t\t     %sPowered by RAINBOW 0.1%s\n",YELLOW,RESET);
-		printf("%s",BLUE);
+		colorSetting(BLUE);
 	}
 	else
 	{
@@ -136,12 +129,7 @@ void welcome(char os)
 	}
 
 	line('=',75);
-
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
+	colorSetting(RESET);
 	printf("\n");
 }
 
@@ -156,15 +144,10 @@ void welcome(char os)
 void greetOptions(char os)
 {
 	printf("Welcome to our GAME\n\n");
-	if(os=='l')
-	{
-		printf("%s",BOLD);
-	}
+	
+	colorSetting(BOLD);
 	printf("Enter below option to start\n");
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
+	colorSetting(RESET);
 
 	printf("----------------------------\n");
 	printf("1. PLAY NEW GAME\n");
@@ -180,17 +163,12 @@ void greetOptions(char os)
 	printf("0. EXIT\n");
 	printf("----------------------------\n");
 	
-	if(os=='l')
-	{
-		printf("%s",BOLD);
-	}
+	colorSetting(BOLD);
 	printf("OPTION: ");
 	int q;
 	scanf("%d",&q);
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
+	colorSetting(RESET);
+
 	switch(q)
 	{
 		case 0:
@@ -207,15 +185,9 @@ void greetOptions(char os)
 		case 5:
 			break;
 		default:
-			if(os=='l')
-			{
-				printf("%s",RED);
-			}
+			colorSetting(RED);
 			printf("INVALID OPTION NUMBER\n");
-			if(os=='l')
-			{
-				printf("%s",RESET);
-			}
+			colorSetting(RESET);
 			break;
 	}
 }
@@ -244,83 +216,33 @@ struct BidCard
  **/
 void displayBidCard(struct BidCard BC,char os)
 {
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",BCYAN);
-	}
-	for(register int i=0;i<75;i++)
-	{
-		printf("-");
-	}
-
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
-	printf("\n");
+	colorSetting(BCYAN);
+	line('-',75);
+	colorSetting(RESET);
 	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s* Name:%s ",BCYAN,RESET);
-	}
-	else
-	{
-		printf("* Name: ");
-	}
+	colorSetting(BCYAN);
+	printf("* Name: ");
+	colorSetting(RESET);
 	printf("%s",BC.BidCardName);
 	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s* Skills:%s ",BCYAN,RESET);
-	}
-	else
-	{
-		printf("* Skills: ");
-	}
+	colorSetting(BCYAN);
+	printf("* Skills: ");
+	colorSetting(RESET);
 	printf("%s",BC.skills);
 	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s* Work-Place:%s ",BCYAN,RESET);
-	}
-	else
-	{
-		printf("* Work-Place: ");
-	}
+	colorSetting(BCYAN);
+	printf("* Work-Place: ");
+	colorSetting(RESET);
 	printf("%s",BC.companyName);
 	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s* Designation:%s ",BCYAN,RESET);
-	}
-	else
-	{
-		printf("* Designation: ");
-	}
+	colorSetting(BCYAN);
+	printf("* Designation: ");
+	colorSetting(RESET);
 	printf("%s",BC.Designation);
-	
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",BCYAN);
-	}
-	for(register int i=0;i<75;i++)
-	{
-		printf("-");
-	}
 
-	//FOR LINUX/MAC USER ONLY
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
-	printf("\n");
+	colorSetting(BCYAN);
+	line('-',75);
+	colorSetting(RESET);
 }
 
 /**
@@ -385,12 +307,16 @@ struct User createNewUser()
 
 	printf("Select number of players you want out of 5\n");
 	scanf("%d",&U.BidCardCount);
-	getchar();
-
+	
+	//clear buffer stdin
+	while ( getchar() != '\n' );
+	
 	if(U.BidCardCount<=0 || U.BidCardCount>5)
 	{
-		printf("INVALID NUMBER OF BIDCARDS\n");
-		return;
+		colorSetting(RED);
+		printf("INVALID NUMBER OF BIDCARDS, So it is set to 1\n");
+		colorSetting(RESET);
+		U.BidCardCount=1;
 	}
 
 	printf("Enter %d Bid Cards Player Data\n",U.BidCardCount);
