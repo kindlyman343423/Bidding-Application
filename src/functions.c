@@ -247,6 +247,27 @@ void displayBidCard(struct BidCard BC,char os)
 }
 
 /**
+ * displaySkills()
+ * it will display all skills
+ * @param void
+ * @return void
+ **/
+void displaySkills()
+{
+	colorSetting(BBLUE);
+	line('*',25);
+	for(register int i=0;i<10;i++)
+	{
+		if(i==8)
+			printf("*\t%s\t*\n",SKILLS[i]);	
+		else
+			printf("*\t%s\t\t*\n",SKILLS[i]);
+	}
+	line('*',25);
+	colorSetting(RESET);
+}
+
+/**
  * createBidCard()
  * it will create new bid card for a user
  * @param int => for displaying nthcard
@@ -261,27 +282,26 @@ struct BidCard createBidCard(int nthCard)
 	card.BidID = BIDCARDID;
 	BIDCARDID++;
 	
+	colorSetting(DGREEN);
 	printf("Enter the name of %d Bid Card Player\n",nthCard);
+	colorSetting(RESET);
 	fgets(card.BidCardName,20,stdin);
 
-	printf("Enter the skills of %d Bid Card Player separated with commas(,)\n",nthCard);
-	// printf("Choose from this list:\n");
-	// printf("* C\n");
-	// printf("* C++\n");
-	// printf("* JAVA\n");
-	// printf("* PYTHON\n");
-	// printf("* PERL\n");
-	// printf("* RUBY\n");
-	// printf("* HTML\n");
-	// printf("* CSS\n");
-	// printf("* JAVASCRIPT\n");
-	// printf("* C#\n");
+	colorSetting(DGREEN);
+	printf("Enter the skills of %d Bid Card Player in format i.e C,C++\n",nthCard);
+	colorSetting(RESET);
+	displaySkills();
+	
 	fgets(card.skills,200,stdin);
 
+	colorSetting(DGREEN);
 	printf("Which company does %d Player work\n",nthCard);
+	colorSetting(RESET);
 	fgets(card.companyName,50,stdin);
 
+	colorSetting(DGREEN);
 	printf("Enter the designation of %d Bid Card Player\n",nthCard);
+	colorSetting(RESET);
 	fgets(card.Designation,20,stdin);
 
 	return card;
