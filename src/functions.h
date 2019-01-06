@@ -49,13 +49,11 @@ bool checkValidSkills(char*,int*);
 
 /*COMPANIES FUNCTIONS*/
 void displayCompanies();
-bool findCompanies(char*,int**);
-bool checkValidCompanies(char*,int*);
+bool checkValidCompany(char*,int*);
 
 /*DESIGNATION FUNCTIONS*/
 void displayDesignations();
-bool findDesignations(char*,int**);
-bool checkValidDesignations(char*,int*);
+bool checkValidDesignation(char*,int*);
 
 /*USER FUNCTIONS*/
 struct User createNewUser();

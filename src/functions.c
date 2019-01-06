@@ -89,6 +89,10 @@ bool searchDB(char find[20])
 /**
  * colorSetting()
  * this function sets color on stdout for LINUX ONLY
+ * @param char* => for color string
+ * @return void
+ * @tc - O(1)
+ * @sc - O(1)
  **/
 void colorSetting(char* str)
 {
@@ -251,6 +255,8 @@ void displayBidCard(struct BidCard BC,char os)
  * it will display all skills
  * @param void
  * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void displaySkills()
 {
@@ -345,6 +351,8 @@ bool checkValidSkills(char* skills,int *pts)
  * it will display all companies
  * @param void
  * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void displayCompanies()
 {
@@ -361,60 +369,33 @@ void displayCompanies()
 	colorSetting(RESET);
 }
 
-bool findCompanies(char* company,int **points)
+/**
+ * checkValidCompany()
+ * it will check in company array if match find points will be calculated
+ * @param char* => for company name
+ * @param int* => for points calculation
+ * @tc - O(n)
+ * @sc - O(1)
+ **/
+bool checkValidCompany(char* company,int *points)
 {
+	int len = strlen(company);
+	char comp[len-1];
+	for(register int j=0;j<len-1;j++)
+	{
+		comp[j]=company[j];
+	}
+	
 	int arr[10]={100,90,70,75,50,95,30,80,40,15};
 	for(register int i=0;i<10;i++)
 	{
-		if(strcmp(COMPANIES[i],company)==0)
+		if(strcmp(COMPANIES[i],comp)==0)
 		{
-			**points=**points + arr[i];
+			*points=*points + arr[i];
 			return true;
 		}
 	}
 	return false;
-}
-
-bool checkValidCompanies(char* companies,int *points)
-{
-	//check skill is valid or not
-	int i=0;
-	while(companies[i]!='\0')
-	{
-		if((companies[i]==',' || companies[i]=='+' || companies[i]=='\n')||(companies[i]>='A' && companies[i]<='Z'))
-		{
-			//		
-		}
-		else
-		{
-			return false;
-		}
-		i++;
-	}
-	//parsing
-	i=0;
-	int j=0;
-	char str[10];
-	while(companies[i]!='\0')
-	{
-		if(companies[i]==' ' || companies[i]=='\n' || companies[i]==',')
-		{
-			str[j]='\0';
-			// printf("%s\n",str);
-			if(!findCompanies(str,&points))
-			{
-				return false;
-			}
-			j=0;
-		}
-		else
-		{
-			str[j]=companies[i];
-			j++;
-		}
-		i++;
-	}
-	return true;
 } 
 
 /**
@@ -422,6 +403,8 @@ bool checkValidCompanies(char* companies,int *points)
  * it will display all designations
  * @param void
  * @return void
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void displayDesignations()
 {
@@ -440,60 +423,34 @@ void displayDesignations()
 	colorSetting(RESET);
 }
 
-bool findDesignations(char* designation,int **points)
+/**
+ * checkValidDesignations()
+ * it will find designations is present or not in the table
+ * @param char* => designation
+ * @param int** => points
+ * @return bool
+ * @tc - O(n)
+ * @sc - O(1)
+ **/
+bool checkValidDesignation(char* designation,int *points)
 {
+	int len = strlen(designation);
+	char design[len-1];
+	for(register int j=0;j<len-1;j++)
+	{
+		design[j]=designation[j];
+	}
+
 	int arr[10]={85,100,75,50,65,70,80,45,30,12};
 	for(register int i=0;i<10;i++)
 	{
-		if(strcmp(DESIGNATIONS[i],designation)==0)
+		if(strcmp(DESIGNATIONS[i],design)==0)
 		{
-			**points=**points + arr[i];
+			*points=*points + arr[i];
 			return true;
 		}
 	}
 	return false;
-}
-
-bool checkValidDesignations(char* designations,int *points)
-{
-	//check skill is valid or not
-	int i=0;
-	while(designations[i]!='\0')
-	{
-		if((designations[i]==',' || designations[i]=='+' || designations[i]=='\n')||(designations[i]>='A' && designations[i]<='Z'))
-		{
-			//		
-		}
-		else
-		{
-			return false;
-		}
-		i++;
-	}
-	//parsing
-	i=0;
-	int j=0;
-	char str[10];
-	while(designations[i]!='\0')
-	{
-		if(designations[i]==' ' || designations[i]=='\n' || designations[i]==',')
-		{
-			str[j]='\0';
-			// printf("%s\n",str);
-			if(!findDesignations(str,&points))
-			{
-				return false;
-			}
-			j=0;
-		}
-		else
-		{
-			str[j]=designations[i];
-			j++;
-		}
-		i++;
-	}
-	return true;
 }
 
 /**
@@ -507,7 +464,8 @@ bool checkValidDesignations(char* designations,int *points)
 struct BidCard createBidCard(int nthCard)
 {
 	struct BidCard card;
-	
+	card.points=0;
+
 	card.BidID = BIDCARDID;
 	BIDCARDID++;
 	
@@ -528,38 +486,36 @@ struct BidCard createBidCard(int nthCard)
 		colorSetting(RESET);
 		fgets(card.skills,200,stdin);
 	}
-	printf("points:%d\n",card.points);
-	// exit(0);
+	// printf("points:%d\n",card.points);
 
 	colorSetting(DGREEN);
 	printf("Which company does %d Player work\n",nthCard);
 	colorSetting(RESET);
 	displayCompanies();
 	fgets(card.companyName,50,stdin);
-	while(!checkValidCompanies(card.companyName,&card.points))
+	while(!checkValidCompany(card.companyName,&card.points))
 	{
 		colorSetting(RED);
 		printf("INVALID COMPANY NAME ENTER AGAIN\n");
 		colorSetting(RESET);
 		fgets(card.companyName,50,stdin);
 	}
-	printf("points:%d\n",card.points);
+	// printf("points:%d\n",card.points);
 
 	colorSetting(DGREEN);
 	printf("Enter the designation of %d Bid Card Player\n",nthCard);
 	colorSetting(RESET);
 	displayDesignations();
 	fgets(card.Designation,20,stdin);
-	while(!checkValidDesignations(card.Designation,&card.points))
+	while(!checkValidDesignation(card.Designation,&card.points))
 	{
 		colorSetting(RED);
 		printf("INVALID DESIGNATION ENTER AGAIN\n");
 		colorSetting(RESET);
 		fgets(card.Designation,50,stdin);
 	}
-	printf("points:%d\n",card.points);
+	// printf("points:%d\n",card.points);
 
-	exit(0);
 	return card;
 }
 
@@ -614,7 +570,7 @@ struct User createNewUser()
 		U.BidCards[j] = createBidCard(j+1);
 
 		//display card info for user
-		printf("%sCARD PLAYER %d%s\n",BLGREEN,j+1,RESET);
+		printf("%sBID CARD NUMBER %d%s\n",BLGREEN,j+1,RESET);
 		displayBidCard(U.BidCards[j],'l');
 	}
 	return U;
@@ -651,6 +607,7 @@ void playNewGame()
 	}
 
 	/*GAME ALGO*/
+	printf("SUCCESS\n");
 }
 
 /**
