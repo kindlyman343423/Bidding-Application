@@ -158,11 +158,11 @@ void greetOptions(char os)
 	printf("----------------------------\n");
 	printf("2. START SAVED GAME\n");
 	printf("----------------------------\n");
-	printf("3. SAVE\n");
-	printf("----------------------------\n");
-	printf("4. SAVE AND EXIT\n");
-	printf("----------------------------\n");
-	printf("5. SETTINGS\n");
+	// printf("3. SAVE\n");
+	// printf("----------------------------\n");
+	// printf("4. SAVE AND EXIT\n");
+	// printf("----------------------------\n");
+	printf("3. SETTINGS\n");
 	printf("----------------------------\n");
 	printf("0. EXIT\n");
 	printf("----------------------------\n");
@@ -183,10 +183,6 @@ void greetOptions(char os)
 		case 2:
 			break;
 		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
 			break;
 		default:
 			colorSetting(RED);
@@ -530,6 +526,7 @@ struct User
 	char userName[20];			//username of the user
 	int BidCardCount;			//count of total bidcards present out of 5
 	struct BidCard BidCards[5];	//array of bidcards for every user
+	int scoredpoints;			//score of the user
 };
 
 /**
@@ -546,11 +543,12 @@ struct User createNewUser()
 	U.userID = USERID; 
 	USERID++;
 
-	getchar();
-	printf("Enter your name\n");
+	// getchar();
+	// while ( getchar() != '\n' );
+	printf("$%d: Enter your name please\n",U.userID);
 	fgets(U.userName,20,stdin);
 
-	printf("Select number of Bid Cards you want out of 5\n");
+	printf("$%d: Select number of Bid Cards you want out of 5\n",U.userID);
 	scanf("%d",&U.BidCardCount);
 	
 	//clear buffer stdin
@@ -564,13 +562,14 @@ struct User createNewUser()
 		U.BidCardCount=1;
 	}
 
-	printf("Enter %d Bid Cards Player Data\n",U.BidCardCount);
+	printf("$%d: Enter %d Bid Cards Player Data\n",U.userID,U.BidCardCount);
 	for(register int j=0;j<U.BidCardCount;j++)
 	{
 		U.BidCards[j] = createBidCard(j+1);
 
 		//display card info for user
-		printf("%sBID CARD NUMBER %d%s\n",BLGREEN,j+1,RESET);
+		
+		printf("$%d: %sBID CARD NUMBER %d%s\n",U.userID,BLGREEN,j+1,RESET);
 		displayBidCard(U.BidCards[j],'l');
 	}
 	return U;
@@ -585,6 +584,8 @@ void playNewGame()
 	int numberOfUsers;
 	printf("Enter the number of users you want to play ?\n");
 	scanf("%d",&numberOfUsers);
+	// getchar();
+	while ( getchar() != '\n' );
 
 	if(numberOfUsers<=0 || numberOfUsers>99)
 	{
@@ -606,8 +607,56 @@ void playNewGame()
 		printf("User Created\n");
 	}
 
-	/*GAME ALGO*/
-	printf("SUCCESS\n");
+	printf("LET US START THE GAME !!!\n\n");
+	line('_',80);
+
+	//for single player
+	if(numberOfUsers==1)
+	{
+		
+	}
+	else
+	{
+		/*GAME ALGO*/
+		/*************************************************************/
+		int indextable[numberOfUsers];			//array of storing selected index by users
+		while(true)
+		{
+			//scores
+			for(register int i=0;i<numberOfUsers;i++)
+			{
+				printf("user %d = score:%d\n",i+1,gameArray[i].scoredpoints);
+			}
+			int max=-1;
+			int maxindex=-1;
+			//for one turn only
+			for(register int i=0;i<numberOfUsers;i++)
+			{
+				//user gameArray[i]
+				printf("USER %d TURN:\n",i+1);
+				printf("Enter the Bid card number out of %d\n",gameArray[i].BidCardCount);
+				scanf("%d",&indextable[i]);
+				while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)
+				{
+					colorSetting(RED);
+					printf("ENTER THE VALID BID CARD NUMBER\n");
+					colorSetting(RESET);
+					scanf("%d",&indextable[i]);
+				}
+				indextable[i]-=1;
+				int value = gameArray[i].BidCards[indextable[i]].points;	//get the card points of selected card
+				printf("VALUE:%d\n",value);
+				//calculations
+				if(max<value)
+				{
+					max=value;
+					maxindex=i;
+				}
+			}
+			printf("check: %d %d\n",max,maxindex);
+			gameArray[maxindex].scoredpoints+=10;
+		}
+	}
 }
 
 /**
