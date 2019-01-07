@@ -145,7 +145,7 @@ void welcome()
  * @tc O(1)
  * @sc O(1)
  **/
-void greetOptions(char os)
+void greetOptions()
 {
 	printf("Welcome to our GAME\n\n");
 	
@@ -158,10 +158,6 @@ void greetOptions(char os)
 	printf("----------------------------\n");
 	printf("2. START SAVED GAME\n");
 	printf("----------------------------\n");
-	// printf("3. SAVE\n");
-	// printf("----------------------------\n");
-	// printf("4. SAVE AND EXIT\n");
-	// printf("----------------------------\n");
 	printf("3. SETTINGS\n");
 	printf("----------------------------\n");
 	printf("0. EXIT\n");
@@ -199,7 +195,7 @@ void greetOptions(char os)
 struct BidCard			
 {
 	int BidID;					//unique ID of bidcards
-	char BidCardName[20];				//name of the person on bidcard
+	char BidCardName[20];		//name of the person on bidcard
 	char skills[200];			//skills of the person on bidcard
 	char companyName[50];		//company name in which person work
 	char Designation[20];		//designation of the person
@@ -215,7 +211,7 @@ struct BidCard
  * @tc - O(n)
  * @sc - O(1)
  **/
-void displayBidCard(struct BidCard BC,char os)
+void displayBidCard(struct BidCard BC)
 {
 	colorSetting(BCYAN);
 	line('-',75);
@@ -460,6 +456,7 @@ bool checkValidDesignation(char* designation,int *points)
 struct BidCard createBidCard(int nthCard)
 {
 	struct BidCard card;
+	card.BidID=0;
 	card.points=0;
 
 	card.BidID = BIDCARDID;
@@ -540,6 +537,10 @@ struct User
 struct User createNewUser()
 {
 	struct User U;
+	U.BidCardCount=0;
+	U.scoredpoints=0;
+	U.userID=0;
+
 	U.userID = USERID; 
 	USERID++;
 
@@ -570,7 +571,7 @@ struct User createNewUser()
 		//display card info for user
 		
 		printf("$%d: %sBID CARD NUMBER %d%s\n",U.userID,BLGREEN,j+1,RESET);
-		displayBidCard(U.BidCards[j],'l');
+		displayBidCard(U.BidCards[j]);
 	}
 	return U;
 }
@@ -584,6 +585,7 @@ void playNewGame()
 	int numberOfUsers;
 	printf("Enter the number of users you want to play ?\n");
 	scanf("%d",&numberOfUsers);
+	
 	// getchar();
 	while ( getchar() != '\n' );
 
@@ -595,13 +597,21 @@ void playNewGame()
 
 	/*DISPLAY GAME LOGO*/
 	line('=',80);
-	displayNumberOfPlayers(numberOfUsers,'l');	//display the name of game
-	displayPlayersGame(numberOfUsers,'l');
+	displayNumberOfPlayers(numberOfUsers);	//display the name of game
+	displayPlayersGame(numberOfUsers);
 	line('=',80);
 
 	/*MAIN GAME*/
 	struct User gameArray[numberOfUsers];	//array of users in the game
-	for(register int i=0;i<numberOfUsers;i++)
+	
+	for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
+	{
+		gameArray[i].BidCardCount=0;
+		gameArray[i].scoredpoints=0;
+		gameArray[i].userID=0;	
+	}
+	
+	for(register int i=0;i<numberOfUsers;i++)	//Entering values in gameArray
 	{
 		gameArray[i] = createNewUser();
 		printf("User Created\n");
@@ -634,7 +644,7 @@ void playNewGame()
 			{
 				//user gameArray[i]
 				printf("USER %d TURN:\n",i+1);
-				printf("Enter the Bid card number out of %d\n",gameArray[i].BidCardCount);
+				printf("Select the Bid card number out of %d\n",gameArray[i].BidCardCount);
 				scanf("%d",&indextable[i]);
 				while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)
 				{
@@ -644,6 +654,7 @@ void playNewGame()
 					scanf("%d",&indextable[i]);
 				}
 				indextable[i]-=1;
+				displayBidCard(gameArray[i].BidCards[indextable[i]]);
 				int value = gameArray[i].BidCards[indextable[i]].points;	//get the card points of selected card
 				printf("VALUE:%d\n",value);
 				//calculations
@@ -668,7 +679,7 @@ void playNewGame()
  * @tc - O(n^3)
  * @sc - O(1)
  **/
-void displayNumberOfPlayers(int number,char os)
+void displayNumberOfPlayers(int number)
 {
 	char arr0[5][5] = {
 						{ '+' , '=' , '=' , '=' , '+' },
@@ -745,10 +756,7 @@ void displayNumberOfPlayers(int number,char os)
 	snprintf(str,3,"%d",number);	//converting int to string
 
 	//FOR LINUX/MAC ONLY
-	if(os=='l')
-	{
-		printf("%s",BYELLOW);
-	}
+	colorSetting(BYELLOW);
 
 	for(register int i=0;i<5;i++)	//loop for lines
 	{
@@ -824,10 +832,7 @@ void displayNumberOfPlayers(int number,char os)
 		}
 		printf("\n");
 	}
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
+	colorSetting(RESET);
 }
 
 /**
@@ -838,12 +843,9 @@ void displayNumberOfPlayers(int number,char os)
  * @tc - O(1)
  * @sc - O(1)
  **/
-void displayPlayersGame(int number,char os)
+void displayPlayersGame(int number)
 {
-	if(os=='l')
-	{
-		printf("%s",BBLUE);
-	}
+	colorSetting(BBLUE);
 	
 	printf("\n");
 	if(number==1)
@@ -870,8 +872,5 @@ void displayPlayersGame(int number,char os)
 	printf("\t\t     |   |   /      \\  |     | |\n");
 	printf("\t\t     +===+  /        \\ |     | =====\n");	
 
-	if(os=='l')
-	{
-		printf("%s",RESET);
-	}
+	colorSetting(RESET);
 }

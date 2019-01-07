@@ -25,7 +25,7 @@ struct User;
 void line(char,int);
 void list();
 void welcome();
-void greetOptions(char);
+void greetOptions();
 
 /*OPTION FUNCTIONS*/
 void playNewGame();
@@ -34,12 +34,12 @@ void save();
 void saveAndExit();
 void settings();
 
-void displayNumberOfPlayers(int,char);
-void displayPlayersGame(int,char);
+void displayNumberOfPlayers(int);
+void displayPlayersGame(int);
 void colorSetting(char*);
 
 /*BID CARD FUNCTIONS*/
-void displayBidCard(struct BidCard,char);
+void displayBidCard(struct BidCard);
 struct BidCard createBidCard(int);
 
 /*SKILL FUNCTIONS*/

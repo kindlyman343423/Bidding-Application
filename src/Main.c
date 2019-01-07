@@ -198,9 +198,9 @@ int main()
 	DESIGNATIONS[9] = (char*)malloc(sizeof(char)*5);
 	strcpy(DESIGNATIONS[9],"OTHER");
 
-	OS='l';
+	OS='w';
 	welcome();					//welcome the user to the 
-	greetOptions('l');					//main options of the application
+	greetOptions();					//main options of the application
 	
 	//freeing memory
 	for(register int i=0;i<10;i++)
