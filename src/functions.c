@@ -372,12 +372,13 @@ void displayCompanies()
 bool checkValidCompany(char* company,int *points)
 {
 	int len = strlen(company);
-	char comp[len-1];
+	char comp[len];
 	for(register int j=0;j<len-1;j++)
 	{
 		comp[j]=company[j];
 	}
-	
+	comp[len-1]='\0';
+
 	int arr[10]={100,90,70,75,50,95,30,80,40,15};
 	for(register int i=0;i<10;i++)
 	{
@@ -432,7 +433,7 @@ bool checkValidDesignation(char* designation,int *points)
 	{
 		design[j]=designation[j];
 	}
-
+	design[len-1]='\0';
 	int arr[10]={85,100,75,50,65,70,80,45,30,12};
 	for(register int i=0;i<10;i++)
 	{
@@ -546,10 +547,10 @@ struct User createNewUser()
 
 	// getchar();
 	// while ( getchar() != '\n' );
-	printf("$%d: Enter your name please\n",U.userID);
+	printf("USER%d: Enter your name please\n",U.userID);
 	fgets(U.userName,20,stdin);
 
-	printf("$%d: Select number of Bid Cards you want out of 5\n",U.userID);
+	printf("USER%d: Select number of Bid Cards you want out of 5\n",U.userID);
 	scanf("%d",&U.BidCardCount);
 	
 	//clear buffer stdin
@@ -563,14 +564,14 @@ struct User createNewUser()
 		U.BidCardCount=1;
 	}
 
-	printf("$%d: Enter %d Bid Cards Player Data\n",U.userID,U.BidCardCount);
+	printf("USER%d: Enter %d Bid Cards Player Data\n",U.userID,U.BidCardCount);
 	for(register int j=0;j<U.BidCardCount;j++)
 	{
 		U.BidCards[j] = createBidCard(j+1);
 
 		//display card info for user
 		
-		printf("$%d: %sBID CARD NUMBER %d%s\n",U.userID,BLGREEN,j+1,RESET);
+		printf("USER%d: %sBID CARD NUMBER %d%s\n",U.userID,BLGREEN,j+1,RESET);
 		displayBidCard(U.BidCards[j]);
 	}
 	return U;
