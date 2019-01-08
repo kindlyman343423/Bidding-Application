@@ -177,8 +177,10 @@ void greetOptions()
 			playNewGame();
 			break;
 		case 2:
+			startSavedGame();
 			break;
 		case 3:
+			settings();
 			break;
 		default:
 			colorSetting(RED);
@@ -596,12 +598,6 @@ void playNewGame()
 		return;
 	}
 
-	/*DISPLAY GAME LOGO*/
-	line('=',80);
-	displayNumberOfPlayers(numberOfUsers);	//display the name of game
-	displayPlayersGame(numberOfUsers);
-	line('=',80);
-
 	/*MAIN GAME*/
 	struct User gameArray[numberOfUsers];	//array of users in the game
 	
@@ -616,58 +612,18 @@ void playNewGame()
 	{
 		gameArray[i] = createNewUser();
 		printf("User Created\n");
-	}
+	}	
 
 	printf("LET US START THE GAME !!!\n\n");
-	line('_',80);
 
 	//for single player
 	if(numberOfUsers==1)
 	{
-		
+		singleGame(gameArray[0]);	
 	}
 	else
 	{
-		/*GAME ALGO*/
-		/*************************************************************/
-		int indextable[numberOfUsers];			//array of storing selected index by users
-		while(true)
-		{
-			//scores
-			for(register int i=0;i<numberOfUsers;i++)
-			{
-				printf("user %d = score:%d\n",i+1,gameArray[i].scoredpoints);
-			}
-			int max=-1;
-			int maxindex=-1;
-			//for one turn only
-			for(register int i=0;i<numberOfUsers;i++)
-			{
-				//user gameArray[i]
-				printf("USER %d TURN:\n",i+1);
-				printf("Select the Bid card number out of %d\n",gameArray[i].BidCardCount);
-				scanf("%d",&indextable[i]);
-				while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)
-				{
-					colorSetting(RED);
-					printf("ENTER THE VALID BID CARD NUMBER\n");
-					colorSetting(RESET);
-					scanf("%d",&indextable[i]);
-				}
-				indextable[i]-=1;
-				displayBidCard(gameArray[i].BidCards[indextable[i]]);
-				int value = gameArray[i].BidCards[indextable[i]].points;	//get the card points of selected card
-				printf("VALUE:%d\n",value);
-				//calculations
-				if(max<value)
-				{
-					max=value;
-					maxindex=i;
-				}
-			}
-			printf("check: %d %d\n",max,maxindex);
-			gameArray[maxindex].scoredpoints+=10;
-		}
+		multipleGame(gameArray,numberOfUsers);
 	}
 }
 
@@ -875,3 +831,124 @@ void displayPlayersGame(int number)
 
 	colorSetting(RESET);
 }
+
+void singleGame(struct User U)
+{
+	exit(0);
+	/*DISPLAY GAME LOGO*/
+	line('=',80);
+	displayNumberOfPlayers(1);	//display the name of game
+	displayPlayersGame(1);
+	line('=',80);
+
+	printf("----------------------------\n");
+	printf("1. CONTINUE GAME\n");
+	printf("----------------------------\n");
+	printf("2. SAVE\n");
+	printf("----------------------------\n");
+	printf("3. SAVE AND QUIT\n");
+	printf("----------------------------\n");
+	printf("0. QUIT\n");
+	printf("----------------------------\n");
+	int a;
+	scanf("%d",&a);
+	switch(a)
+	{
+		case 0:
+			return;
+		case 1:
+			//singleGame()
+			break;
+		case 2:
+			//save()
+			//singleGame()
+			break;
+		case 3:
+			//save()
+			return;
+	}
+}
+
+void multipleGame(struct User gameArray[],int numberOfUsers)
+{
+	/*DISPLAY GAME LOGO*/
+	line('=',80);
+	displayNumberOfPlayers(numberOfUsers);	//display the name of game
+	displayPlayersGame(numberOfUsers);
+	line('=',80);
+
+	/*GAME ALGO*/
+	/*************************************************************/
+	int indextable[numberOfUsers];			//array of storing selected index by users
+		
+	int max=-1;
+	int maxindex=-1;
+	//for one turn only
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		//user gameArray[i]
+		printf("USER %d TURN:\n",i+1);
+		printf("Select the Bid card number out of %d\n",gameArray[i].BidCardCount);
+		scanf("%d",&indextable[i]);
+		while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)
+		{
+			colorSetting(RED);
+			printf("ENTER THE VALID BID CARD NUMBER\n");
+			colorSetting(RESET);
+			scanf("%d",&indextable[i]);
+		}
+		indextable[i]-=1;
+		displayBidCard(gameArray[i].BidCards[indextable[i]]);
+		int value = gameArray[i].BidCards[indextable[i]].points;	//get the card points of selected card
+		printf("VALUE:%d\n",value);
+		//calculations
+		if(max<value)
+		{
+			max=value;
+			maxindex=i;
+		}
+	}
+	printf("check: %d %d\n",max,maxindex);
+	gameArray[maxindex].scoredpoints+=10;
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		if(i!=maxindex)
+			gameArray[i].scoredpoints-=1;
+	}
+
+	//scores
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		printf("user %d = score:%d\n",i+1,gameArray[i].scoredpoints);
+	}
+
+	printf("----------------------------\n");
+	printf("1. CONTINUE\n");
+	printf("----------------------------\n");
+	printf("2. SAVE AND CONTINUE\n");
+	printf("----------------------------\n");
+	printf("3. SAVE AND QUIT\n");
+	printf("----------------------------\n");
+	printf("0. QUIT\n");
+	printf("----------------------------\n");
+	int a;
+	scanf("%d",&a);
+	switch(a)
+	{
+		case 0:
+			return;
+		case 1:
+			//do you want to updaate info
+			//multipleGame()
+			break;
+		case 2:
+			//save()
+			//do you want to update info
+			//multipleGame()
+			break;
+		case 3:
+			//save() and -> playnewgame -> greetoptions -> main
+			return;
+	}	
+}
+

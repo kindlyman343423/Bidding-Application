@@ -30,9 +30,10 @@ void greetOptions();
 /*OPTION FUNCTIONS*/
 void playNewGame();
 void startSavedGame();
-void save();
-void saveAndExit();
 void settings();
+
+void save();
+
 
 void displayNumberOfPlayers(int);
 void displayPlayersGame(int);
@@ -54,6 +55,10 @@ bool checkValidCompany(char*,int*);
 /*DESIGNATION FUNCTIONS*/
 void displayDesignations();
 bool checkValidDesignation(char*,int*);
+
+/*GAME FUNCTION*/
+void singleGame(struct User);
+void multipleGame(struct User gameArray[],int);
 
 /*USER FUNCTIONS*/
 struct User createNewUser();
