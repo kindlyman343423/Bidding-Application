@@ -177,10 +177,10 @@ void greetOptions()
 			playNewGame();
 			break;
 		case 2:
-			startSavedGame();
+			// startSavedGame();
 			break;
 		case 3:
-			settings();
+			// settings();
 			break;
 		default:
 			colorSetting(RED);
@@ -871,6 +871,8 @@ void singleGame(struct User U)
 
 void multipleGame(struct User gameArray[],int numberOfUsers)
 {
+	updateInfo(gameArray,numberOfUsers);
+	exit(0);
 	/*DISPLAY GAME LOGO*/
 	line('=',80);
 	displayNumberOfPlayers(numberOfUsers);	//display the name of game
@@ -938,7 +940,7 @@ void multipleGame(struct User gameArray[],int numberOfUsers)
 		case 0:
 			return;
 		case 1:
-			//do you want to updaate info
+			updateInfo(gameArray,numberOfUsers);
 			//multipleGame()
 			break;
 		case 2:
@@ -948,7 +950,56 @@ void multipleGame(struct User gameArray[],int numberOfUsers)
 			break;
 		case 3:
 			//save() and -> playnewgame -> greetoptions -> main
-			return;
-	}	
+			// return;
+			break;
+	}
+	exit(0);	
 }
 
+//LOT OF MENUS INIT
+void updateInfo(struct User gameArray[],int numberOfUsers)
+{
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		char ch;
+		do
+		{
+			printf("USER %d Do you want to update info Y/N\n",i+1);
+			ch = getchar();
+			if(ch=='Y')
+			{
+				printf("Which info you want to update\n");
+				printf("----------------------------\n");
+				printf("1. ADD NEW CARD\n");
+				printf("----------------------------\n");
+				printf("2. UPDATE CARD INFO\n");
+				printf("----------------------------\n");
+				printf("3. DELETE CARD\n");
+				printf("----------------------------\n");
+				printf("0. NO CHANGE\n");
+				printf("----------------------------\n");
+				int a;
+				scanf("%d",&a);
+				switch(a)
+				{
+					case 0:
+						printf("no change\n");
+						break;
+					case 1:
+						printf("add new card\n");
+						break;
+					case 2:
+						printf("update card info\n");
+						break;
+					case 3:
+						printf("delte card\n");
+						break;
+				}
+			}
+			printf("USER %d Do you want to update info Y/N\n",i+1);
+			ch = getchar();
+		}
+		while(ch=='Y');
+		printf("done with user\n");
+	}
+}
