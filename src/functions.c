@@ -619,7 +619,7 @@ void playNewGame()
 	//for single player
 	if(numberOfUsers==1)
 	{
-		singleGame(gameArray[0]);	
+		singleGame(gameArray,numberOfUsers);	
 	}
 	else
 	{
@@ -832,107 +832,100 @@ void displayPlayersGame(int number)
 	colorSetting(RESET);
 }
 
-void singleGame(struct User U)
+void singleGame(struct User gameArray[],int numberOfUsers)
 {
-	exit(0);
 	/*DISPLAY GAME LOGO*/
 	line('=',80);
 	displayNumberOfPlayers(1);	//display the name of game
 	displayPlayersGame(1);
 	line('=',80);
 
-	printf("----------------------------\n");
-	printf("1. CONTINUE GAME\n");
-	printf("----------------------------\n");
-	printf("2. SAVE\n");
-	printf("----------------------------\n");
-	printf("3. SAVE AND QUIT\n");
-	printf("----------------------------\n");
-	printf("0. QUIT\n");
-	printf("----------------------------\n");
-	int a;
-	scanf("%d",&a);
-	switch(a)
-	{
-		case 0:
-			return;
-		case 1:
-			//singleGame()
-			break;
-		case 2:
-			//save()
-			//singleGame()
-			break;
-		case 3:
-			//save()
-			return;
-	}
+	/*SINGLE GAME ALGO*/
+
+	gameOptions(gameArray,numberOfUsers,0);	//calling game options
 }
 
+/**
+ * multipleGame()
+ * it has the main logic of multiple user game
+ * @param struct User[] => gameArray 
+ * @param int => for number of users
+ * @return void
+ * @tc => O()
+ * @sc => O()
+ **/
 void multipleGame(struct User gameArray[],int numberOfUsers)
 {
-	updateInfo(gameArray,numberOfUsers);
-	exit(0);
 	/*DISPLAY GAME LOGO*/
 	line('=',80);
-	displayNumberOfPlayers(numberOfUsers);	//display the name of game
-	displayPlayersGame(numberOfUsers);
+	displayNumberOfPlayers(numberOfUsers);									//display number on the game
+	displayPlayersGame(numberOfUsers);										//it will display the player game
 	line('=',80);
 
-	/*GAME ALGO*/
-	/*************************************************************/
-	int indextable[numberOfUsers];			//array of storing selected index by users
-		
-	int max=-1;
-	int maxindex=-1;
-	//for one turn only
-	for(register int i=0;i<numberOfUsers;i++)
+	/*====================> MAIN GAME ALGO<================================*/
+	int indextable[numberOfUsers];											//array of storing selected index by users
+	int max=-1;																//for finding max value
+	int maxindex=-1;														//for finding max index
+	
+	for(register int i=0;i<numberOfUsers;i++)								//calculating index table values and max values for win
 	{
-		//user gameArray[i]
 		printf("USER %d TURN:\n",i+1);
 		printf("Select the Bid card number out of %d\n",gameArray[i].BidCardCount);
 		scanf("%d",&indextable[i]);
-		while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)
+		while(indextable[i]<=0 || indextable[i]>gameArray[i].BidCardCount)	//this loop is for handling wrong input
 		{
-			colorSetting(RED);
+			colorSetting(RED);												//for displaying red color on linux
 			printf("ENTER THE VALID BID CARD NUMBER\n");
-			colorSetting(RESET);
+			colorSetting(RESET);											//for displaying reset color on linux
 			scanf("%d",&indextable[i]);
 		}
-		indextable[i]-=1;
-		displayBidCard(gameArray[i].BidCards[indextable[i]]);
-		int value = gameArray[i].BidCards[indextable[i]].points;	//get the card points of selected card
+		indextable[i]-=1;													//decrease by one for array index
+		displayBidCard(gameArray[i].BidCards[indextable[i]]);				//display the selected bidcard to user
+		int value = gameArray[i].BidCards[indextable[i]].points;			//get the card points of selected card
+		
 		printf("VALUE:%d\n",value);
-		//calculations
-		if(max<value)
+		if(max<value)														//for calculating max value and max index
 		{
 			max=value;
 			maxindex=i;
 		}
 	}
+
 	printf("check: %d %d\n",max,maxindex);
-	gameArray[maxindex].scoredpoints+=10;
-	for(register int i=0;i<numberOfUsers;i++)
+	
+	/*calculating the points*/
+	gameArray[maxindex].scoredpoints+=10;									//add 10 points to the winner
+	for(register int i=0;i<numberOfUsers;i++)								//decrease every other points by 1 for losing
 	{
-		if(i!=maxindex)
+		if(i!=maxindex)														//for not decreasing the points of winner
 			gameArray[i].scoredpoints-=1;
 	}
 
-	//scores
-	for(register int i=0;i<numberOfUsers;i++)
+	for(register int i=0;i<numberOfUsers;i++)								//displaying the scores to the user
 	{
 		printf("user %d = score:%d\n",i+1,gameArray[i].scoredpoints);
 	}
 
-	printf("----------------------------\n");
-	printf("1. CONTINUE\n");
-	printf("----------------------------\n");
-	printf("2. SAVE AND CONTINUE\n");
-	printf("----------------------------\n");
-	printf("3. SAVE AND QUIT\n");
-	printf("----------------------------\n");
+	gameOptions(gameArray,numberOfUsers,1);
+}
+
+/**
+ * gameOptions()
+ * it will show game options after every one game
+ **/
+void gameOptions(struct User gameArray[],int numberOfUsers,int option)
+{
+	/*GAME OPTIONS FOR WHAT TO DO AFTER ONE BID GAME*/
+	printf("Select one option:\n");
+	printf("============================\n");
 	printf("0. QUIT\n");
 	printf("----------------------------\n");
+	printf("1. CONTINUE\n");												//if the user want to continue game
+	printf("----------------------------\n");
+	printf("2. SAVE AND CONTINUE\n");										//it will first save the game and then continue it
+	printf("----------------------------\n");
+	printf("3. SAVE AND QUIT\n");											//it will save and quit the game
+	printf("============================\n");
 	int a;
 	scanf("%d",&a);
 	switch(a)
@@ -941,65 +934,95 @@ void multipleGame(struct User gameArray[],int numberOfUsers)
 			return;
 		case 1:
 			updateInfo(gameArray,numberOfUsers);
-			//multipleGame()
+			if(option==0)
+				singleGame(gameArray,numberOfUsers);
+			else
+				multipleGame(gameArray,numberOfUsers);
 			break;
 		case 2:
-			//save()
-			//do you want to update info
-			//multipleGame()
+			save();
+			updateInfo(gameArray,numberOfUsers);
+			if(option==0)
+				singleGame(gameArray,numberOfUsers);
+			else
+				multipleGame(gameArray,numberOfUsers);
 			break;
 		case 3:
-			//save() and -> playnewgame -> greetoptions -> main
-			// return;
-			break;
+			save();
+			return;
 	}
-	exit(0);	
 }
 
-//LOT OF MENUS INIT
+/**
+ * updateInfo()
+ * it will the update the user info
+ * @param struct user array
+ * @param int => for number of users
+ * @return void
+ **/
 void updateInfo(struct User gameArray[],int numberOfUsers)
 {
 	for(register int i=0;i<numberOfUsers;i++)
 	{
 		printf("USER %d Do you want to update info Y/N\n",i+1);
 		char ch = getchar();
-		getchar();									//for \n char
-		while(ch=='Y')
+		getchar();											//for \n char
+		while(ch=='Y')										//update options
 		{
 			printf("Which info you want to update\n");
 			printf("----------------------------\n");
-			printf("1. ADD NEW CARD\n");
-			printf("----------------------------\n");
-			printf("2. UPDATE CARD INFO\n");
-			printf("----------------------------\n");
-			printf("3. DELETE CARD\n");
-			printf("----------------------------\n");
 			printf("0. NO CHANGE\n");
+			printf("----------------------------\n");
+			printf("1. DISPLAY ALL CARDS\n");
+			printf("----------------------------\n");
+			printf("2. ADD NEW CARD\n");
+			printf("----------------------------\n");
+			printf("3. UPDATE CARD INFO\n");
+			printf("----------------------------\n");
+			printf("4. DELETE CARD\n");
 			printf("----------------------------\n");
 			int a;
 			scanf("%d",&a);
+			getchar();
 			switch(a)
 			{
 				case 0:
-					printf("no change\n");
-					break;
+					break;													//no change
 				case 1:
-					printf("add new card\n");
+					for(register int j=0;j<gameArray[i].BidCardCount;j++)	//displaying all the cards
+					{
+						displayBidCard(gameArray[i].BidCards[j]);
+					}
 					break;
 				case 2:
-					printf("update card info\n");
+					if(gameArray[i].BidCardCount<=5)
+					{
+						printf("Adding new card......\n\n");
+						gameArray[i].BidCardCount++;
+						struct BidCard BD = createBidCard(gameArray[i].BidCardCount);
+						displayBidCard(BD);	
+					}
+					else
+					{
+						colorSetting(RED);
+						printf("SORRY CAPACITY FULL\n");
+						colorSetting(RESET);
+					}
 					break;
 				case 3:
 					printf("delte card\n");
 					break;
+				case 4:
+					break;
 			}
 			printf("USER %d Do you want to update more info Y/N\n",i+1);
-			ch = getchar();getchar();
-			if(ch!='Y')
-			{
-				break;
-			}
+			ch = getchar();getchar();						//extra getchar for reading \n
 		}
 		printf("done with user\n");
 	}
+}
+
+void save()
+{
+
 }

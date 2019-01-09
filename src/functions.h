@@ -33,6 +33,8 @@ void playNewGame();
 // void settings();
 
 void save();
+
+/*UPDATE FUNCTIONS*/
 void updateInfo(struct User*,int);
 
 void displayNumberOfPlayers(int);
@@ -57,8 +59,9 @@ void displayDesignations();
 bool checkValidDesignation(char*,int*);
 
 /*GAME FUNCTION*/
-void singleGame(struct User);
+void singleGame(struct User*,int);
 void multipleGame(struct User*,int);
+void gameOptions(struct User*,int,int);
 
 /*USER FUNCTIONS*/
 struct User createNewUser();
