@@ -199,9 +199,12 @@ int main()
 	strcpy(DESIGNATIONS[9],"OTHER");
 
 	OS='l';
-	welcome();					//welcome the user to the 
-	greetOptions();					//main options of the application
-	
+	while(true)
+	{
+		welcome();					//welcome the user to the 
+		greetOptions();				//main options of the application
+	}
+
 	//freeing memory
 	for(register int i=0;i<10;i++)
 	{

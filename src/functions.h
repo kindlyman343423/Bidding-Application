@@ -17,22 +17,21 @@ char **SKILLS;
 char **COMPANIES;
 char **DESIGNATIONS;
 
+void EXIT();
 /*STRUCTURES NEEDED FOR THE GAME*/
 struct BidCard;
 struct User;
 
 /*GREET FUNCTIONS*/
 void line(char,int);
-void list();
 void welcome();
 void greetOptions();
 
-/*OPTION FUNCTIONS*/
+/*GREET OPTION FUNCTIONS*/
 void playNewGame();
-// void startSavedGame();
-// void settings();
-
-void save();
+void startSavedGame();
+void settings();
+void highscores();
 
 /*UPDATE FUNCTIONS*/
 void updateInfo(struct User*,int);
@@ -68,3 +67,5 @@ struct User createNewUser();
 
 //DATABASE FUNCTIONS
 bool searchDB();
+void list();
+void save();

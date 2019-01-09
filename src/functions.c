@@ -1,6 +1,23 @@
 #include "functions.h"
 /*FUNCTIONS*/
 
+void EXIT()
+{
+	//freeing memory
+	for(register int i=0;i<10;i++)
+	{
+		free(SKILLS[i]);
+		free(COMPANIES[i]);
+		free(DESIGNATIONS[i]);
+	}
+	free(SKILLS);
+	free(COMPANIES);
+	free(DESIGNATIONS);
+	SKILLS=NULL;
+	COMPANIES=NULL;
+	DESIGNATIONS=NULL;
+	exit(0);
+}
 /**
  * line()
  * prints the line
@@ -17,73 +34,6 @@ void line(char ch,int count)
 		printf("%c",ch);
 	}
 	printf("\n");
-}
-
-/**
- * list()
- * lists the files present in current directory
- **/
-void list()
-{
-	printf("\n");
-	//CREATING POINTER TO A DIRECTORY
-	DIR *pdir = NULL;
-	//USING DIRENT STRUCTURE
-	struct dirent *pent = NULL;
-	//OPENING DIRECTORY
-	pdir = opendir(".");
-	if(pdir == NULL)
-	{
-		printf("ERROR !!!!!!!\n");
-		exit(1);
-	}
-	while(pent = readdir(pdir))
-	{
-		if(pent == NULL)
-		{
-			printf("pent ERROR");
-			exit(3);
-		}
-		printf("%s\n",pent->d_name);
-	}
-	//CLOSING DIRECTORY
-	closedir(pdir);
-	printf("\n");
-}
-
-/**
- * searchDB()
- * it will search the current string in the database
- * @param find[20]
- * @return bool boolean for searching
- * @complexity tc-O(n) sc-O(1)
- **/
-bool searchDB(char find[20])
-{
-	int strcounter=0;				 //string counter for counting
-	char str[50];					 //string for reading
-	FILE *db;
-	db = fopen("database.txt","r");  //reading database file
-	while(!feof(db))
-	{
-		char ch = fgetc(db);
-		if(ch==' ' || ch=='\n')
-		{
-			str[strcounter]='\0';
-			if(strcmp(str,find)==0)
-			{
-				return true;
-			}
-			strcounter=0;			//resetting string counter
-		}
-		else
-		{
-			str[strcounter]=ch;
-			strcounter++;
-		}
-	}
-	fclose(db);
-	return false;
 }
 
 /**
@@ -160,6 +110,8 @@ void greetOptions()
 	printf("----------------------------\n");
 	printf("3. SETTINGS\n");
 	printf("----------------------------\n");
+	printf("4. HIGHSCORES\n");
+	printf("----------------------------\n");
 	printf("0. EXIT\n");
 	printf("----------------------------\n");
 	
@@ -172,24 +124,41 @@ void greetOptions()
 	switch(q)
 	{
 		case 0:
-			exit(0);
+			EXIT();
 		case 1:
-			playNewGame();
+			playNewGame();							//start new game
 			break;
 		case 2:
-			// startSavedGame();
+			startSavedGame();						//start saved game
 			break;
 		case 3:
-			// settings();
+			settings();								//open settings
+			break;
+		case 4:
+			highscores();							//show highscores
 			break;
 		default:
+			while ( getchar() != '\n' );			//clears the buffer
 			colorSetting(RED);
 			printf("INVALID OPTION NUMBER\n");
 			colorSetting(RESET);
-			break;
 	}
 }
 
+void startSavedGame()
+{
+
+}
+
+void settings()
+{
+
+}
+
+void highscores()
+{
+
+}
 /**
  * BidCard structure
  * for making bid cards
@@ -832,6 +801,13 @@ void displayPlayersGame(int number)
 	colorSetting(RESET);
 }
 
+
+/**
+ * singleGame()
+ * @param struct User array
+ * @param int => for numberOfUsers
+ * @return void
+ **/
 void singleGame(struct User gameArray[],int numberOfUsers)
 {
 	/*DISPLAY GAME LOGO*/
@@ -928,27 +904,29 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 	printf("============================\n");
 	int a;
 	scanf("%d",&a);
+	//clear buffer stdin
+	while ( getchar() != '\n' );
 	switch(a)
 	{
 		case 0:
 			return;
 		case 1:
-			updateInfo(gameArray,numberOfUsers);
+			updateInfo(gameArray,numberOfUsers);							//first update info
 			if(option==0)
-				singleGame(gameArray,numberOfUsers);
+				singleGame(gameArray,numberOfUsers);						//called single user game
 			else
-				multipleGame(gameArray,numberOfUsers);
+				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 2:
-			save();
-			updateInfo(gameArray,numberOfUsers);
+			save();															//save game first
+			updateInfo(gameArray,numberOfUsers);							//then call update info
 			if(option==0)
-				singleGame(gameArray,numberOfUsers);
+				singleGame(gameArray,numberOfUsers);						//called single user game
 			else
-				multipleGame(gameArray,numberOfUsers);
+				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 3:
-			save();
+			save();															//save the game and returning
 			return;
 	}
 }
@@ -995,12 +973,13 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					}
 					break;
 				case 2:
-					if(gameArray[i].BidCardCount<=5)
+					if(gameArray[i].BidCardCount<5)
 					{
-						printf("Adding new card......\n\n");
+						printf("Adding new card......\n\n"); 
+						int index = gameArray[i].BidCardCount;
 						gameArray[i].BidCardCount++;
-						struct BidCard BD = createBidCard(gameArray[i].BidCardCount);
-						displayBidCard(BD);	
+						gameArray[i].BidCards[index] = createBidCard(gameArray[i].BidCardCount);
+						displayBidCard(gameArray[i].BidCards[index]);	
 					}
 					else
 					{
@@ -1010,19 +989,88 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					}
 					break;
 				case 3:
-					printf("delte card\n");
+					printf("delete card\n");
 					break;
 				case 4:
 					break;
 			}
 			printf("USER %d Do you want to update more info Y/N\n",i+1);
-			ch = getchar();getchar();						//extra getchar for reading \n
+			ch = getchar();getchar();										//extra getchar for reading \n
 		}
 		printf("done with user\n");
 	}
 }
 
+
+
+/*================================> DATABASE FUNCTIONS <=======================*/
 void save()
 {
 
+}
+/**
+ * list()
+ * lists the files present in current directory
+ **/
+void list()
+{
+	printf("\n");
+	//CREATING POINTER TO A DIRECTORY
+	DIR *pdir = NULL;
+	//USING DIRENT STRUCTURE
+	struct dirent *pent = NULL;
+	//OPENING DIRECTORY
+	pdir = opendir(".");
+	if(pdir == NULL)
+	{
+		printf("ERROR !!!!!!!\n");
+		exit(1);
+	}
+	while(pent = readdir(pdir))
+	{
+		if(pent == NULL)
+		{
+			printf("pent ERROR");
+			exit(3);
+		}
+		printf("%s\n",pent->d_name);
+	}
+	//CLOSING DIRECTORY
+	closedir(pdir);
+	printf("\n");
+}
+
+/**
+ * searchDB()
+ * it will search the current string in the database
+ * @param find[20]
+ * @return bool boolean for searching
+ * @complexity tc-O(n) sc-O(1)
+ **/
+bool searchDB(char find[20])
+{
+	int strcounter=0;				 //string counter for counting
+	char str[50];					 //string for reading
+	FILE *db;
+	db = fopen("database.txt","r");  //reading database file
+	while(!feof(db))
+	{
+		char ch = fgetc(db);
+		if(ch==' ' || ch=='\n')
+		{
+			str[strcounter]='\0';
+			if(strcmp(str,find)==0)
+			{
+				return true;
+			}
+			strcounter=0;			//resetting string counter
+		}
+		else
+		{
+			str[strcounter]=ch;
+			strcounter++;
+		}
+	}
+	fclose(db);
+	return false;
 }
