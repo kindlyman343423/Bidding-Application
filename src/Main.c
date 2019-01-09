@@ -199,7 +199,7 @@ int main()
 	strcpy(DESIGNATIONS[9],"OTHER");
 
 	OS='l';
-	while(true)
+	while(true) //@tc => O(n^5)
 	{
 		welcome();					//welcome the user to the 
 		greetOptions();				//main options of the application

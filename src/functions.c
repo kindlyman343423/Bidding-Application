@@ -1,6 +1,13 @@
 #include "functions.h"
 /*FUNCTIONS*/
 
+/**
+ * EXIT()
+ * @param void
+ * @return void
+ * @tc - O(n)
+ * @sc - O(1)
+ **/
 void EXIT()
 {
 	//freeing memory
@@ -18,6 +25,7 @@ void EXIT()
 	DESIGNATIONS=NULL;
 	exit(0);
 }
+
 /**
  * line()
  * prints the line
@@ -54,8 +62,8 @@ void colorSetting(char* str)
  * welcome()
  * for greeting the user
  * @param char LINUX/MAC-l WINDOWS-w
- * @tc O(n)
- * @sc O(1)
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void welcome()
 {
@@ -92,8 +100,8 @@ void welcome()
  * show greet options to the user
  * @param void
  * @return void
- * @tc O(1)
- * @sc O(1)
+ * @tc - O(n^4)
+ * @sc - O(1)
  **/
 void greetOptions()
 {
@@ -551,6 +559,10 @@ struct User createNewUser()
 /**
  * playNewGame()
  * this is the main game
+ * @param void
+ * @return void
+ * @tc - O(n^4)
+ * @sc - O(1)
  **/
 void playNewGame()
 {
@@ -827,8 +839,8 @@ void singleGame(struct User gameArray[],int numberOfUsers)
  * @param struct User[] => gameArray 
  * @param int => for number of users
  * @return void
- * @tc => O()
- * @sc => O()
+ * @tc => O(n^3)
+ * @sc => O(1)
  **/
 void multipleGame(struct User gameArray[],int numberOfUsers)
 {
