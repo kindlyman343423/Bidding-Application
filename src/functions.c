@@ -961,45 +961,45 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 {
 	for(register int i=0;i<numberOfUsers;i++)
 	{
-		char ch;
-		do
+		printf("USER %d Do you want to update info Y/N\n",i+1);
+		char ch = getchar();
+		getchar();									//for \n char
+		while(ch=='Y')
 		{
-			printf("USER %d Do you want to update info Y/N\n",i+1);
-			ch = getchar();
-			if(ch=='Y')
+			printf("Which info you want to update\n");
+			printf("----------------------------\n");
+			printf("1. ADD NEW CARD\n");
+			printf("----------------------------\n");
+			printf("2. UPDATE CARD INFO\n");
+			printf("----------------------------\n");
+			printf("3. DELETE CARD\n");
+			printf("----------------------------\n");
+			printf("0. NO CHANGE\n");
+			printf("----------------------------\n");
+			int a;
+			scanf("%d",&a);
+			switch(a)
 			{
-				printf("Which info you want to update\n");
-				printf("----------------------------\n");
-				printf("1. ADD NEW CARD\n");
-				printf("----------------------------\n");
-				printf("2. UPDATE CARD INFO\n");
-				printf("----------------------------\n");
-				printf("3. DELETE CARD\n");
-				printf("----------------------------\n");
-				printf("0. NO CHANGE\n");
-				printf("----------------------------\n");
-				int a;
-				scanf("%d",&a);
-				switch(a)
-				{
-					case 0:
-						printf("no change\n");
-						break;
-					case 1:
-						printf("add new card\n");
-						break;
-					case 2:
-						printf("update card info\n");
-						break;
-					case 3:
-						printf("delte card\n");
-						break;
-				}
+				case 0:
+					printf("no change\n");
+					break;
+				case 1:
+					printf("add new card\n");
+					break;
+				case 2:
+					printf("update card info\n");
+					break;
+				case 3:
+					printf("delte card\n");
+					break;
 			}
-			printf("USER %d Do you want to update info Y/N\n",i+1);
-			ch = getchar();
+			printf("USER %d Do you want to update more info Y/N\n",i+1);
+			ch = getchar();getchar();
+			if(ch!='Y')
+			{
+				break;
+			}
 		}
-		while(ch=='Y');
 		printf("done with user\n");
 	}
 }
