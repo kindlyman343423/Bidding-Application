@@ -1001,9 +1001,138 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					}
 					break;
 				case 3:
-					printf("delete card\n");
+					printf("update card info\n");
+					printf("Which card you want to update currently you have %d\n",gameArray[i].BidCardCount);
+					int index;
+					scanf("%d",&index);
+					while(index<=0 || index>gameArray[i].BidCardCount)			//for wrong input for updating
+					{
+						colorSetting(RED);
+						printf("WRONG INPUT ENTER AGAIN\n");
+						colorSetting(RESET);
+						scanf("%d",&index);
+					}
+					
+					printf("Select one option\n");
+					printf("Which one option you want to update\n");
+					printf("...........................\n");
+					printf("0. No Change\n");
+					printf("...........................\n");
+					printf("1. Update Bid Card Name\n");
+					printf("...........................\n");
+					printf("2. Update Skills\n");
+					printf("...........................\n");
+					printf("3. Update Company Name\n");
+					printf("...........................\n");
+					printf("4. Update Designation\n");
+					printf("...........................\n");
+					printf("%d\n",index);
+					int option;
+					scanf("%d",&option);
+					while(option<0 || option>4)
+					{
+						colorSetting(RED);
+						printf("WRONG OPTION SELECTION\n");
+						colorSetting(RESET);
+						scanf("%d",&option);
+					}
+					//clear buffer
+					while(getchar()!='\n');
+					switch(option)
+					{
+						case 0:								//no change
+							break;
+						case 1:
+							//update card name
+							colorSetting(DGREEN);
+							printf("Enter the name of %d Bid Card Player\n",i+1);
+							colorSetting(RESET);
+							fgets(gameArray[i].BidCards[index-1].BidCardName,20,stdin);
+							break;
+						case 2:
+							//update skills
+							colorSetting(DGREEN);
+							printf("Enter the skills of %d Bid Card Player in format i.e C,C++\n",i+1);
+							colorSetting(RESET);
+							displaySkills();
+							fgets(gameArray[i].BidCards[index-1].skills,200,stdin);
+							while(!checkValidSkills(gameArray[i].BidCards[index-1].skills,&gameArray[i].BidCards[index-1].points))
+							{
+								colorSetting(RED);
+								printf("INVALID SKILL ENTER AGAIN\n");
+								colorSetting(RESET);
+								fgets(gameArray[i].BidCards[index-1].skills,200,stdin);
+							}
+							break;
+						case 3:
+							//update company name
+							colorSetting(DGREEN);
+							printf("Which company does %d Player work\n",i+1);
+							colorSetting(RESET);
+							displayCompanies();
+							fgets(gameArray[i].BidCards[index-1].companyName,50,stdin);
+							while(!checkValidCompany(gameArray[i].BidCards[index-1].companyName,&gameArray[i].BidCards[index-1].points))
+							{
+								colorSetting(RED);
+								printf("INVALID COMPANY NAME ENTER AGAIN\n");
+								colorSetting(RESET);
+								fgets(gameArray[i].BidCards[index-1].companyName,50,stdin);
+							}
+							break;
+						case 4:
+							//update designation
+							colorSetting(DGREEN);
+							printf("Enter the designation of %d Bid Card Player\n",i+1);
+							colorSetting(RESET);
+							displayDesignations();
+							fgets(gameArray[i].BidCards[index-1].Designation,20,stdin);
+							while(!checkValidDesignation(gameArray[i].BidCards[index-1].Designation,&gameArray[i].BidCards[index-1].points))
+							{
+								colorSetting(RED);
+								printf("INVALID DESIGNATION ENTER AGAIN\n");
+								colorSetting(RESET);
+								fgets(gameArray[i].BidCards[index-1].Designation,50,stdin);
+							}
+							break;
+					}
 					break;
 				case 4:
+					printf("delete card info\n");
+					if(gameArray[i].BidCardCount<0)
+					{
+						colorSetting(RED);
+						printf("SORRY ZERO CAPACITY\n");
+						colorSetting(RESET);
+					}
+					else
+					{
+						int in;
+						printf("Which card you want to delete out of %d\n",gameArray[i].BidCardCount);
+						scanf("%d",&in);
+						while(in<0 || in>gameArray[i].BidCardCount)
+						{
+							colorSetting(RED);
+							printf("SOORY WRONG CARD NUMBER\n");
+							colorSetting(RESET);
+							scanf("%d",&in);
+						}
+						//clear buffer
+						while(getchar()!='\n');
+						printf("WE ARE DELETING THIS CARD\n");
+						displayBidCard(gameArray[i].BidCards[in-1]);
+						printf("ARE YOU SURE !!! Y/N");
+						char ans = getchar();
+						if(ans=='Y')
+						{
+							//delete the card
+						}
+						else
+						{
+							printf("Its OK\n");
+						}
+					}
+					//clear buffer
+					while(getchar()!='\n');
 					break;
 			}
 			printf("USER %d Do you want to update more info Y/N\n",i+1);
