@@ -1,21 +1,23 @@
-#include "functions.h"
-/*FUNCTIONS*/
+#include "functions.h"					//include the headers
 
 /**
  * EXIT()
+ * this function exits the application and free the heap memory
+ * 
  * @param void
+ * 
  * @return void
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
 void EXIT()
 {
-	//freeing memory
-	for(register int i=0;i<10;i++)
+	for(register int i=0;i<10;i++)			//free the memory
 	{
-		free(SKILLS[i]);
-		free(COMPANIES[i]);
-		free(DESIGNATIONS[i]);
+		free(SKILLS[i]);					//free the SKILLS heap array
+		free(COMPANIES[i]);					//free the COMPANIES heap array
+		free(DESIGNATIONS[i]);				//free the DESIGNATIONS heap array
 	}
 	free(SKILLS);
 	free(COMPANIES);
@@ -23,15 +25,18 @@ void EXIT()
 	SKILLS=NULL;
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
-	exit(0);
+	exit(0);								//exit the app
 }
 
 /**
  * line()
- * prints the line
+ * prints the line of same character
+ * 
  * @param char for print char
  * @param int for printing upto count
+ * 
  * @return void
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
@@ -47,8 +52,11 @@ void line(char ch,int count)
 /**
  * colorSetting()
  * this function sets color on stdout for LINUX ONLY
+ * 
  * @param char* => for color string
+ * 
  * @return void
+ * 
  * @tc - O(1)
  * @sc - O(1)
  **/
@@ -60,8 +68,12 @@ void colorSetting(char* str)
 
 /**
  * welcome()
- * for greeting the user
+ * this function welocome the user by displaying Bid App to the user
+ * 
  * @param char LINUX/MAC-l WINDOWS-w
+ * 
+ * @return void 
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
@@ -97,9 +109,12 @@ void welcome()
 
 /**
  * greetOptions()
- * show greet options to the user
+ * it will display the main options of the applications
+ * 
  * @param void
+ * 
  * @return void
+ * 
  * @tc - O(n^4)
  * @sc - O(1)
  **/
@@ -112,15 +127,15 @@ void greetOptions()
 	colorSetting(RESET);
 
 	printf("----------------------------\n");
-	printf("1. PLAY NEW GAME\n");
+	printf("1. PLAY NEW GAME\n");						//it will start a new game
 	printf("----------------------------\n");
-	printf("2. START SAVED GAME\n");
+	printf("2. START SAVED GAME\n");					//it will start a saved game
 	printf("----------------------------\n");
-	printf("3. SETTINGS\n");
+	printf("3. SETTINGS\n");							//it will open settings
 	printf("----------------------------\n");
-	printf("4. HIGHSCORES\n");
+	printf("4. HIGHSCORES\n");							//it will open highscores
 	printf("----------------------------\n");
-	printf("0. EXIT\n");
+	printf("0. EXIT\n");								//it will exit the app
 	printf("----------------------------\n");
 	
 	colorSetting(BOLD);
@@ -132,7 +147,7 @@ void greetOptions()
 	switch(q)
 	{
 		case 0:
-			EXIT();
+			EXIT();									//exit the game
 		case 1:
 			playNewGame();							//start new game
 			break;
@@ -153,20 +168,45 @@ void greetOptions()
 	}
 }
 
+/**
+ * startSavedGame()
+ * this will start the saved game
+ * 
+ * @param
+ * 
+ * @return
+ **/
 void startSavedGame()
 {
 
 }
 
+/**
+ * settings()
+ * this will start the settings
+ * 
+ * @param
+ * 
+ * @return
+ **/
 void settings()
 {
 
 }
 
+/**
+ * highscores()
+ * this will open the highscores
+ * 
+ * @param
+ * 
+ * @return
+ **/
 void highscores()
 {
 
 }
+
 /**
  * BidCard structure
  * for making bid cards
@@ -184,55 +224,61 @@ struct BidCard
 /**
  * displayBidCard()
  * it will display the cards of the user
+ * 
  * @param struct BidCard
  * @param char for operating system linux/mac-l windows-w
+ * 
  * @return void
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
 void displayBidCard(struct BidCard BC)
 {
-	colorSetting(BCYAN);
-	line('-',75);
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	line('-',75);					//display the line
+	colorSetting(RESET);			//display color on linux
 	
-	colorSetting(BCYAN);
-	printf("* Name: ");
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	printf("* Name: ");				//display the name logo
+	colorSetting(RESET);			//display color on linux
 	printf("%s",BC.BidCardName);
 	
-	colorSetting(BCYAN);
-	printf("* Skills: ");
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	printf("* Skills: ");			//display the skills logo
+	colorSetting(RESET);			//display color on linux
 	printf("%s",BC.skills);
 	
-	colorSetting(BCYAN);
-	printf("* Work-Place: ");
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	printf("* Work-Place: ");		//display the work place
+	colorSetting(RESET);			//display color on linux
 	printf("%s",BC.companyName);
 	
-	colorSetting(BCYAN);
-	printf("* Designation: ");
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	printf("* Designation: ");		//display the designation
+	colorSetting(RESET);			//display color on linux
 	printf("%s",BC.Designation);
 
-	colorSetting(BCYAN);
-	line('-',75);
-	colorSetting(RESET);
+	colorSetting(BCYAN);			//display color on linux
+	line('-',75);					//display the line
+	colorSetting(RESET);			//display color on linux
 }
 
 /**
  * displaySkills()
  * it will display all skills
+ * 
  * @param void
+ * 
  * @return void
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
 void displaySkills()
 {
-	colorSetting(BBLUE);
-	line('*',25);
+	colorSetting(BBLUE);			//display the color on linux
+	line('*',25);					//display the line
 	for(register int i=0;i<10;i++)
 	{
 		if(i==8)
@@ -240,15 +286,18 @@ void displaySkills()
 		else
 			printf("*\t%s\t\t*\n",SKILLS[i]);
 	}
-	line('*',25);
-	colorSetting(RESET);
+	line('*',25);					//display the line
+	colorSetting(RESET);			//display the color on linux
 }
 
 /**
  * findSkills()
  * it will find specific skill in out table
+ * 
  * @param skill
+ * 
  * @return bool
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
@@ -270,20 +319,22 @@ bool findSkills(char* skill,int** points)
  * checkValidSkills()
  * it will check whether it is caps or not
  * it will find whether it is in our skills tables or not
+ * 
  * @param skills
+ * 
  * @return bool
+ * 
  * @tc - O(n^2)
  * @sc - O(1)
  **/
 bool checkValidSkills(char* skills,int *pts)
 {
-	//check skill is valid or not
 	int i=0;
-	while(skills[i]!='\0')
+	while(skills[i]!='\0')						//check skill is valid or not
 	{
 		if((skills[i]==',' || skills[i]=='+' || skills[i]=='\n')||(skills[i]>='A' && skills[i]<='Z'))
 		{
-			//		
+			//do nothing		
 		}
 		else
 		{
@@ -291,7 +342,8 @@ bool checkValidSkills(char* skills,int *pts)
 		}
 		i++;
 	}
-	//parsing
+
+	/*parsing the skills*/
 	i=0;
 	int j=0;
 	char str[10];
@@ -320,15 +372,18 @@ bool checkValidSkills(char* skills,int *pts)
 /**
  * displayCompanies()
  * it will display all companies
+ * 
  * @param void
+ * 
  * @return void
+ * 
  * @tc - O(n)
  * @sc - O(1)
  **/
 void displayCompanies()
 {
-	colorSetting(BBLUE);
-	line('*',25);
+	colorSetting(BBLUE);					//display the color on linux
+	line('*',25);							//display the line
 	for(register int i=0;i<10;i++)
 	{
 		if(i==5)
@@ -336,7 +391,7 @@ void displayCompanies()
 		else
 			printf("*\t%s\t\t*\n",COMPANIES[i]);
 	}
-	line('*',25);
+	line('*',25);							//display the line
 	colorSetting(RESET);
 }
 
