@@ -601,8 +601,11 @@ struct BidCard getBidCardDesignation(struct BidCard card,int nthCard)
 /**
  * createBidCard()
  * it will create new bid card for a user
+ * 
  * @param int => for displaying nthcard
+ * 
  * @return struct BidCard
+ * 
  * @tc - O(n^3)
  * @sc - O(1)
  **/
@@ -647,8 +650,11 @@ struct User
 /**
  * createNewUser()
  * it will create new user
+ * 
  * @param void
+ * 
  * @return struct User
+ * 
  * @tc - O(n^4)
  * @sc - O(n)
  **/
@@ -697,8 +703,11 @@ struct User createNewUser()
 /**
  * playNewGame()
  * this is the main game
+ * 
  * @param void
+ * 
  * @return void
+ * 
  * @tc - O(n^4)
  * @sc - O(1)
  **/
@@ -749,9 +758,12 @@ void playNewGame()
 /**
  * displayNumberOfPlayers()
  * it will display the number played users on the game
+ * 
  * @param int
  * @param char for operating system l-linux/mac w-windows
+ * 
  * @return void
+ * 
  * @tc - O(n^3)
  * @sc - O(1)
  **/
@@ -914,8 +926,11 @@ void displayNumberOfPlayers(int number)
 /**
  * displayPlayerGame()
  * it will display player game
+ * 
  * @param char for os
+ * 
  * @return void
+ * 
  * @tc - O(1)
  * @sc - O(1)
  **/
@@ -954,8 +969,10 @@ void displayPlayersGame(int number)
 
 /**
  * singleGame()
+ * 
  * @param struct User array
  * @param int => for numberOfUsers
+ * 
  * @return void
  **/
 void singleGame(struct User gameArray[],int numberOfUsers)
@@ -974,9 +991,12 @@ void singleGame(struct User gameArray[],int numberOfUsers)
 /**
  * multipleGame()
  * it has the main logic of multiple user game
+ * 
  * @param struct User[] => gameArray 
  * @param int => for number of users
+ * 
  * @return void
+ * 
  * @tc => O(n^3)
  * @sc => O(1)
  **/
@@ -1084,8 +1104,10 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 /**
  * updateInfo()
  * it will the update the user info
+ * 
  * @param struct user array
  * @param int => for number of users
+ * 
  * @return void
  **/
 void updateInfo(struct User gameArray[],int numberOfUsers)
@@ -1281,7 +1303,6 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 }
 
 
-
 /*================================> DATABASE FUNCTIONS <=======================*/
 void save()
 {
@@ -1322,8 +1343,11 @@ void list()
 /**
  * searchDB()
  * it will search the current string in the database
+ * 
  * @param find[20]
+ * 
  * @return bool boolean for searching
+ * 
  * @complexity tc-O(n) sc-O(1)
  **/
 bool searchDB(char find[20])
