@@ -42,6 +42,10 @@ void colorSetting(char*);
 
 /*BID CARD FUNCTIONS*/
 void displayBidCard(struct BidCard);
+struct BidCard getBidCardName(struct BidCard,int);
+struct BidCard getBidCardSkills(struct BidCard,int);
+struct BidCard getBidCardCompanyName(struct BidCard,int);
+struct BidCard getBidCardDesignation(struct BidCard,int);
 struct BidCard createBidCard(int);
 
 /*SKILL FUNCTIONS*/
