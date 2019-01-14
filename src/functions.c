@@ -1,8 +1,9 @@
-#include "functions.h"					//include the headers
+#include "functions.h"				//include the headers
 
 /**
  * EXIT()
- * this function exits the application and free the heap memory
+ * this function exits the application and free the
+ * heap memory
  * 
  * @param void
  * 
@@ -13,11 +14,11 @@
  **/
 void EXIT()
 {
-	for(register int i=0;i<10;i++)			//free the memory
+	for(register int i=0;i<10;i++)	//free the memory
 	{
-		free(SKILLS[i]);					//free the SKILLS heap array
-		free(COMPANIES[i]);					//free the COMPANIES heap array
-		free(DESIGNATIONS[i]);				//free the DESIGNATIONS heap array
+		free(SKILLS[i]);			//free the SKILLS heap array
+		free(COMPANIES[i]);			//free the COMPANIES heap array
+		free(DESIGNATIONS[i]);		//free the DESIGNATIONS heap array
 	}
 	free(SKILLS);
 	free(COMPANIES);
@@ -25,7 +26,7 @@ void EXIT()
 	SKILLS=NULL;
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
-	exit(0);								//exit the app
+	exit(0);						//exit the app
 }
 
 /**

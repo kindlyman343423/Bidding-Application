@@ -1,6 +1,5 @@
-// #include "functions.h"
 #include "functions.c"
-
+#include "highscores.c"
 int main()
 {	
 	/*VARIABLE DECLARATIONS*/
