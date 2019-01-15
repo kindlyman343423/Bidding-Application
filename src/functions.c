@@ -225,7 +225,8 @@ void highscores()
 	printf("  \\| ______\\ \\ \\ \\ \\________ \\ \\ \\_____\\ \\ \\ \\ \\  \\ \\ \\  \\ \\ \\______|_ \\| _______\\ \\\n");
 	printf("    |\\________\\ \\ \\_________\\ \\ \\_________\\ \\ \\_\\  \\ \\_\\  \\ \\_________\\  |\\_________\\\n");
 	printf("    \\|________|  \\|_________|  \\|_________|  \\|_|   \\|_|   \\|_________|  \\|_________|\n");
-	exit(0);
+	printf("\n");
+	line('+',85);
 	colorSetting(BLUE);
 	printf("User ID\tUser Name\tHighScore\n");
 	colorSetting(RESET);
@@ -1229,55 +1230,19 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 							break;
 						case 1:
 							//update card name
-							colorSetting(DGREEN);
-							printf("Enter the name of %d Bid Card Player\n",i+1);
-							colorSetting(RESET);
-							fgets(gameArray[i].BidCards[index-1].BidCardName,20,stdin);
+							gameArray[i].BidCards[index-1] = getBidCardName(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 2:
 							//update skills
-							colorSetting(DGREEN);
-							printf("Enter the skills of %d Bid Card Player in format i.e C,C++\n",i+1);
-							colorSetting(RESET);
-							displaySkills();
-							fgets(gameArray[i].BidCards[index-1].skills,200,stdin);
-							while(!checkValidSkills(gameArray[i].BidCards[index-1].skills,&gameArray[i].BidCards[index-1].points))
-							{
-								colorSetting(RED);
-								printf("INVALID SKILL ENTER AGAIN\n");
-								colorSetting(RESET);
-								fgets(gameArray[i].BidCards[index-1].skills,200,stdin);
-							}
+							gameArray[i].BidCards[index-1] = getBidCardSkills(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 3:
 							//update company name
-							colorSetting(DGREEN);
-							printf("Which company does %d Player work\n",i+1);
-							colorSetting(RESET);
-							displayCompanies();
-							fgets(gameArray[i].BidCards[index-1].companyName,50,stdin);
-							while(!checkValidCompany(gameArray[i].BidCards[index-1].companyName,&gameArray[i].BidCards[index-1].points))
-							{
-								colorSetting(RED);
-								printf("INVALID COMPANY NAME ENTER AGAIN\n");
-								colorSetting(RESET);
-								fgets(gameArray[i].BidCards[index-1].companyName,50,stdin);
-							}
+							gameArray[i].BidCards[index-1] = getBidCardCompanyName(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 4:
 							//update designation
-							colorSetting(DGREEN);
-							printf("Enter the designation of %d Bid Card Player\n",i+1);
-							colorSetting(RESET);
-							displayDesignations();
-							fgets(gameArray[i].BidCards[index-1].Designation,20,stdin);
-							while(!checkValidDesignation(gameArray[i].BidCards[index-1].Designation,&gameArray[i].BidCards[index-1].points))
-							{
-								colorSetting(RED);
-								printf("INVALID DESIGNATION ENTER AGAIN\n");
-								colorSetting(RESET);
-								fgets(gameArray[i].BidCards[index-1].Designation,50,stdin);
-							}
+							gameArray[i].BidCards[index-1] = getBidCardDesignation(gameArray[i].BidCards[index-1],i+1);
 							break;
 					}
 					break;
