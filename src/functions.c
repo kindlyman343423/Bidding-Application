@@ -1176,7 +1176,8 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 			printf("----------------------------\n");
 			int a;
 			scanf("%d",&a);
-			getchar();
+			//clear buffer stdin
+			while ( getchar() != '\n' );
 			switch(a)
 			{
 				case 0:
@@ -1279,15 +1280,21 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 						printf("SORRY ZERO CAPACITY\n");
 						colorSetting(RESET);
 					}
+					else if(gameArray[i].BidCardCount<=1)
+					{
+						colorSetting(RED);
+						printf("INVALID DELETION\n");
+						colorSetting(RESET);
+					}
 					else
 					{
 						int in;
 						printf("Which card you want to delete out of %d\n",gameArray[i].BidCardCount);
 						scanf("%d",&in);
-						while(in<0 || in>gameArray[i].BidCardCount)
+						while(in<=0 || in>gameArray[i].BidCardCount)
 						{
 							colorSetting(RED);
-							printf("SOORY WRONG CARD NUMBER\n");
+							printf("SORRY WRONG CARD NUMBER\n");
 							colorSetting(RESET);
 							scanf("%d",&in);
 						}
@@ -1295,19 +1302,27 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 						while(getchar()!='\n');
 						printf("WE ARE DELETING THIS CARD\n");
 						displayBidCard(gameArray[i].BidCards[in-1]);
-						printf("ARE YOU SURE !!! Y/N");
+						printf("ARE YOU SURE !!! Y/N\n");
 						char ans = getchar();
+						//clear buffer
+						while(getchar()!='\n');
 						if(ans=='Y')
 						{
+							//in-1 --index to delete
+							for(register int k=in-1;k<gameArray[i].BidCardCount-1;k++)
+							{
+								gameArray[i].BidCards[k] = gameArray[i].BidCards[k+1];
+							}
+							gameArray[i].BidCardCount--;
 							//delete the card
+							//shift the card
 						}
 						else
 						{
-							printf("Its OK\n");
+							printf("OK\n");
 						}
 					}
-					//clear buffer
-					while(getchar()!='\n');
+					
 					break;
 			}
 			printf("USER %d Do you want to update more info Y/N\n",i+1);
