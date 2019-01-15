@@ -50,8 +50,8 @@ struct BidCard createBidCard(int);
 
 /*SKILL FUNCTIONS*/
 void displaySkills();
-bool findSkills(char*,int**);
-bool checkValidSkills(char*,int*);
+bool findSkills(char*,int**,char);
+bool checkValidSkills(char*,int*,char);
 
 /*COMPANIES FUNCTIONS*/
 void displayCompanies();

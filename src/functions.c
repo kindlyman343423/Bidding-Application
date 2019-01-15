@@ -327,14 +327,21 @@ void displaySkills()
  * @tc - O(n)
  * @sc - O(1)
  **/
-bool findSkills(char* skill,int** points)
+bool findSkills(char* skill,int** points,char operation)
 {
 	int arr[10]={60,70,80,90,50,40,30,20,100,10};	//array of values of different skills
 	for(register int i=0;i<10;i++)					//finding the strings in the array
 	{
 		if(strcmp(SKILLS[i],skill)==0)
 		{
-			**points=**points + arr[i];
+			if(operation=='+')						//for adding new skill
+			{
+				**points=**points + arr[i];
+			}	
+			else if(operation=='-')					//for updating skills
+			{
+				**points=**points - arr[i];
+			}
 			return true;
 		}
 	}
@@ -353,7 +360,7 @@ bool findSkills(char* skill,int** points)
  * @tc - O(n^2)
  * @sc - O(1)
  **/
-bool checkValidSkills(char* skills,int *pts)
+bool checkValidSkills(char* skills,int *pts,char operation)
 {
 	int i=0;
 	while(skills[i]!='\0')									//check skill is valid or not
@@ -379,7 +386,7 @@ bool checkValidSkills(char* skills,int *pts)
 		{
 			str[j]='\0';
 			// printf("%s\n",str);
-			if(!findSkills(str,&pts))						//if the skill don't found in SKILLS array
+			if(!findSkills(str,&pts,operation))						//if the skill don't found in SKILLS array
 			{
 				return false;
 			}
@@ -556,7 +563,7 @@ struct BidCard getBidCardSkills(struct BidCard card,int nthCard)
 	colorSetting(RESET);															//for displaying color on linux
 	displaySkills();
 	fgets(card.skills,200,stdin);
-	while(!checkValidSkills(card.skills,&card.points))
+	while(!checkValidSkills(card.skills,&card.points,'+'))
 	{
 		colorSetting(RED);															//for displaying color on linux
 		printf("INVALID SKILL ENTER AGAIN\n");
@@ -644,10 +651,10 @@ struct BidCard createBidCard(int nthCard)
 	card.BidID = BIDCARDID;
 	BIDCARDID++;
 
-	card = getBidCardName(card,nthCard);					//call for bid card name
-	card = getBidCardSkills(card,nthCard);					//call for bid card skills
-	card = getBidCardCompanyName(card,nthCard);				//call for bid card company name
-	card = getBidCardDesignation(card,nthCard);				//call for bid card designation
+	card = getBidCardName(card,nthCard);					//input and new bid card name is entered
+	card = getBidCardSkills(card,nthCard);					//input skills are parsed and points are calculated
+	card = getBidCardCompanyName(card,nthCard);				//input compnay name are finded and points are calculated
+	card = getBidCardDesignation(card,nthCard);				//input designation are finded and points are calculated
 	
 	// printf("%d\n",card.BidID);
 	// printf("%d\n",card.points);
@@ -1212,7 +1219,7 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					printf("...........................\n");
 					printf("4. Update Designation\n");
 					printf("...........................\n");
-					printf("%d\n",index);
+					// printf("%d\n",index);
 					int option;
 					scanf("%d",&option);
 					while(option<0 || option>4)
@@ -1224,6 +1231,9 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					}
 					//clear buffer
 					while(getchar()!='\n');
+
+					int currentpoints = gameArray[i].BidCards[index-1].points;		//current points present before updating
+					printf("POINTS CHECK:%d",currentpoints);
 					switch(option)
 					{
 						case 0:								//no change
@@ -1233,6 +1243,9 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 							gameArray[i].BidCards[index-1] = getBidCardName(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 2:
+							//substract initial skill points
+							checkValidSkills(gameArray[i].BidCards[index-1].skills,&gameArray[i].BidCards[index-1].points,'-');
+							
 							//update skills
 							gameArray[i].BidCards[index-1] = getBidCardSkills(gameArray[i].BidCards[index-1],i+1);
 							break;
@@ -1245,6 +1258,9 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 							gameArray[i].BidCards[index-1] = getBidCardDesignation(gameArray[i].BidCards[index-1],i+1);
 							break;
 					}
+					int diffpoints = gameArray[i].BidCards[index-1].points - currentpoints;
+					printf("POINTS AGAIN CHECK:%d %d\n",diffpoints,gameArray[i].BidCards[index-1].points);
+					exit(0);
 					break;
 				case 4:
 					printf("delete card info\n");
