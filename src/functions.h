@@ -55,7 +55,7 @@ bool checkValidSkills(char*,int*,char);
 
 /*COMPANIES FUNCTIONS*/
 void displayCompanies();
-bool checkValidCompany(char*,int*);
+bool checkValidCompany(char*,int*,char);
 
 /*DESIGNATION FUNCTIONS*/
 void displayDesignations();

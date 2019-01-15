@@ -440,7 +440,7 @@ void displayCompanies()
  * @tc - O(n)
  * @sc - O(1)
  **/
-bool checkValidCompany(char* company,int *points)
+bool checkValidCompany(char* company,int *points,char operation)
 {
 	int len = strlen(company);						//calculating the string length
 	char comp[len];									//decalared string comp
@@ -455,7 +455,14 @@ bool checkValidCompany(char* company,int *points)
 	{
 		if(strcmp(COMPANIES[i],comp)==0)
 		{
-			*points=*points + arr[i];
+			if(operation=='+')
+			{
+				*points=*points + arr[i];
+			}
+			else if(operation=='-')
+			{
+				*points=*points - arr[i];
+			}
 			return true;
 		}
 	}
@@ -592,7 +599,7 @@ struct BidCard getBidCardCompanyName(struct BidCard card,int nthCard)
 	colorSetting(RESET);										//for displaying color on linux
 	displayCompanies();
 	fgets(card.companyName,50,stdin);
-	while(!checkValidCompany(card.companyName,&card.points))
+	while(!checkValidCompany(card.companyName,&card.points,'+'))
 	{
 		colorSetting(RED);										//for displaying color on linux
 		printf("INVALID COMPANY NAME ENTER AGAIN\n");
@@ -1250,6 +1257,8 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 							gameArray[i].BidCards[index-1] = getBidCardSkills(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 3:
+							//substract initial company name points
+							checkValidCompany(gameArray[i].BidCards[index-1].companyName,&gameArray[i].BidCards[index-1].points,'-');
 							//update company name
 							gameArray[i].BidCards[index-1] = getBidCardCompanyName(gameArray[i].BidCards[index-1],i+1);
 							break;
