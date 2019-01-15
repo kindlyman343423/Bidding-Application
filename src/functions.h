@@ -59,7 +59,7 @@ bool checkValidCompany(char*,int*,char);
 
 /*DESIGNATION FUNCTIONS*/
 void displayDesignations();
-bool checkValidDesignation(char*,int*);
+bool checkValidDesignation(char*,int*,char);
 
 /*GAME FUNCTION*/
 void singleGame(struct User*,int);

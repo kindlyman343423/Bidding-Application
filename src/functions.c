@@ -509,7 +509,7 @@ void displayDesignations()
  * @tc - O(n)
  * @sc - O(1)
  **/
-bool checkValidDesignation(char* designation,int *points)
+bool checkValidDesignation(char* designation,int *points,char operation)
 {
 	int len = strlen(designation);						//find the len of the string
 	char design[len-1];
@@ -523,7 +523,10 @@ bool checkValidDesignation(char* designation,int *points)
 	{
 		if(strcmp(DESIGNATIONS[i],design)==0)
 		{
-			*points=*points + arr[i];
+			if(operation=='+')
+				*points=*points + arr[i];
+			else if(operation=='-')
+				*points=*points - arr[i];
 			return true;
 		}
 	}
@@ -628,7 +631,7 @@ struct BidCard getBidCardDesignation(struct BidCard card,int nthCard)
 	colorSetting(RESET);												//for displaying color on linux
 	displayDesignations();
 	fgets(card.Designation,20,stdin);
-	while(!checkValidDesignation(card.Designation,&card.points))
+	while(!checkValidDesignation(card.Designation,&card.points,'+'))
 	{
 		colorSetting(RED);												//for displaying color on linux
 		printf("INVALID DESIGNATION ENTER AGAIN\n");
@@ -1239,8 +1242,6 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 					//clear buffer
 					while(getchar()!='\n');
 
-					int currentpoints = gameArray[i].BidCards[index-1].points;		//current points present before updating
-					printf("POINTS CHECK:%d",currentpoints);
 					switch(option)
 					{
 						case 0:								//no change
@@ -1263,13 +1264,12 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 							gameArray[i].BidCards[index-1] = getBidCardCompanyName(gameArray[i].BidCards[index-1],i+1);
 							break;
 						case 4:
+							//subtract initial designation points
+							checkValidDesignation(gameArray[i].BidCards[index-1].Designation,&gameArray[i].BidCards[index-1].points,'-');
 							//update designation
 							gameArray[i].BidCards[index-1] = getBidCardDesignation(gameArray[i].BidCards[index-1],i+1);
 							break;
 					}
-					int diffpoints = gameArray[i].BidCards[index-1].points - currentpoints;
-					printf("POINTS AGAIN CHECK:%d %d\n",diffpoints,gameArray[i].BidCards[index-1].points);
-					exit(0);
 					break;
 				case 4:
 					printf("delete card info\n");
