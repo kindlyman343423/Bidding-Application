@@ -542,8 +542,8 @@ bool checkValidDesignation(char* designation,int *points,char operation)
  * 
  * @return struct BidCard
  * 
- * @tc -> O(1)
- * @sc -> O(1)
+ * @tc - O(1)
+ * @sc - O(1)
  **/
 struct BidCard getBidCardName(struct BidCard card,int nthCard)
 {
@@ -1143,7 +1143,7 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 2:
-			save(gameArray);															//save game first
+			save(gameArray,numberOfUsers);															//save game first
 			updateInfo(gameArray,numberOfUsers);							//then call update info
 			if(option==0)
 				singleGame(gameArray,numberOfUsers);						//called single user game
@@ -1151,7 +1151,7 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 3:
-			save(gameArray);															//save the game and returning
+			save(gameArray,numberOfUsers);															//save the game and returning
 			return;
 	}
 }
@@ -1349,10 +1349,44 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 
 
 /*================================> DATABASE FUNCTIONS <=======================*/
-void save(struct User gameArray[])
+/**
+ * save()
+ * this function will save the game
+ * 
+ * @param struct User array
+ * @param int for number of users
+ * 
+ * @return void
+ **/
+void save(struct User gameArray[],int numberOfUsers)
 {
-
+	printf("SAVING GAME\n");
+	FILE *ptr=NULL;
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		/*FOR ONE USER*/
+		char filename[50];
+		strcat(filename,".db/");
+		char file[5];
+		sprintf(file,"%d",gameArray[i].userID);
+		strcat(filename,file);
+		printf("%s\n",filename);
+		ptr = fopen(filename,"w");
+		if(ptr==NULL)
+		{
+			printf("FILE ERROR");
+			exit(0);
+		}
+		
+		fclose(ptr);
+		for(register int j=0;j<gameArray[i].BidCardCount;j++)
+		{
+			//making files with userid names
+			displayBidCard(gameArray[i].BidCards[j]);
+		}
+	}
 }
+
 /**
  * list()
  * lists the files present in current directory

@@ -72,4 +72,4 @@ struct User createNewUser();
 //DATABASE FUNCTIONS
 bool searchDB();
 void list();
-void save(struct User gameArray[]);
+void save(struct User*,int);
