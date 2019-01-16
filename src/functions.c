@@ -1361,12 +1361,13 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 void save(struct User gameArray[],int numberOfUsers)
 {
 	printf("SAVING GAME\n");
+	
 	FILE *ptr=NULL;
 	for(register int i=0;i<numberOfUsers;i++)
 	{
 		/*FOR ONE USER*/
 		char filename[50];
-		strcat(filename,".db/");
+		strcat(filename,"db/");
 		char file[5];
 		sprintf(file,"%d",gameArray[i].userID);
 		strcat(filename,file);
@@ -1377,13 +1378,40 @@ void save(struct User gameArray[],int numberOfUsers)
 			printf("FILE ERROR");
 			exit(0);
 		}
+
+		//writing to file in specific format
+		/**
+		 * FILE FORMAT
+		 * UserID
+		 * username
+		 * bidcardcount
+		 * scored points
+		 * ~
+		 * bidcardid
+		 * skills
+		 * companyname
+		 * designation
+		 * points
+		 * ===
+		 **/
+		fprintf(ptr,"%d\n",gameArray[i].userID);
+		fprintf(ptr,"%s",gameArray[i].userName);
+		fprintf(ptr,"%d\n",gameArray[i].BidCardCount);
+		fprintf(ptr,"%d\n",gameArray[i].scoredpoints);
+		fprintf(ptr,"~\n");
 		
-		fclose(ptr);
+		//writing card data to file
 		for(register int j=0;j<gameArray[i].BidCardCount;j++)
 		{
-			//making files with userid names
-			displayBidCard(gameArray[i].BidCards[j]);
+			fprintf(ptr,"%d\n",gameArray[i].BidCards[j].BidID);
+			fprintf(ptr,"%s",gameArray[i].BidCards[j].BidCardName);
+			fprintf(ptr,"%s",gameArray[i].BidCards[j].skills);
+			fprintf(ptr,"%s",gameArray[i].BidCards[j].companyName);
+			fprintf(ptr,"%s",gameArray[i].BidCards[j].Designation);
+			fprintf(ptr,"%d\n",gameArray[i].BidCards[j].points);
+			fprintf(ptr,"===\n");
 		}
+		fclose(ptr);
 	}
 }
 
