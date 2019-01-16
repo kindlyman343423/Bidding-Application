@@ -10,8 +10,8 @@
 #include "../RAINBOW-0.1/src/C/rainbow.h"
 #define USERS 500   //max users in application formed
 
-int BIDCARDID=1;        //for setting bid ids
-int USERID = 1;         //for setting user ids
+int BIDCARDID=1;        //default setting bid ids
+int USERID = 1;         //default setting user ids
 char OS='w';            //environment variable for os
 char **SKILLS;          //env variable for SKILLS array
 char **COMPANIES;       //env variable for COMPANIES array

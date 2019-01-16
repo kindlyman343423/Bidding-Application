@@ -52,15 +52,18 @@ int main()
 	// 	line();
 	// }
 
+	//creating .bid file
+
 	//adding some data from .dat to program
 	FILE *ptr;
 	ptr = fopen(".bid","r");
 	if(ptr==NULL)
 	{
-		colorSetting(RED);
-		printf("YOU HAVE DELETED THE MAIN PROGRAM FILES\n");
-		colorSetting(RESET);
-		exit(1);
+		//if user has DELETED THE MAIN PROGRAM FILES\n");
+		ptr = fopen(".bid","w");
+		fprintf(ptr,"%d %d %c\n",1,1,'w');
+		fclose(ptr);
+		fopen(".bid","r");
 	}
 	//reading and parsing the file
 	fscanf(ptr,"%d %d %c\n",&BIDCARDID,&USERID,&OS);
