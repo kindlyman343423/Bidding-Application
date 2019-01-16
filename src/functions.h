@@ -10,8 +10,8 @@
 #include "../RAINBOW-0.1/src/C/rainbow.h"
 #define USERS 100
 
-static int BIDCARDID=1; //for setting bid ids
-static int USERID = 1;  //for setting user ids
+int BIDCARDID=1; //for setting bid ids
+int USERID = 1;  //for setting user ids
 char OS='w';           //environment variable for os
 char **SKILLS;
 char **COMPANIES;

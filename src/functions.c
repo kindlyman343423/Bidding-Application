@@ -26,6 +26,19 @@ void EXIT()
 	SKILLS=NULL;
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
+	
+	//writing the data to .bid file
+	FILE *ptr;
+	ptr = fopen(".bid","w");
+	if(ptr==NULL)
+	{
+		colorSetting(RED);
+		printf("YOU HAVE DELETED THE MAIN PROGRAM FILES\n");
+		colorSetting(RESET);
+		exit(1);
+	}
+	fprintf(ptr,"%d %d %c\n",BIDCARDID,USERID,OS);
+	fclose(ptr);
 	exit(0);						//exit the app
 }
 
