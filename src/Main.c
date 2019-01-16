@@ -59,7 +59,7 @@ int main()
 	ptr = fopen(".bid","r");
 	if(ptr==NULL)
 	{
-		//if user has DELETED THE MAIN PROGRAM FILES\n");
+		//if user has DELETED THE MAIN PROGRAM FILES
 		ptr = fopen(".bid","w");
 		fprintf(ptr,"%d %d %c\n",1,1,'w');
 		fclose(ptr);

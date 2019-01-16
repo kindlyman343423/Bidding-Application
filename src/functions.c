@@ -1374,7 +1374,6 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 void save(struct User gameArray[],int numberOfUsers)
 {
 	printf("SAVING GAME\n");
-	
 	FILE *ptr=NULL;
 	for(register int i=0;i<numberOfUsers;i++)
 	{
@@ -1385,6 +1384,27 @@ void save(struct User gameArray[],int numberOfUsers)
 		sprintf(file,"%d",gameArray[i].userID);
 		strcat(filename,file);
 		printf("%s\n",filename);
+
+		/*adding record in .dbindex*/
+		time_t raw;
+		struct tm *timeinfo;
+		time(&raw);
+	  	timeinfo = localtime (&raw);
+		
+		bool findrecord = searchDB(file);
+		if(!findrecord)					//if record not find in the dbindex
+		{
+			ptr = fopen("db/.dbindex","a");
+			if(ptr==NULL)
+			{
+				printf("FILE ERROR");
+				exit(0);
+			}
+			fprintf(ptr,"%d\t%s\n",gameArray[i].userID,asctime(timeinfo));
+			fclose(ptr);
+		}
+		
+		//creating new file
 		ptr = fopen(filename,"w");
 		if(ptr==NULL)
 		{
@@ -1475,7 +1495,17 @@ bool searchDB(char find[20])
 	int strcounter=0;				 //string counter for counting
 	char str[50];					 //string for reading
 	FILE *db;
-	db = fopen("database.txt","r");  //reading database file
+	db = fopen("db/.dbindex","r");  //reading dbindex file in db
+	if(db==NULL)
+	{
+		colorSetting(RED);
+		printf("FILE ERROR\n");
+		colorSetting(RESET);
+		//regeneration of dbindex file
+		db = fopen("db/.dbindex","w");
+		fclose(db);
+		db = fopen("db/.dbindex","r");
+	}
 	while(!feof(db))
 	{
 		char ch = fgetc(db);
