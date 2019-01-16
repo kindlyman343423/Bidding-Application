@@ -8,14 +8,14 @@
 #include <time.h>
 #include <stdbool.h>
 #include "../RAINBOW-0.1/src/C/rainbow.h"
-#define USERS 100
+#define USERS 500   //max users in application formed
 
-int BIDCARDID=1; //for setting bid ids
-int USERID = 1;  //for setting user ids
-char OS='w';           //environment variable for os
-char **SKILLS;
-char **COMPANIES;
-char **DESIGNATIONS;
+int BIDCARDID=1;        //for setting bid ids
+int USERID = 1;         //for setting user ids
+char OS='w';            //environment variable for os
+char **SKILLS;          //env variable for SKILLS array
+char **COMPANIES;       //env variable for COMPANIES array
+char **DESIGNATIONS;    //env variable for DESIGNATIONS array
 
 void EXIT();
 /*STRUCTURES NEEDED FOR THE GAME*/

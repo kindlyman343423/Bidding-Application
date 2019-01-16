@@ -3,7 +3,7 @@
 /**
  * EXIT()
  * this function exits the application and free the
- * heap memory
+ * heap memory and save environment variables
  * 
  * @param void
  * 

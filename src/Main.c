@@ -65,6 +65,15 @@ int main()
 	//reading and parsing the file
 	fscanf(ptr,"%d %d %c\n",&BIDCARDID,&USERID,&OS);
 	printf("%d %d %c\n",BIDCARDID,USERID,OS);
+	
+	/*LIMITING THE USERS OF APPLICATION*/
+	if(USERID==USERS)
+	{
+		colorSetting(RED);
+		printf("USER LIMIT EXCEEDED\n");
+		colorSetting(RESET);
+		exit(1);
+	}
 	fclose(ptr);
 
 	/*SKILLS INFO*/
