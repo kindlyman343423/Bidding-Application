@@ -1017,6 +1017,9 @@ void displayPlayersGame(int number)
  * @param int => for numberOfUsers
  * 
  * @return void
+ * 
+ * @tc
+ * @sc
  **/
 void singleGame(struct User gameArray[],int numberOfUsers)
 {
@@ -1040,8 +1043,8 @@ void singleGame(struct User gameArray[],int numberOfUsers)
  * 
  * @return void
  * 
- * @tc => O(n^3)
- * @sc => O(1)
+ * @tc - O(n^3)
+ * @sc - O(1)
  **/
 void multipleGame(struct User gameArray[],int numberOfUsers)
 {
@@ -1101,6 +1104,15 @@ void multipleGame(struct User gameArray[],int numberOfUsers)
 /**
  * gameOptions()
  * it will show game options after every one game
+ * 
+ * @param struct User array for gamearray
+ * @param int for number of users
+ * @param int for option whether it single game of multiple game
+ * 
+ * @return void 
+ * 
+ * @tc - O(n^4)
+ * @sc - O(1)
  **/
 void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 {
@@ -1131,7 +1143,7 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 2:
-			save();															//save game first
+			save(gameArray);															//save game first
 			updateInfo(gameArray,numberOfUsers);							//then call update info
 			if(option==0)
 				singleGame(gameArray,numberOfUsers);						//called single user game
@@ -1139,7 +1151,7 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
 				multipleGame(gameArray,numberOfUsers);						//called multiple user game
 			break;
 		case 3:
-			save();															//save the game and returning
+			save(gameArray);															//save the game and returning
 			return;
 	}
 }
@@ -1152,6 +1164,9 @@ void gameOptions(struct User gameArray[],int numberOfUsers,int option)
  * @param int => for number of users
  * 
  * @return void
+ * 
+ * @tc - O(n^4)
+ * @sc - O(1)
  **/
 void updateInfo(struct User gameArray[],int numberOfUsers)
 {
@@ -1334,7 +1349,7 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 
 
 /*================================> DATABASE FUNCTIONS <=======================*/
-void save()
+void save(struct User gameArray[])
 {
 
 }
