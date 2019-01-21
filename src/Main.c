@@ -3,7 +3,7 @@
 int main()
 {	
 	//creating .bid file
-	//adding some data from .bid to program
+	//adding ENV VARIABLES from .bid to program if deleted
 	FILE *ptr;
 	ptr = fopen(".bid","r");
 	if(ptr==NULL)
@@ -14,6 +14,7 @@ int main()
 		fclose(ptr);
 		fopen(".bid","r");
 	}
+
 	//reading and parsing the file
 	fscanf(ptr,"%d %d %c\n",&BIDCARDID,&USERID,&OS);
 	printf("%d %d %c\n",BIDCARDID,USERID,OS);
