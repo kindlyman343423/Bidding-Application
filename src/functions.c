@@ -1,4 +1,4 @@
-#include "functions.h"				//include the headers
+#include "functions.h"				//include all function headers
 #include "highscores.h"				//include highscore headers
 /**
  * EXIT()
@@ -20,14 +20,17 @@ void EXIT()
 		free(COMPANIES[i]);			//free the COMPANIES heap array
 		free(DESIGNATIONS[i]);		//free the DESIGNATIONS heap array
 	}
-	free(SKILLS);
-	free(COMPANIES);
-	free(DESIGNATIONS);
+	free(SKILLS);					//free the SKILLS pointer
+	free(COMPANIES);				//free the COMPANIES pointer
+	free(DESIGNATIONS);				//free the DESIGNATIONS pointer
 	SKILLS=NULL;
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
 	
-	//writing the data to .bid file
+	/*
+		WHEN APPLICATION CLOSES
+		write the data to .bid file for saving env variable
+	*/
 	FILE *ptr;
 	ptr = fopen(".bid","w");
 	if(ptr==NULL)

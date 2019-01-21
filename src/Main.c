@@ -2,25 +2,22 @@
 #include "highscores.c"
 int main()
 {	
-	//creating .bid file
-	//adding ENV VARIABLES from .bid to program if deleted
+	/*ADD ENVIRONMENT VARIABLES FROM .bid FILE TO PROGRAM*/
 	FILE *ptr;
-	ptr = fopen(".bid","r");
-	if(ptr==NULL)
+	ptr = fopen(".bid","r");						//opening the .bid file
+	if(ptr==NULL)									//if file not found
 	{
-		//if user has DELETED THE MAIN PROGRAM FILES
-		ptr = fopen(".bid","w");
-		fprintf(ptr,"%d %d %c\n",1,1,'w');
-		fclose(ptr);
-		fopen(".bid","r");
+		ptr = fopen(".bid","w");					//creating and writing new .bid file
+		fprintf(ptr,"%d %d %c\n",1,1,'w');			//reseting the data to defaults
+		fclose(ptr);								//close the file
+		fopen(".bid","r");							//reopening the file for reading
 	}
 
-	//reading and parsing the file
-	fscanf(ptr,"%d %d %c\n",&BIDCARDID,&USERID,&OS);
-	printf("%d %d %c\n",BIDCARDID,USERID,OS);
+	fscanf(ptr,"%d %d %c\n",&BIDCARDID,&USERID,&OS);//reading and parsing the file
+	printf("%d %d %c\n",BIDCARDID,USERID,OS);		//just for check
 	
 	/*LIMITING THE USERS OF APPLICATION*/
-	if(USERID==USERS)
+	if(USERID==USERS)								//limiting the database
 	{
 		colorSetting(RED);
 		printf("USER LIMIT EXCEEDED\n");
@@ -158,13 +155,15 @@ int main()
 	strcpy(DESIGNATIONS[9],"OTHER");
 
 	// OS='l';
-	while(true) //@tc => O(n^5)
+	/*OUR PROGRAM*/
+	 //@tc => O(n^5)
+	while(true)
 	{
-		welcome();					//welcome the user to the 
-		greetOptions();				//main options of the application
+		welcome();					//welcome the user to the application 
+		greetOptions();				//displat the main options of the application
 	}
 
-	//freeing memory
+	/*freeing memory after the application crashes*/
 	for(register int i=0;i<10;i++)
 	{
 		free(SKILLS[i]);
@@ -177,10 +176,6 @@ int main()
 	SKILLS=NULL;
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
-
-	//checking data in database file
-	// printf("ENTER YOUR NAME TO START ENTERING DATA\n");
-	// scanf("%s",find);
 	
 	// //flag for seraching name in database
 	// bool flag = searchDB(find);
