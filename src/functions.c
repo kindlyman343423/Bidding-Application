@@ -27,21 +27,6 @@ void EXIT()
 	COMPANIES=NULL;
 	DESIGNATIONS=NULL;
 	
-	/*
-		WHEN APPLICATION CLOSES
-		write the data to .bid file for saving env variable
-	*/
-	FILE *ptr;
-	ptr = fopen(".bid","w");
-	if(ptr==NULL)
-	{
-		colorSetting(RED);
-		printf("YOU HAVE DELETED THE MAIN PROGRAM FILES\n");
-		colorSetting(RESET);
-		exit(1);
-	}
-	fprintf(ptr,"%d %d %c\n",BIDCARDID,USERID,OS);
-	fclose(ptr);
 	exit(0);						//exit the app
 }
 
@@ -682,13 +667,6 @@ struct BidCard createBidCard(int nthCard)
 	card = getBidCardCompanyName(card,nthCard);				//input compnay name are finded and points are calculated
 	card = getBidCardDesignation(card,nthCard);				//input designation are finded and points are calculated
 	
-	// printf("%d\n",card.BidID);
-	// printf("%d\n",card.points);
-	// printf("%s\n",card.BidCardName);
-	// printf("%s\n",card.skills);
-	// printf("%s\n",card.companyName);
-	// printf("%s\n",card.Designation);
-	// exit(0);
 	return card;
 }
 
@@ -1368,6 +1346,9 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
 /**
  * save()
  * this function will save the game
+ * save every user info to his/her file
+ * save the users entry to .dbindex
+ * save the environment variables to .bid file
  * 
  * @param struct User array
  * @param int for number of users
@@ -1403,7 +1384,7 @@ void save(struct User gameArray[],int numberOfUsers)
 				printf("FILE ERROR");
 				exit(0);
 			}
-			fprintf(ptr,"%d\t%s\n",gameArray[i].userID,asctime(timeinfo));
+			fprintf(ptr,"%d\t%s",gameArray[i].userID,asctime(timeinfo));
 			fclose(ptr);
 		}
 		
@@ -1449,6 +1430,20 @@ void save(struct User gameArray[],int numberOfUsers)
 		}
 		fclose(ptr);
 	}
+	/*
+		WHEN APPLICATION CLOSES
+		write the data to .bid file for saving env variable
+	*/
+	ptr = fopen(".bid","w");
+	if(ptr==NULL)
+	{
+		colorSetting(RED);
+		printf("YOU HAVE DELETED THE MAIN PROGRAM FILES\n");
+		colorSetting(RESET);
+		exit(1);
+	}
+	fprintf(ptr,"%d %d %c\n",BIDCARDID,USERID,OS);
+	fclose(ptr);
 }
 
 /**
