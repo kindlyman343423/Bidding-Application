@@ -14,6 +14,16 @@ struct Scorenode
 /*head for highscore linked list*/
 struct Scorenode* HEAD = NULL;
 
+/**
+ * insert_head()
+ * this will insert the node at head of the linked list
+ * 
+ * @param int for uid
+ * @param user string
+ * @param int for score
+ * 
+ * @return void
+ **/
 void insert_head(int uid,char user[20],int score)
 {
     struct Scorenode* newNode = (struct Scorenode*)malloc(sizeof(struct Scorenode));
@@ -25,7 +35,11 @@ void insert_head(int uid,char user[20],int score)
     HEAD=newNode;
 }
 
-void freem()
+/**
+ * freelist()
+ * this will free the list
+ * /
+void freelist()
 {
     struct Scorenode* current=HEAD;
     while(current!=NULL)
@@ -37,6 +51,16 @@ void freem()
     HEAD=NULL;
 }
 
+/**
+ * print_list()
+ * this function prints the list
+ * 
+ * @param void 
+ * @return void
+ * 
+ * @tc - O(n^2)
+ * @sc - O(1)
+ **/
 void print_list()
 {
     insert_head(1,"walia",122);
@@ -101,5 +125,5 @@ void highscores()
 	printf("UserID\t\tUserName\t    HighScore\n");
 	colorSetting(RESET);
 	print_list();
-    printf("\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+    line('+',85);
 }
