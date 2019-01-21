@@ -31,7 +31,6 @@ void greetOptions();
 void playNewGame();
 void startSavedGame();
 void settings();
-void highscores();
 
 /*UPDATE FUNCTIONS*/
 void updateInfo(struct User*,int);

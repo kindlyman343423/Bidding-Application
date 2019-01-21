@@ -2,3 +2,4 @@
 struct highscorenode;
 
 void print_list();
+void highscores();
