@@ -35,10 +35,62 @@ void insert_head(int uid,char user[20],int score)
     HEAD=newNode;
 }
 
+/*insert the node according to the scores*/
+void insert_node(int uid,char user[20],int score)
+{
+    struct Scorenode* newNode = (struct Scorenode*)malloc(sizeof(struct Scorenode));
+    newNode->userid = uid;
+    strcpy(newNode->username,user);
+    newNode->highscore = score;
+    if(HEAD==NULL)
+    {
+        HEAD=newNode;
+        return;
+    }
+    if(score>HEAD->highscore)
+    {
+        //insert at head
+        newNode->next = HEAD;
+        HEAD = newNode;
+    }      
+    else
+    {
+        //traverse the list and add
+        struct Scorenode* current=HEAD;
+        struct Scorenode* prev = HEAD;
+        while(current!=NULL)
+        {
+            if(score>current->highscore)
+            {
+                break;
+            }
+            else
+            {
+                //traverse further
+                prev=current;
+                current=current->next;
+            }
+        }
+        if(current!=NULL)
+        {
+            prev->next = newNode;
+            newNode->next=current;
+        }
+        else
+        {
+            prev->next=newNode;
+        }
+    }
+}
+
 /**
  * freelist()
- * this will free the list
- * /
+ * this will free the memory of the list
+ * 
+ * @param void
+ * 
+ * @return void
+ **/
 void freelist()
 {
     struct Scorenode* current=HEAD;
@@ -63,13 +115,10 @@ void freelist()
  **/
 void print_list()
 {
-    insert_head(1,"walia",122);
-    insert_head(2,"gairav walia",1221);
-
     struct Scorenode* current=HEAD;
     if(current==NULL)
     {
-        printf("---\t---\t---\n");
+        printf("---\t\t---\t\t    ---\n");
     }
     else
     {
@@ -86,8 +135,8 @@ void print_list()
             current=current->next;
         }
     }
-    freem();
 }
+
 
 /**
  * highscores()
@@ -124,6 +173,14 @@ void highscores()
 	colorSetting(BLUE);
 	printf("UserID\t\tUserName\t    HighScore\n");
 	colorSetting(RESET);
-	print_list();
+	// print_list();
+
+    insert_node(12,"ffs",5);
+    insert_node(23,"sdgf",3);
+    insert_node(13,"dsfa",5);
+    insert_node(23,"fsd",45);
+    print_list();
+
+    freelist();
     line('+',85);
 }
