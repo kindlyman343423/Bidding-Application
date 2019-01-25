@@ -23,6 +23,9 @@ struct Scorenode* HEAD = NULL;
  * @param int for score
  * 
  * @return void
+ * 
+ * @tc - O(1)
+ * @sc - O(1)
  **/
 void insert_head(int uid,char user[20],int score)
 {
@@ -35,6 +38,19 @@ void insert_head(int uid,char user[20],int score)
     HEAD=newNode;
 }
 
+/**
+ * insert_node()
+ * it will insert a new node data in highscore linked list
+ * 
+ * @param int for user id
+ * @param string for username
+ * @param int for score
+ * 
+ * @return void
+ * 
+ * @tc - O(n)
+ * @sc - O(1)
+ **/
 /*insert the node according to the scores*/
 void insert_node(int uid,char user[20],int score)
 {
@@ -161,26 +177,26 @@ void highscores()
 	printf("\n");
 
 	/*printing SCORES*/
-	printf(" _________    __________    __________    __________    __________    __________\n");
-	printf("|\\  ______\\  |\\  _______\\  |\\  ______ \\  |\\  ______ \\  |\\  _______\\  |\\  _______\\\n");
-	printf("\\ \\ \\_______ \\ \\ \\______|  \\ \\ \\     \\ \\ \\ \\ \\_____\\ \\ \\ \\ \\______|_ \\ \\ \\________\n");
-	printf(" \\ \\_______ \\ \\ \\ \\         \\ \\ \\     \\ \\ \\ \\  _____ _\\ \\ \\  _______\\ \\ \\________ \\\n");
-	printf("  \\| ______\\ \\ \\ \\ \\________ \\ \\ \\_____\\ \\ \\ \\ \\  \\ \\ \\  \\ \\ \\______|_ \\| _______\\ \\\n");
-	printf("    |\\________\\ \\ \\_________\\ \\ \\_________\\ \\ \\_\\  \\ \\_\\  \\ \\_________\\  |\\_________\\\n");
-	printf("    \\|________|  \\|_________|  \\|_________|  \\|_|   \\|_|   \\|_________|  \\|_________|\n");
+	printf(" ________    _________    _________    __________    __________    ________\n");
+	printf("|\\  _____\\  |\\  ______\\  |\\  _____ \\  |\\  ______ \\  |\\  _______\\  |\\  _____\\\n");
+	printf("\\ \\ \\______ \\ \\ \\_____|  \\ \\ \\    \\ \\ \\ \\ \\_____\\ \\ \\ \\ \\______|  \\ \\ \\______\n");
+	printf(" \\ \\______ \\ \\ \\ \\        \\ \\ \\    \\ \\ \\ \\  _____ _\\ \\ \\  ____\\    \\ \\______ \\\n");
+	printf("  \\| _____\\ \\ \\ \\ \\_______ \\ \\ \\____\\ \\ \\ \\ \\  \\ \\ \\  \\ \\ \\___|____ \\| _____\\ \\\n");
+	printf("    |\\_______\\ \\ \\________\\ \\ \\________\\ \\ \\_\\  \\ \\_\\  \\ \\_________\\  |\\_______\\\n");
+	printf("    \\|_______|  \\|________|  \\|________|  \\|_|   \\|_|   \\|_________|  \\|_______|\n");
 	printf("\n");
-	line('+',85);
+	line('+',80);
 	colorSetting(BLUE);
 	printf("UserID\t\tUserName\t    HighScore\n");
 	colorSetting(RESET);
 	// print_list();
 
-    insert_node(12,"ffs",5);
-    insert_node(23,"sdgf",3);
-    insert_node(13,"dsfa",5);
-    insert_node(23,"fsd",45);
+    // insert_node(12,"ffs",5);
+    // insert_node(23,"sdgf",3);
+    // insert_node(13,"dsfa",5);
+    // insert_node(23,"fsd",45);
     print_list();
 
     freelist();
-    line('+',85);
+    line('+',80);
 }
