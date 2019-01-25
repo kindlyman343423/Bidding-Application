@@ -180,7 +180,32 @@ void greetOptions()
  **/
 void startSavedGame()
 {
+	printf("Select the user ID you want to continue\n");
+	colorSetting(BCYAN);
+	line('*',17);
+	colorSetting(RESET);
 	readDBIndex();
+	colorSetting(BCYAN);
+	line('*',17);
+	colorSetting(RESET);
+
+	int option;
+	scanf("%d",&option);
+	getchar();
+	char file[5];
+	sprintf(file,"%d",option);
+	bool flag = searchDB(file);
+	if(flag)
+	{
+		printf("MATCH FOUND\n");
+		//adding the user to the gamearray
+	}
+	else
+	{
+		colorSetting(RED);
+		printf("SORRY MATCH NOT FOUND\n");
+		colorSetting(RESET);
+	}
 }
 
 /**
@@ -1476,7 +1501,16 @@ void readDBIndex()
 			str[i]='\0';
 			if(strlen(str)==1)
 			{
-				printf("%s\n",str);
+				colorSetting(BCYAN);
+				printf("*");
+				colorSetting(RESET);
+
+				printf("\t%s\t",str);
+				
+				colorSetting(BCYAN);
+				printf("*");
+				colorSetting(RESET);
+				printf("\n");
 			}
 			i=0;					//reset the index to 0
 		}	

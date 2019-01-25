@@ -72,3 +72,4 @@ struct User createNewUser();
 bool searchDB();
 void list();
 void save(struct User*,int);
+void readDBIndex();
