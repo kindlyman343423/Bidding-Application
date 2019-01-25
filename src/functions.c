@@ -180,7 +180,7 @@ void greetOptions()
  **/
 void startSavedGame()
 {
-
+	readDBIndex();
 }
 
 /**
@@ -1318,6 +1318,9 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
  * @param int for number of users
  * 
  * @return void
+ * 
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void save(struct User gameArray[],int numberOfUsers)
 {
@@ -1443,6 +1446,50 @@ void list()
 }
 
 /**
+ * readDBIndex()
+ * it will read only the users present in the database
+ * 
+ * @param void
+ * 
+ * @return void
+ * 
+ * @tc - O(n)
+ * @sc - O(1)
+ **/
+void readDBIndex()
+{
+	FILE *ptr;
+	ptr = fopen("db/.dbindex","r");
+	if(ptr==NULL)					//if .dbindex file not found
+	{
+		printf("FILE NOT FOUND");
+		exit(0);
+	}
+	int i=0;						//for storing string iterator
+	char str[50];					//string
+	
+	while(!feof(ptr))
+	{
+		char ch = fgetc(ptr);
+		if(ch=='\t' || ch=='\n')	//\n of \t
+		{
+			str[i]='\0';
+			if(strlen(str)==1)
+			{
+				printf("%s\n",str);
+			}
+			i=0;					//reset the index to 0
+		}	
+		else						//character
+		{
+			str[i]=ch;				//store the char in the string
+			i++;
+		}
+	}
+	fclose(ptr);
+}
+
+/**
  * searchDB()
  * it will search the current string in the database
  * 
@@ -1468,10 +1515,11 @@ bool searchDB(char find[20])
 		fclose(db);
 		db = fopen("db/.dbindex","r");
 	}
-	while(!feof(db))
+
+	while(!feof(db))				//reading the .dbindex file 
 	{
 		char ch = fgetc(db);
-		if(ch==' ' || ch=='\n')
+		if(ch=='\t' || ch=='\n')
 		{
 			str[strcounter]='\0';
 			if(strcmp(str,find)==0)

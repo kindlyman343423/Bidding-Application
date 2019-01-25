@@ -106,6 +106,9 @@ void insert_node(int uid,char user[20],int score)
  * @param void
  * 
  * @return void
+ * 
+ * @tc - O(n)
+ * @sc - O(1)
  **/
 void freelist()
 {
@@ -124,6 +127,7 @@ void freelist()
  * this function prints the list
  * 
  * @param void 
+ * 
  * @return void
  * 
  * @tc - O(n^2)
@@ -161,6 +165,9 @@ void print_list()
  * @param void
  * 
  * @return void
+ * 
+ * @tc - O(n^2)
+ * @sc - O(1)
  **/
 void highscores()
 {
@@ -189,12 +196,7 @@ void highscores()
 	colorSetting(BLUE);
 	printf("UserID\t\tUserName\t    HighScore\n");
 	colorSetting(RESET);
-	// print_list();
 
-    // insert_node(12,"ffs",5);
-    // insert_node(23,"sdgf",3);
-    // insert_node(13,"dsfa",5);
-    // insert_node(23,"fsd",45);
     print_list();
 
     freelist();
