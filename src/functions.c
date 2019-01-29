@@ -194,6 +194,7 @@ void startSavedGame()
 	getchar();
 	char file[5];
 	sprintf(file,"%d",option);
+	printf("filename:%s",file);
 	bool flag = searchDB(file);
 	if(flag)
 	{
@@ -1338,6 +1339,7 @@ void updateInfo(struct User gameArray[],int numberOfUsers)
  * save every user info to his/her file
  * save the users entry to .dbindex
  * save the environment variables to .bid file
+ * save the current user ids in .saved file in format
  * 
  * @param struct User array
  * @param int for number of users
@@ -1354,7 +1356,7 @@ void save(struct User gameArray[],int numberOfUsers)
 	for(register int i=0;i<numberOfUsers;i++)
 	{
 		/*FOR ONE USER*/
-		char filename[50];
+		char filename[50]="";
 		strcat(filename,"db/");
 		char file[5];
 		sprintf(file,"%d",gameArray[i].userID);
@@ -1373,7 +1375,7 @@ void save(struct User gameArray[],int numberOfUsers)
 			ptr = fopen("db/.dbindex","a");
 			if(ptr==NULL)
 			{
-				printf("FILE ERROR");
+				printf("db index file FILE ERROR");
 				exit(0);
 			}
 			fprintf(ptr,"%d\t%s",gameArray[i].userID,asctime(timeinfo));
@@ -1384,7 +1386,7 @@ void save(struct User gameArray[],int numberOfUsers)
 		ptr = fopen(filename,"w");
 		if(ptr==NULL)
 		{
-			printf("FILE ERROR");
+			printf("USER SAVED FILE ERROR");
 			exit(0);
 		}
 
@@ -1435,6 +1437,35 @@ void save(struct User gameArray[],int numberOfUsers)
 		exit(1);
 	}
 	fprintf(ptr,"%d %d %c\n",BIDCARDID,USERID,OS);
+	fclose(ptr);
+
+	/**
+	 * save the game user ids
+	 **/
+	ptr = fopen(".saved","a");
+	if(ptr==NULL)
+	{
+		colorSetting(RED);
+		printf("YOU HAVE DELETED THE MAIN PROGRAM FILES\n");
+		colorSetting(RESET);
+		exit(1);
+	}
+	/**
+	 * .saved format
+	 * 1_2_3_4
+	 * 1_3_4_5
+	 **/
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		if(i==numberOfUsers-1)							//for last user
+		{
+			fprintf(ptr,"%d\n",gameArray[i].userID);
+		}
+		else
+		{
+			fprintf(ptr,"%d_",gameArray[i].userID);
+		}
+	}
 	fclose(ptr);
 }
 
