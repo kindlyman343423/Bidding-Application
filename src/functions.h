@@ -28,9 +28,14 @@ void welcome();
 void greetOptions();
 
 /*GREET OPTION FUNCTIONS*/
+
 void playNewGame();
 void startSavedGame();
 void settings();
+
+/*SAVED GAME FUNCTIONS*/
+
+int readSavedGames(int*);
 
 /*UPDATE FUNCTIONS*/
 void updateInfo(struct User*,int);

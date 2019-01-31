@@ -180,33 +180,105 @@ void greetOptions()
  **/
 void startSavedGame()
 {
-	printf("Select the user ID you want to continue\n");
-	colorSetting(BCYAN);
-	line('*',17);
-	colorSetting(RESET);
-	readDBIndex();
-	colorSetting(BCYAN);
-	line('*',17);
-	colorSetting(RESET);
+	//for adding new user to current game
+	// printf("Select the user ID you want to continue\n");
+	// colorSetting(BCYAN);
+	// line('*',17);
+	// colorSetting(RESET);
+	// readDBIndex();
+	// colorSetting(BCYAN);
+	// line('*',17);
+	// colorSetting(RESET);
+	// int option;
+	// scanf("%d",&option);
+	// getchar();
+	// char file[5];
+	// sprintf(file,"%d",option);
+	// printf("filename:%s",file);
 
-	int option;
-	scanf("%d",&option);
-	getchar();
-	char file[5];
-	sprintf(file,"%d",option);
-	printf("filename:%s",file);
-	bool flag = searchDB(file);
-	if(flag)
-	{
-		printf("MATCH FOUND\n");
-		//adding the user to the gamearray
-	}
-	else
+	// bool flag = searchDB(file);
+	// if(flag)
+	// {
+	// 	printf("MATCH FOUND\n");
+	// 	//adding the user to the gamearray
+	// }
+	// else
+	// {
+	// 	colorSetting(RED);
+	// 	printf("SORRY MATCH NOT FOUND\n");
+	// 	colorSetting(RESET);
+	// }
+	int numberOfUsers=1;
+	int gameno = readSavedGames(&numberOfUsers);
+
+	// printf("%d",)
+	/*STARTING THE SAVED GAME*/
+	// struct User gameArray[numberOfUsers];	//array of users in the game
+	
+	// for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
+	// {
+	// 	gameArray[i].BidCardCount=0;
+	// 	gameArray[i].scoredpoints=0;
+	// 	gameArray[i].userID=0;	
+	// }
+}
+
+/**
+ * it will read all the saved games
+ * 
+ * @param *numberOfUsers for counting
+ * 
+ * @return the gameno
+ **/
+int readSavedGames(int *numberOfUsers)
+{
+	FILE *ptr=NULL;
+	ptr = fopen(".saved","r");
+	if(ptr==NULL)
 	{
 		colorSetting(RED);
-		printf("SORRY MATCH NOT FOUND\n");
+		printf("Saved Games file not found");
 		colorSetting(RESET);
+		exit(1);
 	}
+
+	printf("Select the game number you want to start\n");
+	char storage[100]="";
+	int i=0;
+	int linenumber=1;									//display line no and count total gamenumbers
+	while(!feof(ptr))
+	{
+		char ch = fgetc(ptr);
+		if(ch=='\n')
+		{
+			storage[i]='\0';							//end the string
+			printf("%d\t%s\n",linenumber,storage);
+			linenumber++;
+			i=0;										//reset the index							
+		}	
+		else
+		{
+			storage[i]=ch;
+			i++;
+		}
+	}
+	fclose(ptr);
+	
+	int gameno;
+	scanf("%d",&gameno);								//Getting game number from user
+	while(gameno<1 || gameno>linenumber)				//if wrong game number found
+	{
+		colorSetting(RED);
+		printf("Wrong game number\n");
+		colorSetting(RESET);
+		printf("Enter game number again\n");
+		scanf("%d",&gameno);
+	}
+	getchar();
+	/**
+	 * counting the users of selected line number
+	 **/
+	return gameno;
 }
 
 /**
@@ -730,6 +802,9 @@ struct User createNewUser()
 /**
  * playNewGame()
  * this is the main game
+ * it will create gamearray
+ * create bidcards
+ * start a new single and multiple user game
  * 
  * @param void
  * 
