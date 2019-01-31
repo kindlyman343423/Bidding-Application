@@ -264,9 +264,11 @@ int readSavedGames(int *numberOfUsers)
 	}
 	fclose(ptr);
 	
+	printf("Enter the game no you want to continue 0 to return\n");
+	printf("GAME NO: ");
 	int gameno;
 	scanf("%d",&gameno);								//Getting game number from user
-	while(gameno<1 || gameno>linenumber)				//if wrong game number found
+	while(gameno<0 || gameno>linenumber)				//if wrong game number found
 	{
 		colorSetting(RED);
 		printf("Wrong game number\n");

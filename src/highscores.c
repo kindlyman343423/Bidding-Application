@@ -193,6 +193,7 @@ void highscores()
 	printf("    \\|_______|  \\|________|  \\|________|  \\|_|   \\|_|   \\|_________|  \\|_______|\n");
 	printf("\n");
 	line('+',80);
+    printf("\n");
 	colorSetting(BLUE);
 	printf("UserID\t\tUserName\t    HighScore\n");
 	colorSetting(RESET);
@@ -200,5 +201,17 @@ void highscores()
     print_list();
 
     freelist();
+    printf("\n");
     line('+',80);
+
+    int enter=0;
+    printf("Enter 1 to return: ");
+    scanf("%d",&enter);
+    
+    while(enter<1 || enter>1)
+    {
+        printf("Enter 1 to return: ");
+        scanf("%d",&enter);
+    }
+    getchar();
 }
