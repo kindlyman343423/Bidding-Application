@@ -211,6 +211,8 @@ void startSavedGame()
 	int numberOfUsers=1;
 	int gameno = readSavedGames(&numberOfUsers);
 
+	printf("ENTERED GAME NO%d",gameno);
+	printf("ENTERED USERS IN SAVED GAMES %d\n\n",numberOfUsers);
 	// printf("%d",)
 	/*STARTING THE SAVED GAME*/
 	// struct User gameArray[numberOfUsers];	//array of users in the game
@@ -224,8 +226,9 @@ void startSavedGame()
 }
 
 /**
- * it will read all the saved games
- * 
+ * it will read all the saved games from .saved file
+ * and counting the users of selected line number 
+ *  
  * @param *numberOfUsers for counting
  * 
  * @return the gameno
@@ -233,8 +236,8 @@ void startSavedGame()
 int readSavedGames(int *numberOfUsers)
 {
 	FILE *ptr=NULL;
-	ptr = fopen(".saved","r");
-	if(ptr==NULL)
+	ptr = fopen(".saved","r");							//reading .saved file
+	if(ptr==NULL)										//if file not finded
 	{
 		colorSetting(RED);
 		printf("Saved Games file not found");
@@ -243,17 +246,17 @@ int readSavedGames(int *numberOfUsers)
 	}
 
 	printf("Select the game number you want to start\n");
-	char storage[100]="";
+	char storage[100]="";								//string for storing one saved game
 	int i=0;
-	int linenumber=1;									//display line no and count total gamenumbers
+	int linenumber=1;									//display line no and count total game numbers
 	while(!feof(ptr))
 	{
 		char ch = fgetc(ptr);
 		if(ch=='\n')
 		{
 			storage[i]='\0';							//end the string
-			printf("%d\t%s\n",linenumber,storage);
-			linenumber++;
+			printf("%d\t%s\n",linenumber,storage);		//printing the saved files
+			linenumber++;								//couting and displaying line numbers
 			i=0;										//reset the index							
 		}	
 		else
@@ -262,8 +265,8 @@ int readSavedGames(int *numberOfUsers)
 			i++;
 		}
 	}
-	fclose(ptr);
-	
+	linenumber--;										//decreasing extra line number
+
 	printf("Enter the game no you want to continue 0 to return\n");
 	printf("GAME NO: ");
 	int gameno;
@@ -277,9 +280,43 @@ int readSavedGames(int *numberOfUsers)
 		scanf("%d",&gameno);
 	}
 	getchar();
+	
 	/**
 	 * counting the users of selected line number
 	 **/
+	rewind(ptr);										//resetting the pointer to the top of the .saved file
+	i=0;
+	linenumber=1;
+	while(!feof(ptr))
+	{
+		char ch = fgetc(ptr);
+		if(ch=='\n')
+		{
+			storage[i]='\0';	
+			i=0;
+			if(linenumber==gameno)
+			{
+				break;
+			}
+			linenumber++;
+		}
+		else
+		{
+			storage[i]=ch;
+			i++;
+		}
+	}
+	fclose(ptr);										//closing the .saved file
+	printf("CHECK: %s\n",storage);
+	
+	//count _ in the string
+	for(i=0;i<strlen(storage);i++)
+	{
+		if(storage[i]=='_')
+		{
+			*numberOfUsers = *numberOfUsers + 1;
+		}
+	}
 	return gameno;
 }
 
