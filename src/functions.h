@@ -74,7 +74,7 @@ void gameOptions(struct User*,int,int);
 struct User createNewUser();
 
 //DATABASE FUNCTIONS
-bool searchDB();
+bool searchDB(char*);
 void list();
 void save(struct User*,int);
 void readDBIndex();

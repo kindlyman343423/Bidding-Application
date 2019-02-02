@@ -208,6 +208,7 @@ void startSavedGame()
 	// 	printf("SORRY MATCH NOT FOUND\n");
 	// 	colorSetting(RESET);
 	// }
+
 	int numberOfUsers=1;
 	char *str = readSavedGames();
 	printf("CHECK:%s\n",str);
@@ -233,6 +234,7 @@ void startSavedGame()
 		gameArray[i].userID=0;	
 	}
 
+	//enter the data of the string in gamearray	
 	free(str);
 }
 
@@ -242,7 +244,7 @@ void startSavedGame()
  *  
  * @param *numberOfUsers for counting
  * 
- * @return the gameno
+ * @return the saved game string
  **/
 char* readSavedGames()
 {
@@ -1672,7 +1674,7 @@ void readDBIndex()
 
 /**
  * searchDB()
- * it will search the current string in the database
+ * it will search the current string in the database (.dbindex file)
  * 
  * @param find[20]
  * 
