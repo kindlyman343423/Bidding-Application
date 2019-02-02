@@ -35,7 +35,7 @@ void settings();
 
 /*SAVED GAME FUNCTIONS*/
 
-int readSavedGames(int*);
+char* readSavedGames();
 
 /*UPDATE FUNCTIONS*/
 void updateInfo(struct User*,int);

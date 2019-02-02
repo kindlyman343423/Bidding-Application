@@ -209,20 +209,31 @@ void startSavedGame()
 	// 	colorSetting(RESET);
 	// }
 	int numberOfUsers=1;
-	int gameno = readSavedGames(&numberOfUsers);
+	char *str = readSavedGames();
+	printf("CHECK:%s\n",str);
 
-	printf("ENTERED GAME NO%d",gameno);
-	printf("ENTERED USERS IN SAVED GAMES %d\n\n",numberOfUsers);
-	// printf("%d",)
+	//count _ in the string
+	for(register int i=0;i<strlen(str);i++)
+	{
+		if(str[i]=='_')
+		{
+			printf("sdfdsa\n");
+			numberOfUsers = numberOfUsers + 1;
+		}
+	}
+	printf("NUMBER OF USERS: %d\n",numberOfUsers);
+
 	/*STARTING THE SAVED GAME*/
-	// struct User gameArray[numberOfUsers];	//array of users in the game
+	struct User gameArray[numberOfUsers];		//array of users in the game
 	
-	// for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
-	// {
-	// 	gameArray[i].BidCardCount=0;
-	// 	gameArray[i].scoredpoints=0;
-	// 	gameArray[i].userID=0;	
-	// }
+	for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
+	{
+		gameArray[i].BidCardCount=0;
+		gameArray[i].scoredpoints=0;
+		gameArray[i].userID=0;	
+	}
+
+	free(str);
 }
 
 /**
@@ -233,7 +244,7 @@ void startSavedGame()
  * 
  * @return the gameno
  **/
-int readSavedGames(int *numberOfUsers)
+char* readSavedGames()
 {
 	FILE *ptr=NULL;
 	ptr = fopen(".saved","r");							//reading .saved file
@@ -242,7 +253,7 @@ int readSavedGames(int *numberOfUsers)
 		colorSetting(RED);
 		printf("Saved Games file not found");
 		colorSetting(RESET);
-		exit(1);
+		exit(1);										//exit the game when file not found
 	}
 
 	printf("Select the game number you want to start\n");
@@ -277,13 +288,11 @@ int readSavedGames(int *numberOfUsers)
 		printf("Wrong game number\n");
 		colorSetting(RESET);
 		printf("Enter game number again\n");
-		scanf("%d",&gameno);
+		scanf("%d",&gameno);							//entering the game no again
 	}
 	getchar();
 	
-	/**
-	 * counting the users of selected line number
-	 **/
+	//counting the users of selected line number 
 	rewind(ptr);										//resetting the pointer to the top of the .saved file
 	i=0;
 	linenumber=1;
@@ -294,7 +303,7 @@ int readSavedGames(int *numberOfUsers)
 		{
 			storage[i]='\0';	
 			i=0;
-			if(linenumber==gameno)
+			if(linenumber==gameno)						//if game no found in saved games
 			{
 				break;
 			}
@@ -307,17 +316,10 @@ int readSavedGames(int *numberOfUsers)
 		}
 	}
 	fclose(ptr);										//closing the .saved file
-	printf("CHECK: %s\n",storage);
-	
-	//count _ in the string
-	for(i=0;i<strlen(storage);i++)
-	{
-		if(storage[i]=='_')
-		{
-			*numberOfUsers = *numberOfUsers + 1;
-		}
-	}
-	return gameno;
+	int len = strlen(storage);
+	char* filename = (char*)malloc(sizeof(char)*len);
+	strcpy(filename,storage);
+	return filename;
 }
 
 /**
