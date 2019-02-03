@@ -213,20 +213,44 @@ void startSavedGame()
 	char *str = readSavedGames();
 	printf("CHECK:%s\n",str);
 
-	//count _ in the string
+	//count users in saved game for storing
 	for(register int i=0;i<strlen(str);i++)
 	{
 		if(str[i]=='_')
 		{
-			printf("sdfdsa\n");
 			numberOfUsers = numberOfUsers + 1;
 		}
 	}
 	printf("NUMBER OF USERS: %d\n",numberOfUsers);
 
+	/*STORING DATA OF SAVED GAME IN INTEGER ARRAY*/
+	int savedusersids[numberOfUsers];						//array for storing usrs by id
+	char store[5]="";
+	int j=0;
+	int k=0;
+	for(register int i=0;i<strlen(str)+1;i++)
+	{
+		if(str[i]=='_' || str[i]=='\n' || str[i]=='\0')
+		{
+			store[j]='\0';
+			int num =atoi(store);
+			// printf("%d\n",num);
+			savedusersids[k]=num;
+			k++;
+			j=0;
+		}	
+		else
+		{
+			store[j] = str[i];
+			j++;
+		}
+	}
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		printf("%d\n",savedusersids[i]);
+	}
 	/*STARTING THE SAVED GAME*/
 	struct User gameArray[numberOfUsers];		//array of users in the game
-	
 	for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
 	{
 		gameArray[i].BidCardCount=0;
@@ -235,6 +259,10 @@ void startSavedGame()
 	}
 
 	//enter the data of the string in gamearray	
+	for(register int i=0;i<numberOfUsers;i++)
+	{
+		
+	}
 	free(str);
 }
 
@@ -336,22 +364,6 @@ void settings()
 {
 
 }
-
-
-
-/**
- * BidCard structure
- * for making bid cards
- **/
-struct BidCard			
-{
-	int BidID;					//unique ID of bidcards
-	char BidCardName[20];		//name of the person on bidcard
-	char skills[200];			//skills of the person on bidcard
-	char companyName[50];		//company name in which person work
-	char Designation[20];		//designation of the person
-	int points;					//points of card
-};
 
 /**
  * displayBidCard()
@@ -774,20 +786,6 @@ struct BidCard createBidCard(int nthCard)
 	
 	return card;
 }
-
-
-/**
- * User structure
- * for making new users
- **/
-struct User
-{
-	int userID;					//user id for uniqueness for users
-	char userName[20];			//username of the user
-	int BidCardCount;			//count of total bidcards present out of 5
-	struct BidCard BidCards[5];	//array of bidcards for every user
-	int scoredpoints;			//score of the user
-};
 
 /**
  * createNewUser()

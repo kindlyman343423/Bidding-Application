@@ -19,8 +19,31 @@ char **DESIGNATIONS;    //env variable for DESIGNATIONS array
 
 void EXIT();
 /*STRUCTURES NEEDED FOR THE GAME*/
-struct BidCard;
-struct User;
+/**
+ * BidCard structure
+ * for making bid cards
+ **/
+struct BidCard			
+{
+	int BidID;					//unique ID of bidcards
+	char BidCardName[20];		//name of the person on bidcard
+	char skills[200];			//skills of the person on bidcard
+	char companyName[50];		//company name in which person work
+	char Designation[20];		//designation of the person
+	int points;					//points of card
+};
+/**
+ * User structure
+ * for making new users
+ **/
+struct User
+{
+	int userID;					//user id for uniqueness for users
+	char userName[20];			//username of the user
+	int BidCardCount;			//count of total bidcards present out of 5
+	struct BidCard BidCards[5];	//array of bidcards for every user
+	int scoredpoints;			//score of the user
+};
 
 /*GREET FUNCTIONS*/
 void line(char,int);
