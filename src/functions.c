@@ -224,31 +224,8 @@ void startSavedGame()
 	printf("NUMBER OF USERS: %d\n",numberOfUsers);
 
 	/*STORING DATA OF SAVED GAME IN INTEGER ARRAY*/
-	int savedusersids[numberOfUsers];						//array for storing usrs by id
-	char store[5]="";
-	int j=0;
-	int k=0;
-	for(register int i=0;i<strlen(str)+1;i++)
-	{
-		if(str[i]=='_' || str[i]=='\n' || str[i]=='\0')
-		{
-			store[j]='\0';
-			int num =atoi(store);
-			// printf("%d\n",num);
-			savedusersids[k]=num;
-			k++;
-			j=0;
-		}	
-		else
-		{
-			store[j] = str[i];
-			j++;
-		}
-	}
-	for(register int i=0;i<numberOfUsers;i++)
-	{
-		printf("%d\n",savedusersids[i]);
-	}
+	// int savedusersids[numberOfUsers];						//array for storing usrs by id
+
 	/*STARTING THE SAVED GAME*/
 	struct User gameArray[numberOfUsers];		//array of users in the game
 	for(register int i=0;i<numberOfUsers;i++)	//reseting the 0 values
@@ -258,10 +235,32 @@ void startSavedGame()
 		gameArray[i].userID=0;	
 	}
 
+	//need file parsing for the db
 	//enter the data of the string in gamearray	
-	for(register int i=0;i<numberOfUsers;i++)
+	// for(register int i=0;i<numberOfUsers;i++)
+	// {
+	// 	//savedusersids[i] value convert to string
+	// 	//read the id from db folder and put in gameArray
+	// 	sprintf(store,savedusersids[i]);	//convert int to string again
+	// }
+	//DATA EXTRACTION FROM DATABASE
+	char store[5]="";
+	int j=0;
+	bool flag=false;
+	for(register int i=0;i<strlen(str)+1;i++)
 	{
-		
+		if(str[i]=='_' || str[i]=='\n' || str[i]=='\0')
+		{
+			store[j]='\0';
+			printf("%s\n",store);
+			
+			j=0;
+		}	
+		else
+		{
+			store[j] = str[i];
+			j++;
+		}
 	}
 	free(str);
 }

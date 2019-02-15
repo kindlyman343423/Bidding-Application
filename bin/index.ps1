@@ -1,4 +1,4 @@
-cd ..
-cd src
-gcc Main.c -a a.out
+Set-Location ..
+Set-Location src
+gcc Main.c
 ./a.out
